@@ -8,21 +8,23 @@
     android:baselineAligned="false">
 
     <fragment
-        android:id="@+id/id_head_posselect_fragment"
+        android:id="@+id/head1_posselect_fragment"
         android:name="com.tc.edu.tc.Head1PosSelectFragment"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         tools:layout="@layout/head1_posselect_fragment"
         android:layout_weight="1" />
+
     <fragment
-        android:id="@+id/id_head_title_fragment"
+        android:id="@+id/head1_title_fragment"
         android:name="com.tc.edu.tc.Head1TitleFragment"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         tools:layout="@layout/head1_title_fragment"
         android:layout_weight="98" />
+
     <fragment
-        android:id="@+id/id_head_myset_fragment"
+        android:id="@+id/head1_myset_fragment"
         android:name="com.tc.edu.tc.Head1MysetFragment"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
