@@ -3,7 +3,6 @@ package com.tc.edu.tc;
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,19 +19,20 @@ public class Head2Fragment extends Fragment {
 			Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.head2_fragment, container, false);
 
+        final LinearLayout head2_menu1 = (LinearLayout)view.findViewById(R.id.head2_menu1);
+        final LinearLayout head2_menu2 = (LinearLayout)view.findViewById(R.id.head2_menu2);
+        final LinearLayout head2_menu3 = (LinearLayout)view.findViewById(R.id.head2_menu3);
+
+/*
         DisplayMetrics dm = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm); //device screen info
 
         int width =  (dm.widthPixels-2*14)/3; // 2*(18width - 2padding * 2), head2_menu1_image and head2_menu2_image
 
-        final LinearLayout head2_menu1 = (LinearLayout)view.findViewById(R.id.head2_menu1);
-        final LinearLayout head2_menu2 = (LinearLayout)view.findViewById(R.id.head2_menu2);
-        final LinearLayout head2_menu3 = (LinearLayout)view.findViewById(R.id.head2_menu3);
-
         head2_menu1.getLayoutParams().width=width;
         head2_menu2.getLayoutParams().width=width;
         head2_menu3.getLayoutParams().width=width;
-
+*/
         final AtomicInteger menuLock = new AtomicInteger(0);
         head2_menu1.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -48,11 +48,24 @@ public class Head2Fragment extends Fragment {
                     head2_menu1.setBackgroundColor(Color.parseColor("#FF3760FF"));
                     head2_menu1_image.setImageResource(R.drawable.hdpi_right_arrow070);
                     menuLock.set(0);
+
+                    LinearLayout head2_pulldown_menu=(LinearLayout) getActivity().findViewById(R.id.head2_pulldown_menu);
+                    ResizeAnimation a = new ResizeAnimation(head2_pulldown_menu);
+                    a.setDuration(500);
+                    if(head2_pulldown_menu.getLayoutParams().height==0){
+                       a.setParamsHeight(0, 500);
+                     }
+                     else{
+                        a.setParamsHeight(head2_pulldown_menu.getLayoutParams().height, 0);
+                     }
+                    head2_pulldown_menu.startAnimation(a);
                 }
+
                 return true;
             }
 
         });
+
 
         head2_menu2.setOnTouchListener(new View.OnTouchListener() {
             @Override
