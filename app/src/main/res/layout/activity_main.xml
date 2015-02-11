@@ -1,0 +1,83 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MainBackground"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    tools:context="com.TCPackage.tc.MainActivity"
+    tools:ignore="Orientation">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <fragment
+            android:id="@+id/head1_fragment"
+            android:name="com.tc.edu.tc.Head1Fragment"
+            android:layout_width="fill_parent"
+            android:layout_height="47dp"
+            tools:layout="@layout/head1_fragment" />
+
+
+        <fragment
+            android:id="@+id/head2_fragment"
+            android:name="com.tc.edu.tc.Head2Fragment"
+            android:layout_width="fill_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="1px"
+            tools:layout="@layout/head2_fragment" />
+
+
+        <RelativeLayout
+            android:id="@+id/main_relativelayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <ScrollView
+                android:id="@+id/scrollView1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/ItemImage"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="0px"
+                        android:adjustViewBounds="true"
+                        android:background="#3760FF"
+                        android:src="@drawable/hdpi_headimg"
+                        android:baselineAlignBottom="false"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:nestedScrollingEnabled="false"></ImageView>
+
+                    <TextView
+                        android:id="@+id/editText1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </ScrollView>
+
+            <fragment
+                android:id="@+id/head2_pulldown_fragment"
+                android:name="com.tc.edu.tc.Head2PullDownFragment"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/head2_pulldown_fragment" />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

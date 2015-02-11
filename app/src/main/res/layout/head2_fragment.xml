@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="35dp"
+    android:orientation="horizontal"
+    android:baselineAligned="false">
+    <!--年级-->
+    <LinearLayout style="@style/Head2Menu1"
+        android:id="@+id/head2_menu1">
+
+        <ImageView style="@style/Head2Menu1_Icon"
+            android:src="@drawable/hdpi_bar_level" />
+
+        <TextView style="@style/Head2Menu1_Text"
+            android:id="@+id/head2_menu1_text"
+            android:text="@string/head2_menu1_text" />
+    </LinearLayout>
+
+    <ImageView style="@style/Head2Menu1_SplitArrow"
+        android:id="@+id/head2_menu1_image"
+        android:src="@drawable/hdpi_right_arrow070"/>
+    <!--课程-->
+    <LinearLayout style="@style/Head2Menu1"
+        android:id="@+id/head2_menu2">
+
+        <ImageView style="@style/Head2Menu1_Icon"
+            android:src="@drawable/hdpi_bar_class"/>
+
+        <TextView style="@style/Head2Menu1_Text"
+            android:id="@+id/head2_menu2_text2"
+            android:text="@string/head2_menu2_text"/>
+    </LinearLayout>
+
+    <ImageView style="@style/Head2Menu1_SplitArrow"
+        android:id="@+id/head2_menu2_image"
+        android:src="@drawable/hdpi_right_arrow070"/>
+    <!--授时-->
+    <LinearLayout style="@style/Head2Menu1"
+        android:id="@+id/head2_menu3">
+
+        <ImageView style="@style/Head2Menu1_Icon"
+            android:src="@drawable/hdpi_bar_time" />
+
+        <TextView style="@style/Head2Menu1_Text"
+            android:id="@+id/head2_menu3_text3"
+            android:text="@string/head2_menu3_text" />
+    </LinearLayout>
+
+
+</LinearLayout>
