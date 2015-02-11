@@ -19,20 +19,17 @@ public class Head1TitleFragment extends Fragment {
 	public void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		System.out.println("ExampleFragment--onPause");
 	}
 
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		System.out.println("ExampleFragment--onResume");
 	}
 
 	@Override
 	public void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-		System.out.println("ExampleFragment--onStop");
 	}
 }

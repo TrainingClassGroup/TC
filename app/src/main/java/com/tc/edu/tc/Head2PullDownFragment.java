@@ -3,17 +3,29 @@ package com.tc.edu.tc;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
-public class Head1Fragment extends Fragment {
+public class Head2PullDownFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.head1_fragment, container, false);
+        final View view = inflater.inflate(R.layout.head2_pulldown_fragment, container, false);
+
+        LinearLayout head2_pulldown_menu=(LinearLayout)view.findViewById(R.id.head2_pulldown_menu);
+        head2_pulldown_menu.getLayoutParams().height=0;
+        head2_pulldown_menu.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
 		return view;
 	}
+
 
 	@Override
 	public void onPause() {
@@ -32,4 +44,6 @@ public class Head1Fragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onStop();
 	}
+
+
 }
