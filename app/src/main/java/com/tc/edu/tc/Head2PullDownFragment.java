@@ -23,6 +23,9 @@ public class Head2PullDownFragment extends Fragment {
                 return true;
             }
         });
+
+        view.findViewById(R.id.btn_pulldown1_1).setOnClickListener(null);
+
 		return view;
 	}
 

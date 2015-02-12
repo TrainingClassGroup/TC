@@ -16,6 +16,7 @@ import de.greenrobot.event.EventBus;
 
 
 public class MainActivity extends Activity implements GestureDetector.OnGestureListener {
+
     GestureDetector detector;
     private ViewFlipper viewFlipper = null;
 
@@ -90,7 +91,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 break;
             case MotionEvent.ACTION_UP:
 
-                viewFlipper.setInAnimation(this, R.anim.in_leftright);
+                viewFlipper.setInAnimation(this, R.anim.slide_left_in);
                 viewFlipper.showNext();
                 break;
         }
@@ -103,7 +104,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 break;
             case MotionEvent.ACTION_UP:
 
-                viewFlipper.setInAnimation(this, R.anim.in_leftright);
+                viewFlipper.setInAnimation(this, R.anim.slide_left_in);
                 viewFlipper.showNext();
                 break;
         }
@@ -117,7 +118,7 @@ public void onEventBackgroundThread(MyEvent myEvent){
             break;
         case MotionEvent.ACTION_UP:
 
-            viewFlipper.setInAnimation(this, R.anim.in_leftright);
+            viewFlipper.setInAnimation(this, R.anim.slide_left_in);
             viewFlipper.showNext();
             break;
     }
@@ -130,7 +131,7 @@ public void onEventBackgroundThread(MyEvent myEvent){
                 break;
             case MotionEvent.ACTION_UP:
 
-                viewFlipper.setInAnimation(this, R.anim.in_leftright);
+                viewFlipper.setInAnimation(this, R.anim.slide_left_in);
                 viewFlipper.showNext();
                 break;
         }

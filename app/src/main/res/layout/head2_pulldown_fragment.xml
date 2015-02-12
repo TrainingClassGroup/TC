@@ -16,38 +16,47 @@
 
                 <TextView
                     style="@style/Pulldown_ItemText"
+                    android:id="@+id/btn_pulldown1_1"
                     android:text="学前" />
 
                 <TextView
                     style="@style/Pulldown_ItemText"
+                    android:id="@+id/btn_pulldown1_2"
                     android:text="小学" />
 
                 <TextView
                     style="@style/Pulldown_ItemText"
+                    android:id="@+id/btn_pulldown1_3"
                     android:text="小升初" />
 
                 <TextView
                     style="@style/Pulldown_ItemText"
+                    android:id="@+id/btn_pulldown1_4"
                     android:text="初中" />
 
                 <TextView
                     style="@style/Pulldown_ItemText"
+                    android:id="@+id/btn_pulldown1_5"
                     android:text="中考" />
 
                 <TextView
                     style="@style/Pulldown_ItemText"
+                    android:id="@+id/btn_pulldown1_6"
                     android:text="高中" />
 
                 <TextView
                     style="@style/Pulldown_ItemText"
+                    android:id="@+id/btn_pulldown1_7"
                     android:text="高考" />
 
                 <TextView
                     style="@style/Pulldown_ItemText"
+                    android:id="@+id/btn_pulldown1_8"
                     android:text="艺术" />
 
                 <TextView
                     style="@style/Pulldown_ItemText"
+                    android:id="@+id/btn_pulldown1_9"
                     android:text="体育" />
 
             </LinearLayout>
@@ -62,14 +71,17 @@
 
                 <TextView
                     style="@style/Pulldown_ItemText"
+                    android:id="@+id/btn_pulldown2_1"
                     android:text="语文" />
 
                 <TextView
                     style="@style/Pulldown_ItemText"
+                    android:id="@+id/btn_pulldown2_2"
                     android:text="数学" />
 
                 <TextView
                     style="@style/Pulldown_ItemText"
+                    android:id="@+id/btn_pulldown2_3"
                     android:text="英语" />
             </LinearLayout>
         </ScrollView>
@@ -82,14 +94,17 @@
 
                 <TextView
                     style="@style/Pulldown_ItemText"
+                    android:id="@+id/btn_pulldown3_1"
                     android:text="上午" />
 
                 <TextView
                     style="@style/Pulldown_ItemText"
+                    android:id="@+id/btn_pulldown3_2"
                     android:text="下午" />
 
                 <TextView
                     style="@style/Pulldown_ItemText"
+                    android:id="@+id/btn_pulldown3_3"
                     android:text="晚上" />
 
             </LinearLayout>
