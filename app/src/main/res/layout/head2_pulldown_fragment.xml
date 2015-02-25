@@ -12,7 +12,8 @@
 
         <ScrollView style="@style/Pulldown_Scroll">
 
-            <LinearLayout style="@style/Pulldown_Scroll_Column">
+            <LinearLayout style="@style/Pulldown_Scroll_Column"
+                android:id="@+id/head2_pulldown_menu_1">
 
                 <TextView
                     style="@style/Pulldown_ItemText"
@@ -67,7 +68,8 @@
 
         <ScrollView style="@style/Pulldown_Scroll">
 
-            <LinearLayout style="@style/Pulldown_Scroll_Column">
+            <LinearLayout style="@style/Pulldown_Scroll_Column"
+                android:id="@+id/head2_pulldown_menu_2">
 
                 <TextView
                     style="@style/Pulldown_ItemText"
@@ -90,7 +92,8 @@
 
         <ScrollView style="@style/Pulldown_Scroll">
 
-            <LinearLayout style="@style/Pulldown_Scroll_Column">
+            <LinearLayout style="@style/Pulldown_Scroll_Column"
+                android:id="@+id/head2_pulldown_menu_3">
 
                 <TextView
                     style="@style/Pulldown_ItemText"

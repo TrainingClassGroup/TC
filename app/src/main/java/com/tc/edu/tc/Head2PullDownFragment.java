@@ -24,7 +24,10 @@ public class Head2PullDownFragment extends Fragment {
             }
         });
 
-        view.findViewById(R.id.btn_pulldown1_1).setOnClickListener(null);
+
+
+
+
 
 		return view;
 	}
@@ -36,10 +39,20 @@ public class Head2PullDownFragment extends Fragment {
 		super.onPause();
 	}
 
+
+
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+
+        new CRegistMenuForHead2PullDown(getActivity()).setOnActionListener(new CRegistMenuForHead2PullDown.OnTouchListener() {
+            @Override
+            public void onTouch(View v, MotionEvent event) {
+
+            }
+        }).regist(R.id.head2_pulldown_menu_1,new String[]{"的沙发","的沙发2"});
+
 	}
 
 	@Override

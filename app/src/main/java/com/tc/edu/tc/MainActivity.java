@@ -1,6 +1,7 @@
 package com.tc.edu.tc;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -36,6 +37,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         editText1.setX(170);
 
 
+        Intent intent = new Intent(this, MyService.class);
+        startService(intent);
 
         //EventBus.getDefault().register(this);
     }
@@ -82,6 +85,21 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         // 在屏幕上的轻击事件将会触发该方法
         Toast.makeText(this, "onSingleTapUp", Toast.LENGTH_LONG).show();
         return false;
+    }
+
+    public void onEvent(String data){
+        Log.i("yyy", "onEvent:"+data);
+
+    }
+
+    public void onEventBackgroundThread(String data){
+        Log.i("yyy", "onEventBackgroundThread:"+data);
+
+    }
+
+    public void onEventMainThread(String data){
+        Log.i("yyy", "onEventMainThread:"+data);
+
     }
 
     public void onEvent(MyEvent myEvent){

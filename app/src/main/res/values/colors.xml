@@ -2,4 +2,8 @@
 
     <color name="black_overlay">#66000000</color>
 
+    <color name="head2_text_color">#FFFFFFFF</color>
+    <color name="head2_textbtn_normal">#FF3760FF</color>
+    <color name="head2_textbtn_pressed">#FF8099FF</color>
+
 </resources>
