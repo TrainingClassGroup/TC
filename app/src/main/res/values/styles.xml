@@ -51,9 +51,10 @@
     <!-- Head2 Pulldown -->
     <style name="Pulldown">
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:background">#3760FF</item>
         <item name="android:orientation">horizontal</item>
+        <item name="android:layout_weight">1</item>
     </style>
 
     <style name="Pulldown_Scroll">
@@ -88,6 +89,28 @@
         <item name="android:layout_width">8.5dp</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:background">@drawable/head2_repeat_split</item>
+    </style>
+
+    <style name="Pulldown_ButtonBar">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_marginTop">0.5dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:background">@color/head2_textbtn_normal</item>
+    </style>
+
+    <style name="Pulldown_ButtonBar_TextView">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
     </style>
 
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">

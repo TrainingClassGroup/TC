@@ -1,5 +1,6 @@
 package com.tc.edu.tc;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -41,7 +42,7 @@ public class Head2Fragment extends Fragment {
                     head2_menu1_image.setImageResource(R.drawable.hdpi_right_arrow070);
                     menuLock.set(0);
 
-                    pullUpDownMenu();
+                    pullUpDownMenu(getActivity(),false);
                 }
 
                 return true;
@@ -68,7 +69,7 @@ public class Head2Fragment extends Fragment {
                     head2_menu2_image.setImageResource(R.drawable.hdpi_right_arrow070);
                     menuLock.set(0);
 
-                    pullUpDownMenu();
+                    pullUpDownMenu(getActivity(),false);
                 }
                 return true;
             }
@@ -90,7 +91,7 @@ public class Head2Fragment extends Fragment {
                     head2_menu2_image.setImageResource(R.drawable.hdpi_right_arrow070);
                     menuLock.set(0);
 
-                    pullUpDownMenu();
+                    pullUpDownMenu(getActivity(),false);
                 }
                 return true;
             }
@@ -100,24 +101,23 @@ public class Head2Fragment extends Fragment {
 		return view;
 	}
 
-    private void pullUpDownMenu(){
+    public static void pullUpDownMenu(Activity activity, boolean enableClose){
 
         DisplayMetrics dm = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-
-        LinearLayout head2_pulldown_menu=(LinearLayout) getActivity().findViewById(R.id.head2_pulldown_menu);
+        LinearLayout head2_pulldown_menu=(LinearLayout)activity.findViewById(R.id.head2_pulldown_menu);
 
         ResizeAnimation a = new ResizeAnimation(head2_pulldown_menu);
         a.setDuration(500);
         if(head2_pulldown_menu.getLayoutParams().height<=0){
-            a.setParamsHeight(0, dm.heightPixels/2);
+            a.setParamsHeight(0, dm.heightPixels*2/3);
+            head2_pulldown_menu.startAnimation(a);
         }
-        else{
+        else if(enableClose){
             a.setParamsHeight(head2_pulldown_menu.getLayoutParams().height, 0);
+            head2_pulldown_menu.startAnimation(a);
         }
-        head2_pulldown_menu.startAnimation(a);
-
     }
 
 	@Override

@@ -1,12 +1,16 @@
 package com.tc.edu.tc;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class Head2PullDownFragment extends Fragment {
 
@@ -25,12 +29,34 @@ public class Head2PullDownFragment extends Fragment {
         });
 
 
+//下拉选择菜单中的“确定”按钮
+        TextView head2_ok = (TextView)view.findViewById(R.id.head2_OK);
+        head2_ok.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction()==MotionEvent.ACTION_DOWN){
+                    v.setBackgroundResource(R.color.head2_textbtn_pressed);
+                }
+                else{
+                    v.setBackgroundResource(R.color.head2_textbtn_normal);
+                    Head2Fragment.pullUpDownMenu(getActivity(),true);
+                    updateClassLister();
+                }
 
-
+                return true;
+            }
+        });
 
 
 		return view;
 	}
+
+    /*
+    ** 查询补习班列表
+     */
+    private void updateClassLister(){
+
+    }
 
 
 	@Override
@@ -46,12 +72,16 @@ public class Head2PullDownFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onResume();
 
-        new CRegistMenuForHead2PullDown(getActivity()).setOnActionListener(new CRegistMenuForHead2PullDown.OnTouchListener() {
-            @Override
-            public void onTouch(View v, MotionEvent event) {
+        Activity activity = getActivity();
 
-            }
-        }).regist(R.id.head2_pulldown_menu_1,new String[]{"的沙发","的沙发2"});
+        Intent intent = new Intent(activity, Head2PullDownService.class);
+        activity.startService(intent);
+
+
+        IntentFilter filter=new IntentFilter();
+        filter.addAction("Head2PullDownService");
+        activity.registerReceiver(new Head2PullDownReceiver(activity),filter);
+
 
 	}
 
@@ -60,6 +90,12 @@ public class Head2PullDownFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onStop();
 	}
+
+    @Override
+    public void onDestroy() {
+        getActivity().stopService(new Intent(getActivity(), Head2PullDownService.class));
+        super.onDestroy();
+    }
 
 
 }

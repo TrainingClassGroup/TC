@@ -12,7 +12,7 @@
             android:src="@drawable/hdpi_bar_level" />
 
         <TextView style="@style/Head2Menu1_Text"
-            android:id="@+id/head2_menu1_text"
+            android:id="@+id/head2_menu1_text1"
             android:text="@string/head2_menu1_text" />
     </LinearLayout>
 

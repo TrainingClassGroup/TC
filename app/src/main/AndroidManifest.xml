@@ -23,7 +23,7 @@
         </activity>
 
         <service
-            android:name=".MyService"
+            android:name=".Head2PullDownService"
             android:enabled="true"
             android:exported="true" >
         </service>

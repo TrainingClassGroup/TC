@@ -2,117 +2,59 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="horizontal"
     android:baselineAligned="false">
 
     <LinearLayout
-        style="@style/Pulldown"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:background="#FFFFFF"
         android:id="@+id/head2_pulldown_menu">
 
+        <LinearLayout
+            style="@style/Pulldown" >
 
-        <ScrollView style="@style/Pulldown_Scroll">
+            <ScrollView style="@style/Pulldown_Scroll">
 
-            <LinearLayout style="@style/Pulldown_Scroll_Column"
-                android:id="@+id/head2_pulldown_menu_1">
+                <LinearLayout style="@style/Pulldown_Scroll_Column"
+                    android:id="@+id/head2_pulldown_menu_1">
 
-                <TextView
-                    style="@style/Pulldown_ItemText"
-                    android:id="@+id/btn_pulldown1_1"
-                    android:text="学前" />
+                </LinearLayout>
 
-                <TextView
-                    style="@style/Pulldown_ItemText"
-                    android:id="@+id/btn_pulldown1_2"
-                    android:text="小学" />
+            </ScrollView>
 
-                <TextView
-                    style="@style/Pulldown_ItemText"
-                    android:id="@+id/btn_pulldown1_3"
-                    android:text="小升初" />
+            <LinearLayout style="@style/Pulldown_SplitLinear" />
 
-                <TextView
-                    style="@style/Pulldown_ItemText"
-                    android:id="@+id/btn_pulldown1_4"
-                    android:text="初中" />
+            <ScrollView style="@style/Pulldown_Scroll">
 
-                <TextView
-                    style="@style/Pulldown_ItemText"
-                    android:id="@+id/btn_pulldown1_5"
-                    android:text="中考" />
+                <LinearLayout style="@style/Pulldown_Scroll_Column"
+                    android:id="@+id/head2_pulldown_menu_2">
 
-                <TextView
-                    style="@style/Pulldown_ItemText"
-                    android:id="@+id/btn_pulldown1_6"
-                    android:text="高中" />
+                </LinearLayout>
+            </ScrollView>
 
-                <TextView
-                    style="@style/Pulldown_ItemText"
-                    android:id="@+id/btn_pulldown1_7"
-                    android:text="高考" />
+            <LinearLayout style="@style/Pulldown_SplitLinear" />
 
-                <TextView
-                    style="@style/Pulldown_ItemText"
-                    android:id="@+id/btn_pulldown1_8"
-                    android:text="艺术" />
+            <ScrollView style="@style/Pulldown_Scroll">
 
-                <TextView
-                    style="@style/Pulldown_ItemText"
-                    android:id="@+id/btn_pulldown1_9"
-                    android:text="体育" />
+                <LinearLayout style="@style/Pulldown_Scroll_Column"
+                    android:id="@+id/head2_pulldown_menu_3">
 
-            </LinearLayout>
+                </LinearLayout>
 
-        </ScrollView>
+            </ScrollView>
+        </LinearLayout>
 
-        <LinearLayout style="@style/Pulldown_SplitLinear" />
+        <LinearLayout
+            style="@style/Pulldown_ButtonBar">
+            <TextView
+                style="@style/Pulldown_ButtonBar_TextView"
+                android:id="@+id/head2_OK"
+                android:text="@string/head2_OK"  />
 
-        <ScrollView style="@style/Pulldown_Scroll">
-
-            <LinearLayout style="@style/Pulldown_Scroll_Column"
-                android:id="@+id/head2_pulldown_menu_2">
-
-                <TextView
-                    style="@style/Pulldown_ItemText"
-                    android:id="@+id/btn_pulldown2_1"
-                    android:text="语文" />
-
-                <TextView
-                    style="@style/Pulldown_ItemText"
-                    android:id="@+id/btn_pulldown2_2"
-                    android:text="数学" />
-
-                <TextView
-                    style="@style/Pulldown_ItemText"
-                    android:id="@+id/btn_pulldown2_3"
-                    android:text="英语" />
-            </LinearLayout>
-        </ScrollView>
-
-        <LinearLayout style="@style/Pulldown_SplitLinear" />
-
-        <ScrollView style="@style/Pulldown_Scroll">
-
-            <LinearLayout style="@style/Pulldown_Scroll_Column"
-                android:id="@+id/head2_pulldown_menu_3">
-
-                <TextView
-                    style="@style/Pulldown_ItemText"
-                    android:id="@+id/btn_pulldown3_1"
-                    android:text="上午" />
-
-                <TextView
-                    style="@style/Pulldown_ItemText"
-                    android:id="@+id/btn_pulldown3_2"
-                    android:text="下午" />
-
-                <TextView
-                    style="@style/Pulldown_ItemText"
-                    android:id="@+id/btn_pulldown3_3"
-                    android:text="晚上" />
-
-            </LinearLayout>
-
-        </ScrollView>
+        </LinearLayout>
 
     </LinearLayout>
+
+
 </LinearLayout>
