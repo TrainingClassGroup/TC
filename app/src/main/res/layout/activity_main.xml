@@ -7,8 +7,13 @@
     tools:context="com.TCPackage.tc.MainActivity"
     tools:ignore="Orientation">
 
+
+
+
+
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/MainBackground_main"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
@@ -76,6 +81,21 @@
 
         </RelativeLayout>
 
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/myset_fragment_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <fragment
+            android:id="@+id/myset_fragment"
+            android:name="com.tc.edu.tc.MysetFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            tools:layout="@layout/myset_fragment" />
 
     </LinearLayout>
 

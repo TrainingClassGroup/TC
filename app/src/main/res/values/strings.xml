@@ -7,7 +7,6 @@
     <string name="head2_menu2_text">课程</string>
     <string name="head2_menu3_text">授时</string>
     <string name="head2_OK">确定</string>
-
-
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

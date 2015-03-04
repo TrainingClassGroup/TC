@@ -2,12 +2,14 @@ package com.tc.edu.tc;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -25,6 +27,16 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+
+        LinearLayout myset = (LinearLayout)findViewById(R.id.myset_fragment_layout);
+        myset.setLayoutParams(new LinearLayout.LayoutParams(dm.widthPixels - 80, dm.heightPixels));
+
+
 
         detector = new GestureDetector(this, this);
 

@@ -23,13 +23,19 @@ public class Head1MysetFragment extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                DisplayMetrics dm = new DisplayMetrics();
+                final DisplayMetrics dm = new DisplayMetrics();
                 getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-                final LinearLayout mainBackground = (LinearLayout) getActivity().findViewById(R.id.MainBackground);
+                final LinearLayout myset = (LinearLayout) getActivity().findViewById(R.id.myset_fragment_layout);
+               // myset.setLayoutParams(new LinearLayout.LayoutParams(dm.widthPixels-80, dm.heightPixels));
+               // myset.refreshDrawableState();
+               // myset.setX(80);
+
+
+                final LinearLayout mainBackground_main = (LinearLayout) getActivity().findViewById(R.id.MainBackground_main);
                 final float desX=80-dm.widthPixels;
 
-                if(mainBackground.getX()==0){
+                if(mainBackground_main.getX()==0){
                     TranslateAnimation translateAnimation = new TranslateAnimation( 0, desX, 0, 0);
                     translateAnimation.setDuration(1000);
                     translateAnimation.setAnimationListener(new Animation.AnimationListener() {
@@ -37,16 +43,32 @@ public class Head1MysetFragment extends Fragment {
                         public void onAnimationStart(Animation animation) { }
                         @Override
                         public void onAnimationEnd(Animation animation) {
-                            mainBackground.clearAnimation();
-                            mainBackground.setX(desX);
+                            mainBackground_main.clearAnimation();
+                            mainBackground_main.setX(desX);
                         }
                         @Override
                         public void onAnimationRepeat(Animation animation) { }
                     });
 
-                    mainBackground.startAnimation(translateAnimation);
+                    TranslateAnimation translateAnimation2 = new TranslateAnimation( dm.widthPixels, 80, 0, 0);
+                    translateAnimation2.setDuration(1000);
+                    translateAnimation2.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) { }
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            myset.clearAnimation();
+                            myset.setX(80);
+                        }
+                        @Override
+                        public void onAnimationRepeat(Animation animation) { }
+                    });
+
+
+                    myset.startAnimation(translateAnimation2);
+                    mainBackground_main.startAnimation(translateAnimation);
                 }
-                else if(mainBackground.getX()==desX){
+                else if(mainBackground_main.getX()==desX){
                     TranslateAnimation translateAnimation = new TranslateAnimation( 0, -desX, 0, 0);
                     translateAnimation.setDuration(1000);
                     translateAnimation.setAnimationListener(new Animation.AnimationListener() {
@@ -54,14 +76,16 @@ public class Head1MysetFragment extends Fragment {
                         public void onAnimationStart(Animation animation) { }
                         @Override
                         public void onAnimationEnd(Animation animation) {
-                            mainBackground.clearAnimation();
-                            mainBackground.setX(0);
+                            mainBackground_main.clearAnimation();
+                            mainBackground_main.setX(0);
                         }
                         @Override
                         public void onAnimationRepeat(Animation animation) { }
                     });
 
-                    mainBackground.startAnimation(translateAnimation);
+
+
+                    mainBackground_main.startAnimation(translateAnimation);
                 }
                 return false;
             }
