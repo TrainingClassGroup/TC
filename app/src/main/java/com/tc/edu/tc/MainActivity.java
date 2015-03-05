@@ -8,6 +8,7 @@ import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,8 +20,28 @@ import de.greenrobot.event.EventBus;
 
 public class MainActivity extends Activity implements GestureDetector.OnGestureListener {
 
-    GestureDetector detector;
+
     private ViewFlipper viewFlipper = null;
+
+    private GestureDetector mGestureDetector;
+
+    class MysetOnGestureListener extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            Log.i("yyy",
+                    "onScroll-----" + ",(" + e1.getX() + "," + e1.getY() + ") ,("
+                            + e2.getX() + "," + e2.getY() + ")");
+            return false;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            Log.i("yyy",
+                    "onFling-----" + ",(" + e1.getX() + "," + e1.getY() + ") ,("
+                            + e2.getX() + "," + e2.getY() + ")");
+            return false;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +49,24 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
+        mGestureDetector = new GestureDetector(this, new MysetOnGestureListener());
+        LinearLayout mainBackground_main = (LinearLayout) findViewById(R.id.MainBackground_main);
+        mainBackground_main.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                mGestureDetector.onTouchEvent(event);
+
+                return true;
+            }
+        });
+
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
 
-        LinearLayout myset = (LinearLayout)findViewById(R.id.myset_fragment_layout);
-        myset.setLayoutParams(new LinearLayout.LayoutParams(dm.widthPixels - 80, dm.heightPixels));
 
-
-
-        detector = new GestureDetector(this, this);
 
         TextView editText1 = (TextView) findViewById(R.id.editText1);
         for (int i = 0; i < 100; i++) {

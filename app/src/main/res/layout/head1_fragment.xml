@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         tools:layout="@layout/head1_title_fragment"
-        android:layout_weight="98" />
+        android:layout_weight="90" />
 
     <fragment
         android:id="@+id/head1_myset_fragment"
@@ -29,6 +29,6 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         tools:layout="@layout/head1_myset_fragment"
-        android:layout_weight="1" />
+        android:layout_weight="9" />
 
 </LinearLayout>
