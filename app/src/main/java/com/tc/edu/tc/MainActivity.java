@@ -8,9 +8,8 @@ import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.Window;
-import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -26,12 +25,23 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     private GestureDetector mGestureDetector;
 
     class MysetOnGestureListener extends GestureDetector.SimpleOnGestureListener {
+
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            Log.i("yyy",
+                    "onDown-----" + ",(" + e.getX() + "," + e.getY() + ") ");
+            return super.onDown(e);
+        }
+
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
             Log.i("yyy",
                     "onScroll-----" + ",(" + e1.getX() + "," + e1.getY() + ") ,("
                             + e2.getX() + "," + e2.getY() + ")");
-            return false;
+            ScrollView scrollView1 = (ScrollView) findViewById(R.id.scrollView1);
+            scrollView1.setScrollY(findViewById(R.id.scrollView1).getScrollY()+(int)distanceY);
+            return super.onScroll(e1, e2, distanceX, distanceY);
         }
 
         @Override
@@ -39,7 +49,9 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             Log.i("yyy",
                     "onFling-----" + ",(" + e1.getX() + "," + e1.getY() + ") ,("
                             + e2.getX() + "," + e2.getY() + ")");
-            return false;
+            ScrollView scrollView1 = (ScrollView) findViewById(R.id.scrollView1);
+            scrollView1.fling(-(int)velocityY);
+            return super.onFling(e1, e2, velocityX, velocityY);
         }
     }
 
@@ -50,16 +62,11 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         setContentView(R.layout.activity_main);
 
         mGestureDetector = new GestureDetector(this, new MysetOnGestureListener());
-        LinearLayout mainBackground_main = (LinearLayout) findViewById(R.id.MainBackground_main);
-        mainBackground_main.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
 
-                mGestureDetector.onTouchEvent(event);
+        CMyScrollView scrollView1 = (CMyScrollView) findViewById(R.id.scrollView1);
+        scrollView1.setGestureDetector(mGestureDetector);
 
-                return true;
-            }
-        });
+
 
 
         DisplayMetrics dm = new DisplayMetrics();
