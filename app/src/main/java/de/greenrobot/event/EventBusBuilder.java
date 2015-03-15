@@ -26,38 +26,45 @@ import java.util.concurrent.Executors;
  */
 public class EventBusBuilder {
     private final static ExecutorService DEFAULT_EXECUTOR_SERVICE = Executors.newCachedThreadPool();
-
+    ExecutorService executorService = DEFAULT_EXECUTOR_SERVICE;
     boolean logSubscriberExceptions = true;
     boolean logNoSubscriberMessages = true;
     boolean sendSubscriberExceptionEvent = true;
     boolean sendNoSubscriberEvent = true;
     boolean throwSubscriberException;
     boolean eventInheritance = true;
-    ExecutorService executorService = DEFAULT_EXECUTOR_SERVICE;
     List<Class<?>> skipMethodVerificationForClasses;
 
     EventBusBuilder() {
     }
 
-    /** Default: true */
+    /**
+     * Default: true
+     */
     public EventBusBuilder logSubscriberExceptions(boolean logSubscriberExceptions) {
         this.logSubscriberExceptions = logSubscriberExceptions;
         return this;
     }
 
-    /** Default: true */
+    /**
+     * Default: true
+     */
     public EventBusBuilder logNoSubscriberMessages(boolean logNoSubscriberMessages) {
         this.logNoSubscriberMessages = logNoSubscriberMessages;
         return this;
     }
 
-    /** Default: true */
+    /**
+     * Default: true
+     */
     public EventBusBuilder sendSubscriberExceptionEvent(boolean sendSubscriberExceptionEvent) {
         this.sendSubscriberExceptionEvent = sendSubscriberExceptionEvent;
         return this;
     }
 
-    /** Default: true */
+    /**
+     * Default: true
+     */
     public EventBusBuilder sendNoSubscriberEvent(boolean sendNoSubscriberEvent) {
         this.sendNoSubscriberEvent = sendNoSubscriberEvent;
         return this;
@@ -120,15 +127,16 @@ public class EventBusBuilder {
     public EventBus installDefaultEventBus() {
         synchronized (EventBus.class) {
             if (EventBus.defaultInstance != null) {
-                throw new EventBusException("Default instance already exists." +
-                        " It may be only set once before it's used the first time to ensure consistent behavior.");
+                throw new EventBusException("Default instance already exists." + " It may be only set once before it's used the first time to ensure consistent behavior.");
             }
             EventBus.defaultInstance = build();
             return EventBus.defaultInstance;
         }
     }
 
-    /** Builds an EventBus based on the current configuration. */
+    /**
+     * Builds an EventBus based on the current configuration.
+     */
     public EventBus build() {
         return new EventBus(this);
     }

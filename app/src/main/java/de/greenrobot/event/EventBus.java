@@ -38,14 +38,13 @@ import java.util.concurrent.ExecutorService;
  */
 public class EventBus {
 
-    /** Log tag, apps may override it. */
-    public static String TAG = "Event";
-
-    static volatile EventBus defaultInstance;
-
     private static final EventBusBuilder DEFAULT_BUILDER = new EventBusBuilder();
     private static final Map<Class<?>, List<Class<?>>> eventTypesCache = new HashMap<Class<?>, List<Class<?>>>();
-
+    /**
+     * Log tag, apps may override it.
+     */
+    public static String TAG = "Event";
+    static volatile EventBus defaultInstance;
     private final Map<Class<?>, CopyOnWriteArrayList<Subscription>> subscriptionsByEventType;
     private final Map<Object, List<Class<?>>> typesBySubscriber;
     private final Map<Class<?>, Object> stickyEvents;
@@ -70,28 +69,6 @@ public class EventBus {
     private final boolean sendSubscriberExceptionEvent;
     private final boolean sendNoSubscriberEvent;
     private final boolean eventInheritance;
-
-    /** Convenience singleton for apps using a process-wide EventBus instance. */
-    public static EventBus getDefault() {
-        if (defaultInstance == null) {
-            synchronized (EventBus.class) {
-                if (defaultInstance == null) {
-                    defaultInstance = new EventBus();
-                }
-            }
-        }
-        return defaultInstance;
-    }
-
-    public static EventBusBuilder builder() {
-        return new EventBusBuilder();
-    }
-
-    /** For unit test primarily. */
-    public static void clearCaches() {
-        SubscriberMethodFinder.clearCaches();
-        eventTypesCache.clear();
-    }
 
     /**
      * Creates a new EventBus instance; each instance is a separate scope in which events are delivered. To use a
@@ -118,6 +95,43 @@ public class EventBus {
         executorService = builder.executorService;
     }
 
+    /**
+     * Convenience singleton for apps using a process-wide EventBus instance.
+     */
+    public static EventBus getDefault() {
+        if (defaultInstance == null) {
+            synchronized (EventBus.class) {
+                if (defaultInstance == null) {
+                    defaultInstance = new EventBus();
+                }
+            }
+        }
+        return defaultInstance;
+    }
+
+    public static EventBusBuilder builder() {
+        return new EventBusBuilder();
+    }
+
+    /**
+     * For unit test primarily.
+     */
+    public static void clearCaches() {
+        SubscriberMethodFinder.clearCaches();
+        eventTypesCache.clear();
+    }
+
+    /**
+     * Recurses through super interfaces.
+     */
+    static void addInterfaces(List<Class<?>> eventTypes, Class<?>[] interfaces) {
+        for (Class<?> interfaceClass : interfaces) {
+            if (!eventTypes.contains(interfaceClass)) {
+                eventTypes.add(interfaceClass);
+                addInterfaces(eventTypes, interfaceClass.getInterfaces());
+            }
+        }
+    }
 
     /**
      * Registers the given subscriber to receive events. Subscribers must call {@link #unregister(Object)} once they
@@ -176,8 +190,7 @@ public class EventBus {
             subscriptionsByEventType.put(eventType, subscriptions);
         } else {
             if (subscriptions.contains(newSubscription)) {
-                throw new EventBusException("Subscriber " + subscriber.getClass() + " already registered to event "
-                        + eventType);
+                throw new EventBusException("Subscriber " + subscriber.getClass() + " already registered to event " + eventType);
             }
         }
 
@@ -216,7 +229,24 @@ public class EventBus {
         return typesBySubscriber.containsKey(subscriber);
     }
 
-    /** Only updates subscriptionsByEventType, not typesBySubscriber! Caller must update typesBySubscriber. */
+    /**
+     * Unregisters the given subscriber from all event classes.
+     */
+    public synchronized void unregister(Object subscriber) {
+        List<Class<?>> subscribedTypes = typesBySubscriber.get(subscriber);
+        if (subscribedTypes != null) {
+            for (Class<?> eventType : subscribedTypes) {
+                unubscribeByEventType(subscriber, eventType);
+            }
+            typesBySubscriber.remove(subscriber);
+        } else {
+            Log.w(TAG, "Subscriber to unregister was not registered before: " + subscriber.getClass());
+        }
+    }
+
+    /**
+     * Only updates subscriptionsByEventType, not typesBySubscriber! Caller must update typesBySubscriber.
+     */
     private void unubscribeByEventType(Object subscriber, Class<?> eventType) {
         List<Subscription> subscriptions = subscriptionsByEventType.get(eventType);
         if (subscriptions != null) {
@@ -233,20 +263,9 @@ public class EventBus {
         }
     }
 
-    /** Unregisters the given subscriber from all event classes. */
-    public synchronized void unregister(Object subscriber) {
-        List<Class<?>> subscribedTypes = typesBySubscriber.get(subscriber);
-        if (subscribedTypes != null) {
-            for (Class<?> eventType : subscribedTypes) {
-                unubscribeByEventType(subscriber, eventType);
-            }
-            typesBySubscriber.remove(subscriber);
-        } else {
-            Log.w(TAG, "Subscriber to unregister was not registered before: " + subscriber.getClass());
-        }
-    }
-
-    /** Posts the given event to the event bus. */
+    /**
+     * Posts the given event to the event bus.
+     */
     public void post(Object event) {
         PostingThreadState postingState = currentPostingThreadState.get();
         List<Object> eventQueue = postingState.eventQueue;
@@ -279,8 +298,7 @@ public class EventBus {
     public void cancelEventDelivery(Object event) {
         PostingThreadState postingState = currentPostingThreadState.get();
         if (!postingState.isPosting) {
-            throw new EventBusException(
-                    "This method may only be called from inside event handling methods on the posting thread");
+            throw new EventBusException("This method may only be called from inside event handling methods on the posting thread");
         } else if (event == null) {
             throw new EventBusException("Event may not be null");
         } else if (postingState.event != event) {
@@ -450,7 +468,9 @@ public class EventBus {
         }
     }
 
-    /** Looks up all Class objects including super classes and interfaces. Should also work for interfaces. */
+    /**
+     * Looks up all Class objects including super classes and interfaces. Should also work for interfaces.
+     */
     private List<Class<?>> lookupAllEventTypes(Class<?> eventClass) {
         synchronized (eventTypesCache) {
             List<Class<?>> eventTypes = eventTypesCache.get(eventClass);
@@ -465,16 +485,6 @@ public class EventBus {
                 eventTypesCache.put(eventClass, eventTypes);
             }
             return eventTypes;
-        }
-    }
-
-    /** Recurses through super interfaces. */
-    static void addInterfaces(List<Class<?>> eventTypes, Class<?>[] interfaces) {
-        for (Class<?> interfaceClass : interfaces) {
-            if (!eventTypes.contains(interfaceClass)) {
-                eventTypes.add(interfaceClass);
-                addInterfaces(eventTypes, interfaceClass.getInterfaces());
-            }
         }
     }
 
@@ -507,36 +517,22 @@ public class EventBus {
         if (event instanceof SubscriberExceptionEvent) {
             if (logSubscriberExceptions) {
                 // Don't send another SubscriberExceptionEvent to avoid infinite event recursion, just log
-                Log.e(TAG, "SubscriberExceptionEvent subscriber " + subscription.subscriber.getClass()
-                        + " threw an exception", cause);
+                Log.e(TAG, "SubscriberExceptionEvent subscriber " + subscription.subscriber.getClass() + " threw an exception", cause);
                 SubscriberExceptionEvent exEvent = (SubscriberExceptionEvent) event;
-                Log.e(TAG, "Initial event " + exEvent.causingEvent + " caused exception in "
-                        + exEvent.causingSubscriber, exEvent.throwable);
+                Log.e(TAG, "Initial event " + exEvent.causingEvent + " caused exception in " + exEvent.causingSubscriber, exEvent.throwable);
             }
         } else {
             if (throwSubscriberException) {
                 throw new EventBusException("Invoking subscriber failed", cause);
             }
             if (logSubscriberExceptions) {
-                Log.e(TAG, "Could not dispatch event: " + event.getClass() + " to subscribing class "
-                        + subscription.subscriber.getClass(), cause);
+                Log.e(TAG, "Could not dispatch event: " + event.getClass() + " to subscribing class " + subscription.subscriber.getClass(), cause);
             }
             if (sendSubscriberExceptionEvent) {
-                SubscriberExceptionEvent exEvent = new SubscriberExceptionEvent(this, cause, event,
-                        subscription.subscriber);
+                SubscriberExceptionEvent exEvent = new SubscriberExceptionEvent(this, cause, event, subscription.subscriber);
                 post(exEvent);
             }
         }
-    }
-
-    /** For ThreadLocal, much faster to set (and get multiple values). */
-    final static class PostingThreadState {
-        final List<Object> eventQueue = new ArrayList<Object>();
-        boolean isPosting;
-        boolean isMainThread;
-        Subscription subscription;
-        Object event;
-        boolean canceled;
     }
 
     ExecutorService getExecutorService() {
@@ -546,6 +542,18 @@ public class EventBus {
     // Just an idea: we could provide a callback to post() to be notified, an alternative would be events, of course...
     /* public */interface PostCallback {
         void onPostCompleted(List<SubscriberExceptionEvent> exceptionEvents);
+    }
+
+    /**
+     * For ThreadLocal, much faster to set (and get multiple values).
+     */
+    final static class PostingThreadState {
+        final List<Object> eventQueue = new ArrayList<Object>();
+        boolean isPosting;
+        boolean isMainThread;
+        Subscription subscription;
+        Object event;
+        boolean canceled;
     }
 
 }

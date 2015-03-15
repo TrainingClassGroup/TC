@@ -24,10 +24,10 @@
 
     <LinearLayout
         android:id="@+id/MainBackground_main"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:background="#FFFFFF">
+        android:background="#FFFFFF"
+        android:orientation="vertical">
 
         <fragment
             android:id="@+id/head1_fragment"
@@ -51,7 +51,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
-            <com.tc.edu.tc.CMyScrollView
+            <com.tc.edu.tc.MyProjectBase.CPrjScollView
                 android:id="@+id/scrollView1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
@@ -69,19 +69,20 @@
                         android:layout_margin="0px"
                         android:adjustViewBounds="true"
                         android:background="#3760FF"
-                        android:src="@drawable/hdpi_headimg"
                         android:baselineAlignBottom="false"
                         android:clickable="false"
                         android:focusable="false"
-                        android:nestedScrollingEnabled="false"></ImageView>
+                        android:nestedScrollingEnabled="false"
+                        android:src="@drawable/hdpi_headimg"></ImageView>
 
                     <TextView
                         android:id="@+id/editText1"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:background="#ddd" />
                 </LinearLayout>
-            </com.tc.edu.tc.CMyScrollView>
+            </com.tc.edu.tc.MyProject.Base.CPrjScollView>
 
             <fragment
                 android:id="@+id/head2_pulldown_fragment"
@@ -95,8 +96,6 @@
 
 
     </LinearLayout>
-
-
 
 
 </RelativeLayout>

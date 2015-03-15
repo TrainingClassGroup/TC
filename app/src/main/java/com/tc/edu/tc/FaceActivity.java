@@ -24,15 +24,14 @@ public class FaceActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_face);
 
-        new Handler().postDelayed(new Runnable(){
-            public void run(){
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
                 startActivity(new Intent(FaceActivity.this, MainActivity.class));
                 finish();
             }
         }, 3000);
 
     }
-
 
 
 }

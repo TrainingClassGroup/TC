@@ -19,6 +19,13 @@ final class PendingPostQueue {
         notifyAll();
     }
 
+    synchronized PendingPost poll(int maxMillisToWait) throws InterruptedException {
+        if (head == null) {
+            wait(maxMillisToWait);
+        }
+        return poll();
+    }
+
     synchronized PendingPost poll() {
         PendingPost pendingPost = head;
         if (head != null) {
@@ -28,13 +35,6 @@ final class PendingPostQueue {
             }
         }
         return pendingPost;
-    }
-
-    synchronized PendingPost poll(int maxMillisToWait) throws InterruptedException {
-        if (head == null) {
-            wait(maxMillisToWait);
-        }
-        return poll();
     }
 
 }

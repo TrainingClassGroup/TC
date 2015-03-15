@@ -12,15 +12,17 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.tc.edu.tc.MyProject.Data.Head2PullDownReceiver;
+import com.tc.edu.tc.MyProject.Data.Head2PullDownService;
+
 public class Head2PullDownFragment extends Fragment {
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.head2_pulldown_fragment, container, false);
 
-        LinearLayout head2_pulldown_menu=(LinearLayout)view.findViewById(R.id.head2_pulldown_menu);
-        head2_pulldown_menu.getLayoutParams().height=0;
+        LinearLayout head2_pulldown_menu = (LinearLayout) view.findViewById(R.id.head2_pulldown_menu);
+        head2_pulldown_menu.getLayoutParams().height = 0;
         head2_pulldown_menu.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -30,16 +32,15 @@ public class Head2PullDownFragment extends Fragment {
 
 
 //下拉选择菜单中的“确定”按钮
-        TextView head2_ok = (TextView)view.findViewById(R.id.head2_OK);
+        TextView head2_ok = (TextView) view.findViewById(R.id.head2_OK);
         head2_ok.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction()==MotionEvent.ACTION_DOWN){
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     v.setBackgroundResource(R.color.head2_textbtn_pressed);
-                }
-                else{
+                } else {
                     v.setBackgroundResource(R.color.head2_textbtn_normal);
-                    Head2Fragment.pullUpDownMenu(getActivity(),true);
+                    Head2Fragment.pullUpDownMenu(getActivity(), true);
                     updateClassLister();
                 }
 
@@ -48,29 +49,20 @@ public class Head2PullDownFragment extends Fragment {
         });
 
 
-		return view;
-	}
+        return view;
+    }
 
     /*
     ** 查询补习班列表
      */
-    private void updateClassLister(){
+    private void updateClassLister() {
 
     }
 
-
-	@Override
-	public void onPause() {
-		// TODO Auto-generated method stub
-		super.onPause();
-	}
-
-
-
-	@Override
-	public void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
+    @Override
+    public void onResume() {
+        // TODO Auto-generated method stub
+        super.onResume();
 
         Activity activity = getActivity();
 
@@ -78,18 +70,24 @@ public class Head2PullDownFragment extends Fragment {
         activity.startService(intent);
 
 
-        IntentFilter filter=new IntentFilter();
+        IntentFilter filter = new IntentFilter();
         filter.addAction("Head2PullDownService");
-        activity.registerReceiver(new Head2PullDownReceiver(activity),filter);
+        activity.registerReceiver(new Head2PullDownReceiver(activity), filter);
 
 
-	}
+    }
 
-	@Override
-	public void onStop() {
-		// TODO Auto-generated method stub
-		super.onStop();
-	}
+    @Override
+    public void onPause() {
+        // TODO Auto-generated method stub
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        // TODO Auto-generated method stub
+        super.onStop();
+    }
 
     @Override
     public void onDestroy() {

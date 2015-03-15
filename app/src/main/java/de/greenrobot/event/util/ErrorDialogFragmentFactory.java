@@ -19,8 +19,7 @@ public abstract class ErrorDialogFragmentFactory<T> {
     /**
      * Prepares the fragment's arguments and creates the fragment. May be overridden to provide custom error fragments.
      */
-    protected T prepareErrorFragment(ThrowableFailureEvent event, boolean finishAfterDialog,
-            Bundle argumentsForErrorDialog) {
+    protected T prepareErrorFragment(ThrowableFailureEvent event, boolean finishAfterDialog, Bundle argumentsForErrorDialog) {
         if (event.isSuppressErrorUi()) {
             // Show nothing by default
             return null;
@@ -43,8 +42,7 @@ public abstract class ErrorDialogFragmentFactory<T> {
         if (!bundle.containsKey(ErrorDialogManager.KEY_FINISH_AFTER_DIALOG)) {
             bundle.putBoolean(ErrorDialogManager.KEY_FINISH_AFTER_DIALOG, finishAfterDialog);
         }
-        if (!bundle.containsKey(ErrorDialogManager.KEY_EVENT_TYPE_ON_CLOSE)
-                && config.defaultEventTypeOnDialogClosed != null) {
+        if (!bundle.containsKey(ErrorDialogManager.KEY_EVENT_TYPE_ON_CLOSE) && config.defaultEventTypeOnDialogClosed != null) {
             bundle.putSerializable(ErrorDialogManager.KEY_EVENT_TYPE_ON_CLOSE, config.defaultEventTypeOnDialogClosed);
         }
         if (!bundle.containsKey(ErrorDialogManager.KEY_ICON_ID) && config.defaultDialogIconId != 0) {
@@ -53,19 +51,25 @@ public abstract class ErrorDialogFragmentFactory<T> {
         return createErrorFragment(event, bundle);
     }
 
-    /** Returns either a new Honeycomb+ or a new support library DialogFragment. */
-    protected abstract T createErrorFragment(ThrowableFailureEvent event, Bundle arguments);
-
-    /** May be overridden to provide custom error title. */
+    /**
+     * May be overridden to provide custom error title.
+     */
     protected String getTitleFor(ThrowableFailureEvent event, Bundle arguments) {
         return config.resources.getString(config.defaultTitleId);
     }
 
-    /** May be overridden to provide custom error messages. */
+    /**
+     * May be overridden to provide custom error messages.
+     */
     protected String getMessageFor(ThrowableFailureEvent event, Bundle arguments) {
         int msgResId = config.getMessageIdForThrowable(event.throwable);
         return config.resources.getString(msgResId);
     }
+
+    /**
+     * Returns either a new Honeycomb+ or a new support library DialogFragment.
+     */
+    protected abstract T createErrorFragment(ThrowableFailureEvent event, Bundle arguments);
 
     public static class Support extends ErrorDialogFragmentFactory<Fragment> {
 

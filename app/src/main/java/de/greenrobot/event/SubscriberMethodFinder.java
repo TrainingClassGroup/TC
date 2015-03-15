@@ -51,6 +51,12 @@ class SubscriberMethodFinder {
         }
     }
 
+    static void clearCaches() {
+        synchronized (methodCache) {
+            methodCache.clear();
+        }
+    }
+
     List<SubscriberMethod> findSubscriberMethods(Class<?> subscriberClass) {
         String key = subscriberClass.getName();
         List<SubscriberMethod> subscriberMethods;
@@ -108,27 +114,19 @@ class SubscriberMethodFinder {
                             }
                         }
                     } else if (!skipMethodVerificationForClasses.containsKey(clazz)) {
-                        Log.d(EventBus.TAG, "Skipping method (not public, static or abstract): " + clazz + "."
-                                + methodName);
+                        Log.d(EventBus.TAG, "Skipping method (not public, static or abstract): " + clazz + "." + methodName);
                     }
                 }
             }
             clazz = clazz.getSuperclass();
         }
         if (subscriberMethods.isEmpty()) {
-            throw new EventBusException("Subscriber " + subscriberClass + " has no public methods called "
-                    + ON_EVENT_METHOD_NAME);
+            throw new EventBusException("Subscriber " + subscriberClass + " has no public methods called " + ON_EVENT_METHOD_NAME);
         } else {
             synchronized (methodCache) {
                 methodCache.put(key, subscriberMethods);
             }
             return subscriberMethods;
-        }
-    }
-
-    static void clearCaches() {
-        synchronized (methodCache) {
-            methodCache.clear();
         }
     }
 

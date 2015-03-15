@@ -1,17 +1,18 @@
 package de.greenrobot.event.util;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import android.util.Log;
 import de.greenrobot.event.EventBus;
 
 
 /**
  * Maps throwables to texts for error dialogs. Use Config to configure the mapping.
- * 
+ *
  * @author Markus
  */
 public class ExceptionToResourceMapping {
@@ -22,7 +23,9 @@ public class ExceptionToResourceMapping {
         throwableToMsgIdMap = new HashMap<Class<? extends Throwable>, Integer>();
     }
 
-    /** Looks at the exception and its causes trying to find an ID. */
+    /**
+     * Looks at the exception and its causes trying to find an ID.
+     */
     public Integer mapThrowable(final Throwable throwable) {
         Throwable throwableToCheck = throwable;
         int depthToGo = 20;
@@ -44,7 +47,9 @@ public class ExceptionToResourceMapping {
 
     }
 
-    /** Mapping without checking the cause (done in mapThrowable). */
+    /**
+     * Mapping without checking the cause (done in mapThrowable).
+     */
     protected Integer mapThrowableFlat(Throwable throwable) {
         Class<? extends Throwable> throwableClass = throwable.getClass();
         Integer resId = throwableToMsgIdMap.get(throwableClass);
