@@ -14,30 +14,35 @@ import android.widget.ScrollView;
  * Created by Administrator on 15-3-7.
  */
 
-public abstract class CMyView extends ScrollView implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
+public abstract class CMyScrollView extends ScrollView implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
     protected Activity activity = null;
     protected GestureDetector gestureDetector = null;
 
     /* extends from ScrollView */
-    public CMyView(Context context) {
+    public CMyScrollView(Context context) {
         super(context);
     }
 
     /* extends from ScrollView */
-    public CMyView(Context context, AttributeSet attrs) {
+    public CMyScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
     /* extends from ScrollView */
-    public CMyView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CMyScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public static void update(final View view, final float fromXDelta, final float toXDelta, final float fromYDelta, final float toYDelta, final int duration) {
-        if (toXDelta == fromXDelta && toYDelta == fromYDelta) {
-            view.setX(toXDelta);
-            view.setY(toYDelta);
+    public static void update(final View view, final float x, final float desx, final float y, final float desy, final int duration) {
+        if (x == desx && y == desy) {
+            view.setX(desx);
+            view.setY(desy);
         } else {
+            float fromXDelta = x - view.getX();
+            float toXDelta = desx - view.getX();
+            float fromYDelta = y - view.getY();
+            float toYDelta = desy - view.getY();
+
             TranslateAnimation translateAnimation = new TranslateAnimation(fromXDelta, toXDelta, fromYDelta, toYDelta);
             translateAnimation.setDuration(duration);
             translateAnimation.setAnimationListener(new Animation.AnimationListener() {
@@ -48,8 +53,8 @@ public abstract class CMyView extends ScrollView implements GestureDetector.OnGe
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     view.clearAnimation();
-                    view.setX(toXDelta);
-                    view.setY(toYDelta);
+                    view.setX(desx);
+                    view.setY(desy);
                 }
 
                 @Override
@@ -82,6 +87,7 @@ public abstract class CMyView extends ScrollView implements GestureDetector.OnGe
         return false;
     }
 
+
     /* implements from GestureDetector.OnGestureListener */
     public void onShowPress(MotionEvent e) {
     }
@@ -111,22 +117,18 @@ public abstract class CMyView extends ScrollView implements GestureDetector.OnGe
 
     /* extends from ScrollView */
     @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-        super.onTouchEvent(ev);
-        if (gestureDetector != null) {
-            return gestureDetector.onTouchEvent(ev);
-        }
-        return true;
-    }
-
-    /* extends from ScrollView */
-    @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+        onTouch(ev);
         if (gestureDetector != null) {
             gestureDetector.onTouchEvent(ev);
         }
         super.dispatchTouchEvent(ev);
         return true;
+    }
+
+    public boolean onTouch(MotionEvent e) {
+
+        return false;
     }
 
     public void bindActivity(final Activity activity) {

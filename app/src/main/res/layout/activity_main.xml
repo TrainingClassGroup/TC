@@ -1,6 +1,7 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
     android:id="@+id/MainBackground"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal"
@@ -18,7 +19,7 @@
             android:name="com.tc.edu.tc.MysetFragment"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            tools:layout="@layout/myset_fragment" />
+            tools:layout="@layout/myset_fragment"/>
 
     </LinearLayout>
 
@@ -34,7 +35,7 @@
             android:name="com.tc.edu.tc.Head1Fragment"
             android:layout_width="fill_parent"
             android:layout_height="47dp"
-            tools:layout="@layout/head1_fragment" />
+            tools:layout="@layout/head1_fragment"/>
 
 
         <fragment
@@ -43,7 +44,7 @@
             android:layout_width="fill_parent"
             android:layout_height="35dp"
             android:layout_marginTop="1px"
-            tools:layout="@layout/head2_fragment" />
+            tools:layout="@layout/head2_fragment"/>
 
 
         <RelativeLayout
@@ -51,7 +52,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
-            <com.tc.edu.tc.MyProjectBase.CPrjScollView
+            <com.tc.edu.tc.MyProject.Base.CPrjScollView
                 android:id="@+id/scrollView1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
@@ -80,7 +81,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#ddd" />
+                        android:background="#ddd"/>
                 </LinearLayout>
             </com.tc.edu.tc.MyProject.Base.CPrjScollView>
 
@@ -89,7 +90,7 @@
                 android:name="com.tc.edu.tc.Head2PullDownFragment"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                tools:layout="@layout/head2_pulldown_fragment" />
+                tools:layout="@layout/head2_pulldown_fragment"/>
 
 
         </RelativeLayout>
