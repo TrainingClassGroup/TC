@@ -115,19 +115,24 @@ public abstract class CMyScrollView extends ScrollView implements GestureDetecto
         return false;
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        // TODO Auto-generated method stub
+        super.onTouchEvent(ev);
+        return gestureDetector.onTouchEvent(ev);
+    }
     /* extends from ScrollView */
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        onTouch(ev);
         if (gestureDetector != null) {
             gestureDetector.onTouchEvent(ev);
         }
         super.dispatchTouchEvent(ev);
+        onTouch(ev);
         return true;
     }
 
     public boolean onTouch(MotionEvent e) {
-
         return false;
     }
 
@@ -136,7 +141,7 @@ public abstract class CMyScrollView extends ScrollView implements GestureDetecto
         gestureDetector = new GestureDetector(activity, this);
 
         init();
-
+/*
         setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -144,6 +149,7 @@ public abstract class CMyScrollView extends ScrollView implements GestureDetecto
                 return true;
             }
         });
+        */
     }
 
     abstract protected void init();

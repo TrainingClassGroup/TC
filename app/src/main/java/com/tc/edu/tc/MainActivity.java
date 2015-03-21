@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.Window;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -36,13 +35,13 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         CPrjScollView scrollView1 = (CPrjScollView) findViewById(R.id.scrollView1);
         scrollView1.bindActivity(this);
 
-
+        /*
         TextView editText1 = (TextView) findViewById(R.id.editText1);
         for (int i = 0; i < 100; i++) {
             editText1.setText(editText1.getText() + "\n2342134");
         }
         editText1.setX(170);
-
+*/
 
         //EventBus.getDefault().register(this);
     }

@@ -14,9 +14,13 @@ import com.tc.edu.tc.R;
  */
 public class CPrjScollView extends CMyScrollView {
 
-    private final float reserveRightWidth = 100;
+    private final float reserveScroll = 120.0f;
+    private final float reserveRightWidth = 100.0f;
+    private final int animationDuation = 500;
 
-    private float downX = 0;
+    private int curStatus = 0;//-1  0  1
+    private float velocityX = 0.0f;
+    private float downX = 0.0f;
     private DisplayMetrics dm;
 
     private LinearLayout myset;
@@ -37,25 +41,39 @@ public class CPrjScollView extends CMyScrollView {
 
     @Override
     public boolean onDown(MotionEvent e) {
+        float x = mainBackground_main.getX();
+        float w = dm.widthPixels;
+
+        if (x > -w / 2.0f && x < w / 4.0f) curStatus = 0;
+        else if (x >= w / 4.0f) curStatus = 1;
+        else curStatus = -1;
+
         downX = 0.0f;
+
+
         return super.onDown(e);
     }
 
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        float x = mainBackground_main.getX();
-        float w = dm.widthPixels;
 
         downX += distanceX;
-
-        update(mainBackground_main, x - downX, x - downX, 0.0f, 0.0f, 0);
-        update(myset, x - downX + w, x - downX + w, 0.0f, 0.0f, 0);
+        if (Math.abs(downX) > reserveScroll) {
+            float x = mainBackground_main.getX();
+            float w = dm.widthPixels;
+            float offset = 0;
+            if (downX > 0) offset = downX - reserveScroll;
+            else offset = downX + reserveScroll;
+            update(mainBackground_main, x - offset, x - offset, 0.0f, 0.0f, 0);
+            update(myset, x - offset + w, x - offset + w, 0.0f, 0.0f, 0);
+        }
 
         return super.onScroll(e1, e2, distanceX, distanceY);
     }
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        this.velocityX = velocityX;
         return super.onFling(e1, e2, velocityX, velocityY);
     }
 
@@ -67,15 +85,24 @@ public class CPrjScollView extends CMyScrollView {
 
             float desx = 0.0f;
 
-            if ((x >= 0.0f && x < w / 4.0f) || (x < 0.0f && x > -w / 2.0f)) {
-                desx = 0.0f;
-            } else if (x >= w / 4.0f) {
-                desx = w / 2.0f;
-            } else if (x <= -w / 2.0f) {
-                desx = reserveRightWidth - w;
+            if (Math.abs(velocityX) > 200.0f && curStatus != 0) {
+                if (curStatus == -1) {
+                    desx = 0.0f;
+                } else if (curStatus == 1) {
+                    desx = 0.0f;
+                }
+            } else {
+                if ((x >= 0.0f && x < w / 4.0f) || (x < 0.0f && x > -w / 2.0f)) {
+                    desx = 0.0f;
+                } else if (x >= w / 4.0f) {
+                    desx = w / 2.0f;
+                } else if (x <= -w / 2.0f) {
+                    desx = reserveRightWidth - w;
+                }
             }
-            update(mainBackground_main, x, desx, 0.0f, 0.0f, 500);
-            update(myset, x + w, desx + w, 0.0f, 0.0f, 500);
+            update(mainBackground_main, x, desx, 0.0f, 0.0f, animationDuation);
+            update(myset, x + w, desx + w, 0.0f, 0.0f, animationDuation);
+            velocityX = 0.0f;
         }
         return super.onTouch(e);
     }

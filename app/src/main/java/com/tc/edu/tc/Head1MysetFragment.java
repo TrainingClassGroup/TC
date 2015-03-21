@@ -17,7 +17,6 @@ public class Head1MysetFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.head1_myset_fragment, container, false);
 
-
         view.findViewById(R.id.myset).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -27,22 +26,21 @@ public class Head1MysetFragment extends Fragment {
 
                 LinearLayout myset = (LinearLayout) getActivity().findViewById(R.id.myset_fragment_layout);
                 LinearLayout mainBackground_main = (LinearLayout) getActivity().findViewById(R.id.MainBackground_main);
-                float desX = 100 - dm.widthPixels;
-
-                if (mainBackground_main.getX() == 0) {
-                    CMyScrollView.update(mainBackground_main, 0, desX, 0, 0, 1000);
-                    CMyScrollView.update(myset, dm.widthPixels, 100, 0, 0, 1000);
-                } else if (mainBackground_main.getX() == desX) {
-                    CMyScrollView.update(mainBackground_main, 0, -desX, 0, 0, 1000);
-                    CMyScrollView.update(myset, 0, dm.widthPixels - 100, 0, 0, 1000);
+                float desX = 0;
+                float x = mainBackground_main.getX();
+                if (x == 0) {
+                    desX = 100 - dm.widthPixels;
+                } else if (x == desX) {
+                    desX = 0;
                 }
+                CMyScrollView.update(mainBackground_main, x, desX, 0, 0, 1000);
+                CMyScrollView.update(myset, x + dm.widthPixels, desX + dm.widthPixels, 0, 0, 1000);
                 return false;
             }
         });
 
         return view;
     }
-
 
 }
 
