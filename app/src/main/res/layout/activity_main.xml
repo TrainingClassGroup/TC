@@ -1,6 +1,7 @@
 <RelativeLayout
     android:id="@+id/MainBackground"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tcitem="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -59,6 +60,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/tclister"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -77,163 +79,24 @@
                         android:src="@drawable/hdpi_headimg"></ImageView>
 
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5sp"
-                        android:orientation="horizontal"
-                        >
+                    <com.tc.edu.tc.MyProject.Base.CTcItemView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        tcitem:text="表格布局模型以行列的形式管理子控件,每一行为一个TableRow的对象,当然也可以是一个View的对象。TableRow可以添加子控件,每"
+                        tcitem:text_distance="eee"
+                        tcitem:text_memo="fff"
+                        tcitem:text_registed="ddd"
+                        tcitem:text_reservation="编程语言"/>
 
-                        <ImageView
-                            android:layout_width="100sp"
-                            android:layout_height="80sp"
-                            android:layout_marginLeft="5sp"
-                            android:layout_marginRight="5sp"
-                            android:adjustViewBounds="true"
-                            android:background="#ffc3c3c3"
-                            android:baselineAlignBottom="false"
-                            android:clickable="false"
-                            android:focusable="false"
-                            android:nestedScrollingEnabled="false"></ImageView>
+                    <com.tc.edu.tc.MyProject.Base.CTcItemView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        tcitem:text="表格布局模型以行列的形式管理子控件,每一行为一个TableRow的对象,当然也可以是一个View的对象。TableRow可以添加子控件,每"
+                        tcitem:text_distance="eee"
+                        tcitem:text_memo="fff"
+                        tcitem:text_registed="ddd"
+                        tcitem:text_reservation="编程语言"/>
 
-                        <TableLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="5sp"
-                            android:layout_weight="1"
-                            >
-
-                            <TableRow
-                                android:layout_marginTop="-1sp"
-                                android:layout_weight="3">
-
-                                <TextView
-                                    android:id="@+id/editText1"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:lineSpacingMultiplier="0.9"
-                                    android:maxHeight="50dp"
-                                    android:text="表格布局模型以行列的形式管理子控件,每一行为一个TableRow的对象,当然也可以是一个View的对象。TableRow可以添加子控件,每"
-                                    android:textSize="15dp"
-                                    />
-                            </TableRow>
-
-                            <TableRow
-                                android:layout_weight="1">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <ImageView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="11sp"
-                                        android:layout_marginRight="1sp"
-                                        android:layout_marginTop="4sp"
-                                        android:adjustViewBounds="true"
-                                        android:baselineAlignBottom="false"
-                                        android:clickable="false"
-                                        android:focusable="false"
-                                        android:nestedScrollingEnabled="false"
-                                        android:src="@drawable/hdpi_resveration"></ImageView>
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginRight="40sp"
-                                        android:layout_marginTop="5sp"
-                                        android:text="预约：12+人"
-                                        android:textIsSelectable="false"
-                                        android:textSize="8dp"/>
-
-                                    <ImageView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="11sp"
-                                        android:layout_marginRight="1sp"
-                                        android:layout_marginTop="4sp"
-                                        android:adjustViewBounds="true"
-                                        android:baselineAlignBottom="false"
-                                        android:clickable="false"
-                                        android:focusable="false"
-                                        android:nestedScrollingEnabled="false"
-                                        android:src="@drawable/hdpi_start"></ImageView>
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginRight="40sp"
-                                        android:layout_marginTop="5sp"
-                                        android:text="报名：12+人"
-                                        android:textSize="8dp"/>
-
-                                    <ImageView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="11sp"
-                                        android:layout_marginRight="1sp"
-                                        android:layout_marginTop="4sp"
-
-                                        android:adjustViewBounds="true"
-                                        android:baselineAlignBottom="false"
-                                        android:clickable="false"
-                                        android:focusable="false"
-                                        android:nestedScrollingEnabled="false"
-                                        android:src="@drawable/hdpi_info"
-                                        ></ImageView>
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="5sp"
-                                        android:text="评论(99+)"
-                                        android:textSize="8dp"/>
-                                </LinearLayout>
-                            </TableRow>
-
-                            <TableRow
-                                android:layout_weight="2">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <ImageView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="11sp"
-                                        android:layout_marginRight="1sp"
-                                        android:layout_marginTop="4sp"
-                                        android:adjustViewBounds="true"
-                                        android:baselineAlignBottom="false"
-                                        android:clickable="false"
-                                        android:focusable="false"
-                                        android:nestedScrollingEnabled="false"
-                                        android:src="@drawable/hdpi_position"></ImageView>
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="5sp"
-                                        android:text="距离：12 Km"
-                                        android:textSize="8dp"/>
-
-
-                                </LinearLayout>
-                            </TableRow>
-
-                        </TableLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="5dp"
-                        android:background="#ffaaaaaa"
-                        />
 
                 </LinearLayout>
             </com.tc.edu.tc.MyProject.Base.CPrjScollView>

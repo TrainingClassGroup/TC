@@ -8,11 +8,14 @@ import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.tc.edu.tc.MyProject.Base.CPrjScollView;
+import com.tc.edu.tc.MyProject.Base.CTcItemView;
 
 import de.greenrobot.event.EventBus;
 
@@ -28,20 +31,22 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
-
         final DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
         CPrjScollView scrollView1 = (CPrjScollView) findViewById(R.id.scrollView1);
         scrollView1.bindActivity(this);
 
-        /*
-        TextView editText1 = (TextView) findViewById(R.id.editText1);
-        for (int i = 0; i < 100; i++) {
-            editText1.setText(editText1.getText() + "\n2342134");
-        }
-        editText1.setX(170);
-*/
+        LinearLayout tclister = (LinearLayout) findViewById(R.id.tclister);
+        CTcItemView tcItem = new CTcItemView(this);
+        tclister.addView(tcItem);
+        tcItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("xxx", "sdafsadfsadf");
+            }
+        });
+
 
         //EventBus.getDefault().register(this);
     }
