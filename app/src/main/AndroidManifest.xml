@@ -23,7 +23,7 @@
         </activity>
 
         <service
-            android:name=".MyProject.Data.Head2PullDownService"
+            android:name=".MyProject._Test.CHead2PullDownService"
             android:enabled="true"
             android:exported="true">
         </service>

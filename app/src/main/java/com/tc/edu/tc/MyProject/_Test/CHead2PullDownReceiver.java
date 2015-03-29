@@ -1,7 +1,6 @@
-package com.tc.edu.tc.MyProject.Data;
+package com.tc.edu.tc.MyProject._Test;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,18 +9,26 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.tc.edu.tc.MyBase.CMyDataReceiver;
 import com.tc.edu.tc.MyProject.Base.CPrjMenuTree;
 import com.tc.edu.tc.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Head2PullDownReceiver extends BroadcastReceiver {
+/**
+ Intent intent = new Intent(activity, CHead2PullDownService.class);
+ activity.startService(intent);
 
-    private Activity active;
 
-    public Head2PullDownReceiver(final Activity active) {
-        this.active = active;
+ IntentFilter filter = new IntentFilter();
+ filter.addAction(new CHead2PullDownService().getAction());
+ activity.registerReceiver(new CHead2PullDownReceiver(activity), filter);
+ */
+public class CHead2PullDownReceiver extends CMyDataReceiver {
+
+    public CHead2PullDownReceiver(final Activity active) {
+        super(active);
     }
 
     @Override

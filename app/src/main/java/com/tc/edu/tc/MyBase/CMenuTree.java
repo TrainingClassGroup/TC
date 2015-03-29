@@ -13,17 +13,17 @@ import java.util.Iterator;
  * Created by Administrator on 15-3-15.
  */
 public abstract class CMenuTree {
-    protected Activity active = null;
+    private Activity activity = null;
 
-    public CMenuTree(Activity active) {
-        this.active = active;
+    public CMenuTree(Activity activity) {
+        this.activity = activity;
     }
 
     abstract protected View getMenubar(int level, String key);
 
     abstract protected void onTouchMenu(View v, MotionEvent event, int level, String key, Object paras);
 
-    abstract protected View createMenu(String name, final OnTouchListener mOnTouchListener, final Object paras);
+    abstract protected View createMenu(final int id, final String name, final Object paras,final OnTouchListener mOnTouchListener, final Object sub);
 
     abstract protected void registMenu(final View menubarView, final View menu);
 
@@ -34,6 +34,10 @@ public abstract class CMenuTree {
             JSONObject value = jsonObj.getJSONObject(key);
             load(key, value);
         }
+    }
+
+    public Activity getActivity(){
+        return activity;
     }
 
     public void load(final String key, final JSONObject jsonObj) throws JSONException {
@@ -67,11 +71,12 @@ public abstract class CMenuTree {
                 }
             }
         };
-        regist(getMenubar(level, key), jsonObj.getString("menu"), touchListener, jsonObj.get("sub"));
+
+        regist(getMenubar(level, key), jsonObj.getInt("index"), jsonObj.getString("menu"), jsonObj.get("paras"), touchListener, jsonObj.get("sub"));
     }
 
-    protected void regist(final View menubarView, final String name, final OnTouchListener mOnTouchListener, final Object paras) {
-        registMenu(menubarView, createMenu(name, mOnTouchListener, paras));
+    protected void regist(final View menubarView, final int id, final String name, final Object paras, final OnTouchListener mOnTouchListener, final Object sub) {
+        registMenu(menubarView, createMenu(id ,name, paras, mOnTouchListener, sub));
     }
 
     protected interface OnTouchListener {

@@ -8,20 +8,17 @@ import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.Window;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.tc.edu.tc.MyProject.Base.CPrjScollView;
-import com.tc.edu.tc.MyProject.Base.CTcItemView;
+import com.tc.edu.tc.MyProject.Data.CPrjDataTcItems;
 
 import de.greenrobot.event.EventBus;
 
 
 public class MainActivity extends Activity implements GestureDetector.OnGestureListener {
-
 
     private ViewFlipper viewFlipper = null;
 
@@ -37,18 +34,15 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         CPrjScollView scrollView1 = (CPrjScollView) findViewById(R.id.scrollView1);
         scrollView1.bindActivity(this);
 
-        LinearLayout tclister = (LinearLayout) findViewById(R.id.tclister);
-        CTcItemView tcItem = new CTcItemView(this);
-        tclister.addView(tcItem);
-        tcItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("xxx", "sdafsadfsadf");
-            }
-        });
-
-
         //EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        CPrjDataTcItems dataTcItems = new CPrjDataTcItems(this);
+        dataTcItems.execute(new CPrjDataTcItems.CParams(123.417095, 41.836929, "高中", "数学", 10, 0, "json"));
     }
 
     public boolean onTouchEvent(MotionEvent event) {

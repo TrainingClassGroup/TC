@@ -79,25 +79,6 @@
                         android:src="@drawable/hdpi_headimg"></ImageView>
 
 
-                    <com.tc.edu.tc.MyProject.Base.CTcItemView
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        tcitem:text="表格布局模型以行列的形式管理子控件,每一行为一个TableRow的对象,当然也可以是一个View的对象。TableRow可以添加子控件,每"
-                        tcitem:text_distance="eee"
-                        tcitem:text_memo="fff"
-                        tcitem:text_registed="ddd"
-                        tcitem:text_reservation="编程语言"/>
-
-                    <com.tc.edu.tc.MyProject.Base.CTcItemView
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        tcitem:text="表格布局模型以行列的形式管理子控件,每一行为一个TableRow的对象,当然也可以是一个View的对象。TableRow可以添加子控件,每"
-                        tcitem:text_distance="eee"
-                        tcitem:text_memo="fff"
-                        tcitem:text_registed="ddd"
-                        tcitem:text_reservation="编程语言"/>
-
-
                 </LinearLayout>
             </com.tc.edu.tc.MyProject.Base.CPrjScollView>
 

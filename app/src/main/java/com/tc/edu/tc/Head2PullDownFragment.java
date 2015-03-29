@@ -3,7 +3,6 @@ package com.tc.edu.tc;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -12,8 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.tc.edu.tc.MyProject.Data.Head2PullDownReceiver;
-import com.tc.edu.tc.MyProject.Data.Head2PullDownService;
+import com.tc.edu.tc.MyProject.Data.CPrjDataHead2PullDown;
 
 public class Head2PullDownFragment extends Fragment {
 
@@ -66,15 +64,8 @@ public class Head2PullDownFragment extends Fragment {
 
         Activity activity = getActivity();
 
-        Intent intent = new Intent(activity, Head2PullDownService.class);
-        activity.startService(intent);
-
-
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("Head2PullDownService");
-        activity.registerReceiver(new Head2PullDownReceiver(activity), filter);
-
-
+        CPrjDataHead2PullDown dataHead2PullDown = new CPrjDataHead2PullDown(activity);
+        dataHead2PullDown.execute();
     }
 
     @Override
@@ -91,7 +82,7 @@ public class Head2PullDownFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        getActivity().stopService(new Intent(getActivity(), Head2PullDownService.class));
+        getActivity().stopService(new Intent(getActivity(), CPrjDataHead2PullDown.class));
         super.onDestroy();
     }
 
