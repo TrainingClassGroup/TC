@@ -107,7 +107,7 @@ public class Head2Fragment extends Fragment {
         LinearLayout head2_pulldown_menu = (LinearLayout) activity.findViewById(R.id.head2_pulldown_menu);
 
         ResizeAnimation a = new ResizeAnimation(head2_pulldown_menu);
-        a.setDuration(500);
+        a.setDuration(1000);
         if (head2_pulldown_menu.getLayoutParams().height <= 0) {
             a.setParamsHeight(0, dm.heightPixels * 2 / 3);
             head2_pulldown_menu.startAnimation(a);

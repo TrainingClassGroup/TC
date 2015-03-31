@@ -66,6 +66,7 @@ public class Head2PullDownFragment extends Fragment {
 
         CPrjDataHead2PullDown dataHead2PullDown = new CPrjDataHead2PullDown(activity);
         dataHead2PullDown.execute();
+
     }
 
     @Override
@@ -82,7 +83,7 @@ public class Head2PullDownFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        getActivity().stopService(new Intent(getActivity(), CPrjDataHead2PullDown.class));
+        getActivity().stopService(new Intent(getActivity(), com.tc.edu.tc.MyProject._Test.CPrjDataHead2PullDown.class));
         super.onDestroy();
     }
 
