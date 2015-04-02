@@ -42,7 +42,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         super.onResume();
 
         CPrjDataTcItems dataTcItems = new CPrjDataTcItems(this);
-        dataTcItems.execute(new CPrjDataTcItems.CParams(123.417095, 41.836929, "高中", "数学", 10, 0, "json"));
+        dataTcItems.execute("{paras:{lng:123.417095,lat:41.836929,catalog:高中,curriculum:数学,rownum:10,page:0,type:json}}");
     }
 
     public boolean onTouchEvent(MotionEvent event) {

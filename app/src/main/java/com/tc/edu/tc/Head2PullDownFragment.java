@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,13 +21,19 @@ public class Head2PullDownFragment extends Fragment {
         final View view = inflater.inflate(R.layout.head2_pulldown_fragment, container, false);
 
         LinearLayout head2_pulldown_menu = (LinearLayout) view.findViewById(R.id.head2_pulldown_menu);
-        head2_pulldown_menu.getLayoutParams().height = 0;
         head2_pulldown_menu.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return true;
             }
         });
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        final int maxHeight = dm.heightPixels * 2 / 3;
+
+        head2_pulldown_menu.getLayoutParams().height = maxHeight;
+        head2_pulldown_menu.setY(-maxHeight);
 
 
 //下拉选择菜单中的“确定”按钮
@@ -65,7 +72,7 @@ public class Head2PullDownFragment extends Fragment {
         Activity activity = getActivity();
 
         CPrjDataHead2PullDown dataHead2PullDown = new CPrjDataHead2PullDown(activity);
-        dataHead2PullDown.execute();
+        dataHead2PullDown.execute("{paras: {type: json}}");
 
     }
 

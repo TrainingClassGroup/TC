@@ -11,19 +11,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="沈阳"
         android:textColor="#ffffffff"
         android:textSize="14sp" />
-
-    <ImageView
-        android:id="@+id/ItemImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="7.5dp"
-        android:layout_marginRight="7.5dp"
-        android:adjustViewBounds="true"
-        android:src="@drawable/hdpi_select_downarrow" >
-    </ImageView>
 
 </LinearLayout>

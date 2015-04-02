@@ -77,7 +77,11 @@ public class CTcItemView extends LinearLayout {
 
     public void setText(String string) {
         TextView tcitem_text = (TextView) view.findViewById(R.id.tcitem_text);
-        tcitem_text.setText(string);
+        if(string!=null) {
+            string = string.replace("\n","");
+            if (string.length() > 32) string = string.substring(0, 32) + "...";
+            tcitem_text.setText(string);
+        }
     }
 
     public void setReservation(String string) {

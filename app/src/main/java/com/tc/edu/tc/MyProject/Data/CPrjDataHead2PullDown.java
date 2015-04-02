@@ -25,10 +25,10 @@ public class CPrjDataHead2PullDown {
         this.activity = activity;
     }
 
-    public void execute(){
+    public void execute(String parasJson){
         CPrjDataRequest dataRequest = new CPrjDataRequest("CData_ClassNameAndCourseAndTime");
 
-        dataRequest.getParams().put("{paras: {type: json}}");
+        dataRequest.getParams().put(parasJson);
 
         dataRequest.post(new AsyncHttpResponseHandler() {
             @Override
@@ -37,7 +37,6 @@ public class CPrjDataHead2PullDown {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonData);
                     new CPrjMenuTree(activity) {
-
                         @Override
                         protected View getMenubar(int level, String key) {
                             int viewId = -1;

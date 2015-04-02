@@ -9,10 +9,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
-import com.tc.edu.tc.MyBase.ResizeAnimation;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -22,10 +22,11 @@ public class Head2Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.head2_fragment, container, false);
 
+
+
         final LinearLayout head2_menu1 = (LinearLayout) view.findViewById(R.id.head2_menu1);
         final LinearLayout head2_menu2 = (LinearLayout) view.findViewById(R.id.head2_menu2);
         final LinearLayout head2_menu3 = (LinearLayout) view.findViewById(R.id.head2_menu3);
-
 
         final AtomicInteger menuLock = new AtomicInteger(0);
         head2_menu1.setOnTouchListener(new View.OnTouchListener() {
@@ -49,7 +50,6 @@ public class Head2Fragment extends Fragment {
             }
 
         });
-
 
         head2_menu2.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -99,8 +99,55 @@ public class Head2Fragment extends Fragment {
         return view;
     }
 
-    public static void pullUpDownMenu(Activity activity, boolean enableClose) {
+    public static void pullUpDownMenu(final Activity activity, boolean enableClose) {
+        DisplayMetrics dm = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        final int maxHeight = dm.heightPixels * 2 / 3;
 
+        final LinearLayout head2_pulldown_menu = (LinearLayout) activity.findViewById(R.id.head2_pulldown_menu);
+        if (head2_pulldown_menu.getY() < 0) {
+            TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, 0, maxHeight);
+            translateAnimation.setDuration(500);
+            translateAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    head2_pulldown_menu.clearAnimation();
+                    head2_pulldown_menu.setY(0);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+            head2_pulldown_menu.startAnimation(translateAnimation);
+        }
+        else if (enableClose) {
+            TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, 0, -maxHeight);
+            translateAnimation.setDuration(500);
+            translateAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    head2_pulldown_menu.clearAnimation();
+                    head2_pulldown_menu.setY(-maxHeight);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+            head2_pulldown_menu.startAnimation(translateAnimation);
+        }
+
+
+        /*
         DisplayMetrics dm = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
 
@@ -115,12 +162,15 @@ public class Head2Fragment extends Fragment {
             a.setParamsHeight(head2_pulldown_menu.getLayoutParams().height, 0);
             head2_pulldown_menu.startAnimation(a);
         }
+        */
     }
 
     @Override
     public void onResume() {
         // TODO Auto-generated method stub
         super.onResume();
+
+
     }
 
     @Override

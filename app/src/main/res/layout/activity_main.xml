@@ -58,7 +58,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
-
                 <LinearLayout
                     android:id="@+id/tclister"
                     android:layout_width="fill_parent"
@@ -77,7 +76,6 @@
                         android:focusable="false"
                         android:nestedScrollingEnabled="false"
                         android:src="@drawable/hdpi_headimg"></ImageView>
-
 
                 </LinearLayout>
             </com.tc.edu.tc.MyProject.Base.CPrjScollView>
