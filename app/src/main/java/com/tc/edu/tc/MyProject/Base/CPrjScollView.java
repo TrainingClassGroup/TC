@@ -5,8 +5,10 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.tc.edu.tc.MyBase.CMyScrollView;
+import com.tc.edu.tc.MyProject.Data.CPrjDataTcItems;
 import com.tc.edu.tc.R;
 
 /**
@@ -50,7 +52,6 @@ public class CPrjScollView extends CMyScrollView {
 
         downX = 0.0f;
 
-
         return super.onDown(e);
     }
 
@@ -61,7 +62,7 @@ public class CPrjScollView extends CMyScrollView {
         if (Math.abs(downX) > reserveScroll) {
             float x = mainBackground_main.getX();
             float w = dm.widthPixels;
-            float offset = 0;
+            float offset;
             if (downX > 0) offset = downX - reserveScroll;
             else offset = downX + reserveScroll;
             update(mainBackground_main, x - offset, x - offset, 0.0f, 0.0f, 0);
@@ -114,5 +115,22 @@ public class CPrjScollView extends CMyScrollView {
 
         myset = (LinearLayout) activity.findViewById(R.id.myset_fragment_layout);
         mainBackground_main = (LinearLayout) activity.findViewById(R.id.MainBackground_main);
+    }
+
+    @Override
+    public void onScrolling(int scrollX, int scrollY){
+       // Log.i("XXX342",""+scrollX+", "+scrollY);
+    }
+
+    @Override
+    public void onScrollend(int scrollX, int scrollY){
+        TextView tc_loading = (TextView) activity.findViewById(R.id.tc_loading);
+        int[] position = new int[2];
+        tc_loading.getLocationInWindow(position);
+       // Log.i("XXX34299", "" + scrollY+", "+ dm.heightPixels+", "+position[1]+","+tc_loading.getHeight());
+        if(position[1]<dm.heightPixels){
+            CPrjDataTcItems dataTcItems = new CPrjDataTcItems(activity);
+            dataTcItems.updateClassLister(false);
+        }
     }
 }

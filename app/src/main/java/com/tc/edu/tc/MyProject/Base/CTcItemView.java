@@ -5,14 +5,13 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.AttributeSet;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.tc.edu.tc.MyProject._CDataDemo;
+import com.tc.edu.tc.MyProject.Data.CPrjDataTcLogoImage;
 import com.tc.edu.tc.R;
 
 /**
@@ -26,7 +25,6 @@ public class CTcItemView extends LinearLayout {
     public CTcItemView(Context context) {
         super(context);
         _init(context);
-
     }
 
     public CTcItemView(Context context, AttributeSet attrs) {
@@ -50,29 +48,39 @@ public class CTcItemView extends LinearLayout {
         layout = (LinearLayout) view.findViewById(R.id.tcitem);
     }
 
+    public void regist(LinearLayout layout){
+        int index=1;
+        for (int i = 1; i < layout.getChildCount(); i++) {
+            if(layout.getChildAt(i).getId() > layout.getId() || layout.getChildAt(i).getId() == R.id.tc_loading) break;
+            index++;
+        }
+        layout.addView(this, index);
+    }
+
+    public ImageView getImage(){
+        return (ImageView) view.findViewById(R.id.tcitem_image);
+    }
+
     public void setImageResource(int resId) {
-        ImageView imageView = (ImageView) view.findViewById(R.id.tcitem_image);
-        imageView.setImageResource(resId);
+        getImage().setImageResource(resId);
     }
 
     public void setImageResource(String url){
-        ImageView imageView = (ImageView) view.findViewById(R.id.tcitem_image);
-        CPrjDownloadBitmap downloadBitmap = new CPrjDownloadBitmap(imageView);
+        CPrjDownloadBitmap downloadBitmap = new CPrjDownloadBitmap(getImage());
         downloadBitmap.execute(url);
     }
 
     public void setImageResource(byte[] b) {
-        ImageView imageView = (ImageView) view.findViewById(R.id.tcitem_image);
-        imageView.setImageBitmap(BitmapFactory.decodeByteArray(b, 0, b.length, null));
+        getImage().setImageBitmap(BitmapFactory.decodeByteArray(b, 0, b.length, null));
     }
 
     public void setImageResource(Bitmap m) {
-        ImageView imageView = (ImageView) view.findViewById(R.id.tcitem_image);
-        imageView.setImageBitmap(m);
+        getImage().setImageBitmap(m);
     }
 
     public void setImageResourceByImageId(int id){
-        setImageResource(Base64.decode(_CDataDemo.getTcItemsImage(), Base64.DEFAULT));
+        CPrjDataTcLogoImage prjDataTcLogoImage = new CPrjDataTcLogoImage(this);
+        prjDataTcLogoImage.execute(""+id);
     }
 
     public void setText(String string) {

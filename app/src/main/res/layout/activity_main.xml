@@ -75,7 +75,15 @@
                         android:clickable="false"
                         android:focusable="false"
                         android:nestedScrollingEnabled="false"
-                        android:src="@drawable/hdpi_headimg"></ImageView>
+                        android:src="@drawable/hdpi_headimg"/>
+
+                    <TextView
+                        android:id="@+id/tc_loading"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="加载中..."
+                        />
 
                 </LinearLayout>
             </com.tc.edu.tc.MyProject.Base.CPrjScollView>
@@ -89,8 +97,6 @@
 
 
         </RelativeLayout>
-
-
     </LinearLayout>
 
 

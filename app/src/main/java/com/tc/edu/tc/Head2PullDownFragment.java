@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tc.edu.tc.MyProject.Data.CPrjDataHead2PullDown;
+import com.tc.edu.tc.MyProject.Data.CPrjDataTcItems;
 
 public class Head2PullDownFragment extends Fragment {
 
@@ -36,6 +37,23 @@ public class Head2PullDownFragment extends Fragment {
         head2_pulldown_menu.setY(-maxHeight);
 
 
+        TextView head2_cancle = (TextView) view.findViewById(R.id.head2_CANCLE);
+        head2_cancle.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    v.setBackgroundResource(R.color.head2_textbtn_pressed);
+                } else {
+                    v.setBackgroundResource(R.color.head2_textbtn_normal);
+                    Head2Fragment.pullUpDownMenu(getActivity(), true, new Head2Fragment.Callback(){
+                        public void before(){}
+                        public void end(){}
+                    });
+                }
+
+                return true;
+            }
+        });
 //下拉选择菜单中的“确定”按钮
         TextView head2_ok = (TextView) view.findViewById(R.id.head2_OK);
         head2_ok.setOnTouchListener(new View.OnTouchListener() {
@@ -45,8 +63,13 @@ public class Head2PullDownFragment extends Fragment {
                     v.setBackgroundResource(R.color.head2_textbtn_pressed);
                 } else {
                     v.setBackgroundResource(R.color.head2_textbtn_normal);
-                    Head2Fragment.pullUpDownMenu(getActivity(), true);
-                    updateClassLister();
+                    Head2Fragment.pullUpDownMenu(getActivity(), true, new Head2Fragment.Callback(){
+                        public void before(){}
+                        public void end(){
+                            CPrjDataTcItems dataTcItems = new CPrjDataTcItems(getActivity());
+                            dataTcItems.updateClassLister(true);
+                        }
+                    });
                 }
 
                 return true;
@@ -55,13 +78,6 @@ public class Head2PullDownFragment extends Fragment {
 
 
         return view;
-    }
-
-    /*
-    ** 查询补习班列表
-     */
-    private void updateClassLister() {
-
     }
 
     @Override
@@ -73,7 +89,6 @@ public class Head2PullDownFragment extends Fragment {
 
         CPrjDataHead2PullDown dataHead2PullDown = new CPrjDataHead2PullDown(activity);
         dataHead2PullDown.execute("{paras: {type: json}}");
-
     }
 
     @Override

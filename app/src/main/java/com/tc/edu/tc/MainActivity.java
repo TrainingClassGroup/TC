@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -40,6 +41,12 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     @Override
     protected void onResume() {
         super.onResume();
+
+        LinearLayout tclister = (LinearLayout) findViewById(R.id.tclister);
+       // tclister.removeAllViewsInLayout();
+        for (int i = 1; i < tclister.getChildCount() - 1; i++) {
+            tclister.removeViewAt(i);
+        }
 
         CPrjDataTcItems dataTcItems = new CPrjDataTcItems(this);
         dataTcItems.execute("{paras:{lng:123.417095,lat:41.836929,catalog:高中,curriculum:数学,rownum:10,page:0,type:json}}");

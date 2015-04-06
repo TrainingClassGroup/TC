@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.tc.edu.tc.MyProject.Base.CPrjDataRequest;
@@ -21,13 +22,18 @@ import java.util.Iterator;
  */
 public class CPrjDataTcItems{
 
-    private Activity activity;
+    private Activity activity=null;
+    private static int page=0;
+    private static boolean isloaded = false;
 
     public CPrjDataTcItems(Activity activity) {
        this.activity = activity;
     }
 
     public void execute(String parasJson){
+        if(isloaded) return;
+        isloaded = true;
+
         CPrjDataRequest dataRequest = new CPrjDataRequest("CData_TrainingClass");
 
         dataRequest.getParams().put(parasJson);
@@ -56,12 +62,7 @@ public class CPrjDataTcItems{
                         tcItem.setMemo("评论：(0)");
                         tcItem.setDistance("距离："+value.getString("distance"));
 
-                        int index=1;
-                        for (int i = 1; i < tclister.getChildCount(); i++) {
-                            if(tclister.getChildAt(i).getId() > tcItem.getId()) break;
-                            index++;
-                        }
-                        tclister.addView(tcItem, index);
+                        tcItem.regist(tclister);
 
                         tcItem.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -78,6 +79,7 @@ public class CPrjDataTcItems{
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                isloaded=false;
             }
 
             @Override
@@ -85,5 +87,26 @@ public class CPrjDataTcItems{
                 error.printStackTrace();
             }
         });
+    }
+
+    public void updateClassLister(boolean clearLister) {
+        if(isloaded) return;
+
+        if(clearLister) {
+            LinearLayout tclister = (LinearLayout) activity.findViewById(R.id.tclister);
+            for (int i = 1; i < tclister.getChildCount() - 1; i++) {
+                tclister.removeViewAt(i);
+            }
+            page=0;
+        }
+        else{
+            page++;
+        }
+
+        String catalog=((TextView) activity.findViewById(R.id.head2_menu1_text1)).getText().toString();
+        String course=((TextView) activity.findViewById(R.id.head2_menu2_text2)).getText().toString();
+        String schedule=((TextView) activity.findViewById(R.id.head2_menu3_text3)).getText().toString();
+
+        execute("{paras:{lng:123.417095,lat:41.836929,catalog:\""+catalog+"\",curriculum:\""+course+"\",schedule:\""+schedule+"\",rownum:10,page:"+page+",type:\"json\"}}");
     }
 }

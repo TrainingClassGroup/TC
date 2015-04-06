@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="#FFFFFF"
         android:id="@+id/head2_pulldown_menu">
@@ -49,8 +49,14 @@
             style="@style/Pulldown_ButtonBar">
             <TextView
                 style="@style/Pulldown_ButtonBar_TextView"
+                android:id="@+id/head2_CANCLE"
+                android:text="@string/head2_CANCLE"
+                android:textColor="#ff000000"/>
+            <TextView
+                style="@style/Pulldown_ButtonBar_TextView"
                 android:id="@+id/head2_OK"
-                android:text="@string/head2_OK"  />
+                android:text="@string/head2_OK"
+                />
 
         </LinearLayout>
 

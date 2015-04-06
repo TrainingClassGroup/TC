@@ -18,11 +18,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Head2Fragment extends Fragment {
 
+    static public interface Callback{
+        void before();
+        void end();
+    };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.head2_fragment, container, false);
-
-
 
         final LinearLayout head2_menu1 = (LinearLayout) view.findViewById(R.id.head2_menu1);
         final LinearLayout head2_menu2 = (LinearLayout) view.findViewById(R.id.head2_menu2);
@@ -43,7 +46,7 @@ public class Head2Fragment extends Fragment {
                     head2_menu1_image.setImageResource(R.drawable.hdpi_right_arrow070);
                     menuLock.set(0);
 
-                    pullUpDownMenu(getActivity(), false);
+                    pullUpDownMenu(getActivity(), false, null);
                 }
 
                 return true;
@@ -68,7 +71,7 @@ public class Head2Fragment extends Fragment {
                     head2_menu2_image.setImageResource(R.drawable.hdpi_right_arrow070);
                     menuLock.set(0);
 
-                    pullUpDownMenu(getActivity(), false);
+                    pullUpDownMenu(getActivity(), false, null);
                 }
                 return true;
             }
@@ -89,7 +92,7 @@ public class Head2Fragment extends Fragment {
                     head2_menu2_image.setImageResource(R.drawable.hdpi_right_arrow070);
                     menuLock.set(0);
 
-                    pullUpDownMenu(getActivity(), false);
+                    pullUpDownMenu(getActivity(), false, null);
                 }
                 return true;
             }
@@ -99,7 +102,9 @@ public class Head2Fragment extends Fragment {
         return view;
     }
 
-    public static void pullUpDownMenu(final Activity activity, boolean enableClose) {
+    public static void pullUpDownMenu(final Activity activity, boolean enableClose,final Callback callback) {
+        if(callback!=null) callback.before();
+
         DisplayMetrics dm = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
         final int maxHeight = dm.heightPixels * 2 / 3;
@@ -117,6 +122,7 @@ public class Head2Fragment extends Fragment {
                 public void onAnimationEnd(Animation animation) {
                     head2_pulldown_menu.clearAnimation();
                     head2_pulldown_menu.setY(0);
+                    if(callback!=null) callback.end();
                 }
 
                 @Override
@@ -137,6 +143,7 @@ public class Head2Fragment extends Fragment {
                 public void onAnimationEnd(Animation animation) {
                     head2_pulldown_menu.clearAnimation();
                     head2_pulldown_menu.setY(-maxHeight);
+                    if(callback!=null) callback.end();
                 }
 
                 @Override

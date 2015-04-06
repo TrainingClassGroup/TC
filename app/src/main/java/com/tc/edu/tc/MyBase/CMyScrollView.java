@@ -2,6 +2,7 @@ package com.tc.edu.tc.MyBase;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -15,8 +16,29 @@ import android.widget.ScrollView;
  */
 
 public abstract class CMyScrollView extends ScrollView implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
+
     protected Activity activity = null;
     protected GestureDetector gestureDetector = null;
+    //
+    private int lastScrollY = -1;
+    private int lastScrollX = -1;
+    private Handler handler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            int scrollY = CMyScrollView.this.getScrollY();
+            int scrollX = CMyScrollView.this.getScrollX();
+            //此时的距离和记录下的距离不相等，在隔5毫秒给handler发送消息
+            if (lastScrollY != scrollY || lastScrollX != scrollX) {
+                lastScrollY = scrollY;
+                lastScrollX = scrollX;
+                handler.sendMessageDelayed(handler.obtainMessage(), 5);
+                onScrolling(scrollX, scrollY);
+            } else {
+                onScrollend(scrollX, scrollY);
+            }
+        }
+
+        ;
+    };
 
     /* extends from ScrollView */
     public CMyScrollView(Context context) {
@@ -87,7 +109,6 @@ public abstract class CMyScrollView extends ScrollView implements GestureDetecto
         return false;
     }
 
-
     /* implements from GestureDetector.OnGestureListener */
     public void onShowPress(MotionEvent e) {
     }
@@ -100,7 +121,6 @@ public abstract class CMyScrollView extends ScrollView implements GestureDetecto
     /* implements from GestureDetector.OnGestureListener */
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-
         return false;
     }
 
@@ -115,12 +135,29 @@ public abstract class CMyScrollView extends ScrollView implements GestureDetecto
         return false;
     }
 
+    public void onScrolling(int scrollX, int scrollY) {
+
+    }
+
+    public void onScrollend(int scrollX, int scrollY) {
+
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        // TODO Auto-generated method stub
+        lastScrollY = getScrollY();
+        lastScrollX = getScrollX();
+        onScrolling(lastScrollX, lastScrollY);
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_UP:
+                handler.sendMessageDelayed(handler.obtainMessage(), 5);
+                break;
+        }
+
         super.onTouchEvent(ev);
         return gestureDetector.onTouchEvent(ev);
     }
+
     /* extends from ScrollView */
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -141,15 +178,6 @@ public abstract class CMyScrollView extends ScrollView implements GestureDetecto
         gestureDetector = new GestureDetector(activity, this);
 
         init();
-/*
-        setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                gestureDetector.onTouchEvent(event);
-                return true;
-            }
-        });
-        */
     }
 
     abstract protected void init();
