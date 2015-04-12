@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="topbtn">
+        <attr name="image" format="reference|integer"/>
+        <attr name="image_bkground" format="reference|color"/>
+        <attr name="text" format="string"/>
+    </declare-styleable>
+</resources>
+

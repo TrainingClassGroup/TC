@@ -3,6 +3,7 @@ package com.tc.edu.tc.MyProject.Base;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -75,6 +76,7 @@ public class CPrjScollView extends CMyScrollView {
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         this.velocityX = velocityX;
+        Log.i("XXX342", "" + velocityX);
         return super.onFling(e1, e2, velocityX, velocityY);
     }
 
@@ -93,11 +95,11 @@ public class CPrjScollView extends CMyScrollView {
                     desx = 0.0f;
                 }
             } else {
-                if ((x >= 0.0f && x < w / 4.0f) || (x < 0.0f && x > -w / 2.0f)) {
+                if ((x >= 0.0f && x < w / 4.0f) || (x < 0.0f && x > -w / 4.0f)) {
                     desx = 0.0f;
                 } else if (x >= w / 4.0f) {
                     desx = w / 2.0f;
-                } else if (x <= -w / 2.0f) {
+                } else if (x <= -w / 4.0f) {
                     desx = reserveRightWidth - w;
                 }
             }
@@ -133,4 +135,5 @@ public class CPrjScollView extends CMyScrollView {
             dataTcItems.updateClassLister(false);
         }
     }
+
 }

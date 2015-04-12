@@ -48,16 +48,17 @@ public class CTcItemView extends LinearLayout {
         layout = (LinearLayout) view.findViewById(R.id.tcitem);
     }
 
-    public void regist(LinearLayout layout){
-        int index=1;
+    public void regist(final LinearLayout layout) {
+        int index = 1;
         for (int i = 1; i < layout.getChildCount(); i++) {
-            if(layout.getChildAt(i).getId() > layout.getId() || layout.getChildAt(i).getId() == R.id.tc_loading) break;
+            if (layout.getChildAt(i).getId() > layout.getId() || layout.getChildAt(i).getId() == R.id.tc_loading)
+                break;
             index++;
         }
-        layout.addView(this, index);
+        layout.addView(CTcItemView.this, index);
     }
 
-    public ImageView getImage(){
+    public ImageView getImage() {
         return (ImageView) view.findViewById(R.id.tcitem_image);
     }
 
@@ -65,7 +66,7 @@ public class CTcItemView extends LinearLayout {
         getImage().setImageResource(resId);
     }
 
-    public void setImageResource(String url){
+    public void setImageResource(String url) {
         CPrjDownloadBitmap downloadBitmap = new CPrjDownloadBitmap(getImage());
         downloadBitmap.execute(url);
     }
@@ -78,15 +79,15 @@ public class CTcItemView extends LinearLayout {
         getImage().setImageBitmap(m);
     }
 
-    public void setImageResourceByImageId(int id){
+    public void setImageResourceByImageId(int id) {
         CPrjDataTcLogoImage prjDataTcLogoImage = new CPrjDataTcLogoImage(this);
         prjDataTcLogoImage.execute(""+id);
     }
 
     public void setText(String string) {
         TextView tcitem_text = (TextView) view.findViewById(R.id.tcitem_text);
-        if(string!=null) {
-            string = string.replace("\n","");
+        if (string != null) {
+            string = string.replace("\n", "");
             if (string.length() > 32) string = string.substring(0, 32) + "...";
             tcitem_text.setText(string);
         }

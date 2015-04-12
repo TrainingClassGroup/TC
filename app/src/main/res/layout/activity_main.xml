@@ -88,6 +88,17 @@
                 </LinearLayout>
             </com.tc.edu.tc.MyProject.Base.CPrjScollView>
 
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="#FFFFFF">
+
+
+
+
+            </RelativeLayout>
+
             <fragment
                 android:id="@+id/head2_pulldown_fragment"
                 android:name="com.tc.edu.tc.Head2PullDownFragment"

@@ -28,7 +28,7 @@ public class CPrjDataTcLogoImage {
 
         dataRequest.post(new AsyncHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
+            public void onSuccess(int statusCode, Header[] headers, final byte[] bytes) {
                 String jsonData = new String(bytes);
                 try {
                     JSONObject jsonObj = new JSONObject(jsonData);
