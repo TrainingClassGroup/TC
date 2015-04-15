@@ -5,26 +5,25 @@
               android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/top_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:background="#88333333"
         android:orientation="vertical"
         android:gravity="center">
         <ImageView
             android:id="@+id/top_btn_image"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:adjustViewBounds="true"
-            android:background="#ffc3c3c3"
             android:baselineAlignBottom="false"
-            android:layout_marginTop="6dp"></ImageView>
+            android:layout_marginTop="8dp"></ImageView>
 
         <TextView
             android:id="@+id/top_btn_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="10dp"
+            android:textSize="12dp"
             android:textColor="#fff"
             android:text="名称"/>
     </LinearLayout>

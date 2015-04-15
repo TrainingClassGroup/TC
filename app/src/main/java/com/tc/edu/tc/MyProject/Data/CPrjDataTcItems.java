@@ -1,6 +1,7 @@
 package com.tc.edu.tc.MyProject.Data;
 
 import android.app.Activity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -55,14 +56,15 @@ public class CPrjDataTcItems{
                         CTcItemView tcItem = new CTcItemView(activity);
 
                         tcItem.setId(value.getInt("index"));
-                        tcItem.setImageResourceByImageId(value.getInt("logo_image"));
+                        tcItem.setImageResource(Base64.decode(value.getString("imagedata").getBytes(), Base64.DEFAULT));
+                       // tcItem.setImageResourceByImageId(value.getInt("logo_image"));
                         tcItem.setText(value.getString("text"));
                         tcItem.setReservation("预约：0人");
                         tcItem.setRegisted("报名：0人");
                         tcItem.setMemo("评论：(0)");
                         tcItem.setDistance("距离："+value.getString("distance"));
 
-                        tcItem.regist(tclister);
+                       tcItem.regist(tclister);
 
                         tcItem.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -75,7 +77,6 @@ public class CPrjDataTcItems{
                             }
                         });
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -107,6 +108,6 @@ public class CPrjDataTcItems{
         String course=((TextView) activity.findViewById(R.id.head2_menu2_text2)).getText().toString();
         String schedule=((TextView) activity.findViewById(R.id.head2_menu3_text3)).getText().toString();
 
-        execute("{paras:{lng:123.417095,lat:41.836929,catalog:\""+catalog+"\",curriculum:\""+course+"\",schedule:\""+schedule+"\",rownum:10,page:"+page+",type:\"json\"}}");
+        execute("{paras:{lng:123.417095,lat:41.836929,catalog:\""+catalog+"\",curriculum:\""+course+"\",schedule:\""+schedule+"\",rownum:5,page:"+page+",type:\"json\"}}");
     }
 }
