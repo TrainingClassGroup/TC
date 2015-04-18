@@ -3,7 +3,6 @@ package com.tc.edu.tc.MyProject.Base;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -76,7 +75,6 @@ public class CPrjScollView extends CMyScrollView {
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         this.velocityX = velocityX;
-        Log.i("XXX342", "" + velocityX);
         return super.onFling(e1, e2, velocityX, velocityY);
     }
 
@@ -121,7 +119,7 @@ public class CPrjScollView extends CMyScrollView {
 
     @Override
     public void onScrolling(int scrollX, int scrollY){
-       // Log.i("XXX342",""+scrollX+", "+scrollY);
+
     }
 
     @Override
@@ -129,7 +127,7 @@ public class CPrjScollView extends CMyScrollView {
         TextView tc_loading = (TextView) activity.findViewById(R.id.tc_loading);
         int[] position = new int[2];
         tc_loading.getLocationInWindow(position);
-       // Log.i("XXX34299", "" + scrollY+", "+ dm.heightPixels+", "+position[1]+","+tc_loading.getHeight());
+
         if(position[1]<dm.heightPixels){
             CPrjDataTcItems4ScrollView dataTcItems = new CPrjDataTcItems4ScrollView(activity);
             dataTcItems.updateClassLister(false);

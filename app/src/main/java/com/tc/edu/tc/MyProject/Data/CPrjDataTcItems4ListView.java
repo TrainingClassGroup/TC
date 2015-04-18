@@ -5,6 +5,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -55,6 +56,23 @@ public class CPrjDataTcItems4ListView {
             if (convertView == null) {
                 convertView =getItem(position);
             }
+            else{
+                CTcItemView tcItem = (CTcItemView)convertView;
+                try {
+                    JSONObject value = data.get(position).getValue();
+                    tcItem.setValue(value);
+                    tcItem.setId(value.getInt("index"));
+                    tcItem.setImageResource(Base64.decode(value.getString("imagedata").getBytes(), Base64.DEFAULT));
+                    // tcItem.setImageResourceByImageId(value.getInt("logo_image"));
+                    tcItem.setText(value.getString("text"));
+                    tcItem.setReservation("预约：0人");
+                    tcItem.setRegisted("报名：0人");
+                    tcItem.setMemo("评论：(0)");
+                    tcItem.setDistance("距离："+value.getString("distance"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             return convertView;
         }
     };
@@ -62,7 +80,7 @@ public class CPrjDataTcItems4ListView {
     private Activity activity=null;
     private int listViewId = 0;
     private static int page=0;
-    private static boolean isloaded = false;
+    private static boolean isloading = false;
 
     public CPrjDataTcItems4ListView(Activity activity, int listViewId) {
        this.activity = activity;
@@ -70,13 +88,11 @@ public class CPrjDataTcItems4ListView {
     }
 
     public void execute(String parasJson){
-        if(isloaded) return;
-        isloaded = true;
+        if(isloading) return;
+        isloading = true;
 
         CPrjDataRequest dataRequest = new CPrjDataRequest("CData_TrainingClass");
-
         dataRequest.getParams().put(parasJson);
-
         dataRequest.post(new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
@@ -84,7 +100,7 @@ public class CPrjDataTcItems4ListView {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonData);
 
-                    List<CTcItemView> data = new ArrayList<>();
+                    final List<CTcItemView> data = new ArrayList<>();
 
                     Iterator it = jsonObj.keys();
                     while (it.hasNext()) {
@@ -93,6 +109,7 @@ public class CPrjDataTcItems4ListView {
 
                         CTcItemView tcItem = new CTcItemView(activity);
 
+                        tcItem.setValue(value);
                         tcItem.setId(value.getInt("index"));
                         tcItem.setImageResource(Base64.decode(value.getString("imagedata").getBytes(), Base64.DEFAULT));
                        // tcItem.setImageResourceByImageId(value.getInt("logo_image"));
@@ -102,27 +119,26 @@ public class CPrjDataTcItems4ListView {
                         tcItem.setMemo("评论：(0)");
                         tcItem.setDistance("距离："+value.getString("distance"));
 
-                        tcItem.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                try {
-                                    Log.i("xxx", value.getString("company"));
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-
                         data.add(tcItem);
                     }
 
                     ListView listView = (ListView)activity.findViewById(listViewId);
                     MyListAdapter adapter = new MyListAdapter(data);
                     listView.setAdapter(adapter);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            try {
+                                Log.i("xxx", data.get(position).getValue().getString("company"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                isloaded=false;
+                isloading =false;
             }
 
             @Override
@@ -133,7 +149,7 @@ public class CPrjDataTcItems4ListView {
     }
 
     public void updateClassLister(boolean clearLister) {
-        if(isloaded) return;
+        if(isloading) return;
 
         if(clearLister) {
             LinearLayout tclister = (LinearLayout) activity.findViewById(R.id.tclister);

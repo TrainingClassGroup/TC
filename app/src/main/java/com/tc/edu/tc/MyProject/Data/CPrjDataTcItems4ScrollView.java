@@ -25,20 +25,18 @@ public class CPrjDataTcItems4ScrollView {
 
     private Activity activity=null;
     private static int page=0;
-    private static boolean isloaded = false;
+    private static boolean isloading = false;
 
     public CPrjDataTcItems4ScrollView(Activity activity) {
        this.activity = activity;
     }
 
     public void execute(String parasJson){
-        if(isloaded) return;
-        isloaded = true;
+        if(isloading) return;
+        isloading = true;
 
         CPrjDataRequest dataRequest = new CPrjDataRequest("CData_TrainingClass");
-
         dataRequest.getParams().put(parasJson);
-
         dataRequest.post(new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
@@ -55,6 +53,7 @@ public class CPrjDataTcItems4ScrollView {
 
                         CTcItemView tcItem = new CTcItemView(activity);
 
+                        tcItem.setValue(value);
                         tcItem.setId(value.getInt("index"));
                         tcItem.setImageResource(Base64.decode(value.getString("imagedata").getBytes(), Base64.DEFAULT));
                        // tcItem.setImageResourceByImageId(value.getInt("logo_image"));
@@ -64,7 +63,7 @@ public class CPrjDataTcItems4ScrollView {
                         tcItem.setMemo("评论：(0)");
                         tcItem.setDistance("距离："+value.getString("distance"));
 
-                       tcItem.regist(tclister);
+                        tcItem.regist(tclister);
 
                         tcItem.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -80,7 +79,7 @@ public class CPrjDataTcItems4ScrollView {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                isloaded=false;
+                isloading =false;
             }
 
             @Override
@@ -91,7 +90,7 @@ public class CPrjDataTcItems4ScrollView {
     }
 
     public void updateClassLister(boolean clearLister) {
-        if(isloaded) return;
+        if(isloading) return;
 
         if(clearLister) {
             LinearLayout tclister = (LinearLayout) activity.findViewById(R.id.tclister);

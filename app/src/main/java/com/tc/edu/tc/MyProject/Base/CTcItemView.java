@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.tc.edu.tc.MyProject.Data.CPrjDataTcLogoImage;
 import com.tc.edu.tc.R;
 
+import org.json.JSONObject;
+
 /**
  * Created by Administrator on 15-3-22.
  */
@@ -21,6 +23,8 @@ public class CTcItemView extends LinearLayout {
 
     private View view = null;
     private LinearLayout layout = null;
+
+    private JSONObject value = null;
 
     public CTcItemView(Context context) {
         super(context);
@@ -56,6 +60,14 @@ public class CTcItemView extends LinearLayout {
             index++;
         }
         layout.addView(CTcItemView.this, index);
+    }
+
+    public JSONObject getValue() {
+        return value;
+    }
+
+    public void setValue(JSONObject value) {
+        this.value = value;
     }
 
     public ImageView getImage() {
