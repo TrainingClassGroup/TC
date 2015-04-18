@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tc.edu.tc.MyBase.CMyScrollView;
-import com.tc.edu.tc.MyProject.Data.CPrjDataTcItems;
+import com.tc.edu.tc.MyProject.Data.CPrjDataTcItems4ScrollView;
 import com.tc.edu.tc.R;
 
 /**
@@ -131,7 +131,7 @@ public class CPrjScollView extends CMyScrollView {
         tc_loading.getLocationInWindow(position);
        // Log.i("XXX34299", "" + scrollY+", "+ dm.heightPixels+", "+position[1]+","+tc_loading.getHeight());
         if(position[1]<dm.heightPixels){
-            CPrjDataTcItems dataTcItems = new CPrjDataTcItems(activity);
+            CPrjDataTcItems4ScrollView dataTcItems = new CPrjDataTcItems4ScrollView(activity);
             dataTcItems.updateClassLister(false);
         }
     }

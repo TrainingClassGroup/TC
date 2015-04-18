@@ -14,7 +14,7 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.tc.edu.tc.MyProject.Base.CPrjScollView;
-import com.tc.edu.tc.MyProject.Data.CPrjDataTcItems;
+import com.tc.edu.tc.MyProject.Data.CPrjDataTcItems4ScrollView;
 
 import de.greenrobot.event.EventBus;
 
@@ -48,7 +48,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             tclister.removeViewAt(i);
         }
 
-        CPrjDataTcItems dataTcItems = new CPrjDataTcItems(this);
+        CPrjDataTcItems4ScrollView dataTcItems = new CPrjDataTcItems4ScrollView(this);
+        //CPrjDataTcItems4ListView dataTcItems = new CPrjDataTcItems4ListView(this, R.id.myList);
         dataTcItems.execute("{paras:{lng:123.417095,lat:41.836929,catalog:高中,curriculum:数学,rownum:10,page:0,type:json}}");
     }
 

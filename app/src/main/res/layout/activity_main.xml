@@ -77,7 +77,14 @@
                         android:focusable="false"
                         android:nestedScrollingEnabled="false"
                         android:src="@drawable/hdpi_headimg"/>
-
+<!--
+                    <ListView
+                        android:id="@+id/myList"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:choiceMode="singleChoice"
+                        />
+-->
                     <TextView
                         android:id="@+id/tc_loading"
                         android:layout_width="fill_parent"

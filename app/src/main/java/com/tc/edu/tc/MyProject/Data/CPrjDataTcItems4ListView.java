@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -16,19 +19,54 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+
 
 /**
  * Created by Administrator on 15-3-28.
  */
-public class CPrjDataTcItems{
+public class CPrjDataTcItems4ListView {
+    private class MyListAdapter extends BaseAdapter {
+        private List<CTcItemView> data;
+        public MyListAdapter( List<CTcItemView> data) {
+            this.data = data;
+        }
+
+        public int getCount() {
+            return data.size();
+        }
+
+        @Override
+        public boolean areAllItemsEnabled() {
+            return false;
+        }
+
+        public CTcItemView getItem(int position) {
+            return data.get(position);
+        }
+
+        public long getItemId(int position) {
+            return position;
+        }
+
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView =getItem(position);
+            }
+            return convertView;
+        }
+    };
 
     private Activity activity=null;
+    private int listViewId = 0;
     private static int page=0;
     private static boolean isloaded = false;
 
-    public CPrjDataTcItems(Activity activity) {
+    public CPrjDataTcItems4ListView(Activity activity, int listViewId) {
        this.activity = activity;
+        this.listViewId = listViewId;
     }
 
     public void execute(String parasJson){
@@ -46,7 +84,7 @@ public class CPrjDataTcItems{
                 try {
                     JSONObject jsonObj = new JSONObject(jsonData);
 
-                    LinearLayout tclister = (LinearLayout) activity.findViewById(R.id.tclister);
+                    List<CTcItemView> data = new ArrayList<>();
 
                     Iterator it = jsonObj.keys();
                     while (it.hasNext()) {
@@ -64,8 +102,6 @@ public class CPrjDataTcItems{
                         tcItem.setMemo("评论：(0)");
                         tcItem.setDistance("距离："+value.getString("distance"));
 
-                       tcItem.regist(tclister);
-
                         tcItem.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -76,8 +112,14 @@ public class CPrjDataTcItems{
                                 }
                             }
                         });
+
+                        data.add(tcItem);
                     }
-                } catch (JSONException e) {
+
+                    ListView listView = (ListView)activity.findViewById(listViewId);
+                    MyListAdapter adapter = new MyListAdapter(data);
+                    listView.setAdapter(adapter);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 isloaded=false;
