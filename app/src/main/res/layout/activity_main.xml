@@ -138,17 +138,6 @@
                     />
 
                 <com.tc.edu.tc.MyBase.CMyTopButton
-                    android:id="@+id/topbtn_integratesrot"
-                    android:layout_marginTop="250dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    topbutton:btn_image="@drawable/hdpi_sort_down"
-                    topbutton:btn_image_active="@drawable/hdpi_sort2"
-                    topbutton:btn_text="综合排序"
-                    />
-
-                <com.tc.edu.tc.MyBase.CMyTopButton
                     android:id="@+id/topbtn_hotsrot"
                     android:layout_marginTop="320.5dp"
                     android:layout_width="wrap_content"
@@ -159,6 +148,16 @@
                     topbutton:btn_text="热度排序"
                     />
 
+                <com.tc.edu.tc.MyBase.CMyTopButton
+                    android:id="@+id/topbtn_integratesrot"
+                    android:layout_marginTop="250dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    topbutton:btn_image="@drawable/hdpi_sort_down"
+                    topbutton:btn_image_active="@drawable/hdpi_sort2"
+                    topbutton:btn_text="综合排序"
+                    />
 
 
             </RelativeLayout>

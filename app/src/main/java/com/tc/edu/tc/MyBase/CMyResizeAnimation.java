@@ -8,7 +8,7 @@ import android.view.animation.Transformation;
 /**
  * Created by Administrator on 15-2-8.
  */
-public class ResizeAnimation extends Animation {
+public class CMyResizeAnimation extends Animation {
 
     private int startHeight;
     private int deltaHeight = 0; // distance between start and end height
@@ -25,7 +25,7 @@ public class ResizeAnimation extends Animation {
      *
      * @param v
      */
-    public ResizeAnimation(View v) {
+    public CMyResizeAnimation(View v) {
         this.view = v;
 
         layoutParams = v.getLayoutParams();

@@ -2,10 +2,13 @@ package com.tc.edu.tc.MyBase;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.AnimationSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,6 +24,9 @@ public class CMyTopButton extends LinearLayout {
     private View view = null;
     private LinearLayout layout = null;
 
+    private float initX = 0;
+    private float initY = 0;
+
     public CMyTopButton(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -31,7 +37,19 @@ public class CMyTopButton extends LinearLayout {
         setImageResource(typedarray.getResourceId(R.styleable.topbtn_btn_image, 0));
         setText(typedarray.getString(R.styleable.topbtn_btn_text));
 
+
+
         _init(context);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                initX = view.getX();
+                initY = view.getY();
+
+                hide();
+            }
+        }, 2000);
     }
     private void _init(Context context){
         setOnTouchListener(new View.OnTouchListener() {
@@ -46,6 +64,23 @@ public class CMyTopButton extends LinearLayout {
                 return true;
             }
         });
+    }
+
+    public void hide(){
+        AnimationSet anim=new AnimationSet(true);
+        AlphaAnimation alphaAnimation = new AlphaAnimation(1,0);
+        CMyTranslateAnimation myTranslateAnimation = new CMyTranslateAnimation(this, initX, -160, initY, initY);
+        anim.addAnimation(alphaAnimation);
+        anim.addAnimation(myTranslateAnimation);
+        anim.setDuration(2000);
+
+        startAnimation(anim);
+        // Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_left_out);
+        // startAnimation(animation);
+    }
+
+    public void show(){
+
     }
 
     public void setOnClickListener(OnClickListener l){
