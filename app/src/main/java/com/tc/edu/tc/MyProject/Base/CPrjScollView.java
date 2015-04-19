@@ -130,6 +130,7 @@ public class CPrjScollView extends CMyScrollView {
 
         if(position[1]<dm.heightPixels){
             CPrjDataTcItems4ScrollView dataTcItems = new CPrjDataTcItems4ScrollView(activity);
+            //CPrjDataTcItems4ListView dataTcItems = new CPrjDataTcItems4ListView(activity, R.id.myList);
             dataTcItems.updateClassLister(false);
         }
     }

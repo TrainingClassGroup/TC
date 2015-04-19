@@ -104,6 +104,7 @@
                 android:layout_alignParentLeft="false">
 
                 <com.tc.edu.tc.MyBase.CMyTopButton
+                    android:id="@+id/topbtn_comment"
                     android:layout_marginTop="250dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -114,13 +115,48 @@
                     />
 
                 <com.tc.edu.tc.MyBase.CMyTopButton
-                    android:layout_marginTop="250dp"
+                    android:id="@+id/topbtn_teachersrot"
+                    android:layout_marginTop="179.5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     topbutton:btn_image="@drawable/hdpi_sort"
-                    topbutton:btn_image_active="@drawable/hdpi_sort"
-                    topbutton:btn_text="评论"
+                    topbutton:btn_image_active="@drawable/hdpi_sort2"
+                    topbutton:btn_text="师资排序"
+                    />
+
+                <com.tc.edu.tc.MyBase.CMyTopButton
+                    android:id="@+id/topbtn_pricesrot"
+                    android:layout_marginTop="250dp"
+                    android:layout_marginRight="70.5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    topbutton:btn_image="@drawable/hdpi_sort"
+                    topbutton:btn_image_active="@drawable/hdpi_sort2"
+                    topbutton:btn_text="价格排序"
+                    />
+
+                <com.tc.edu.tc.MyBase.CMyTopButton
+                    android:id="@+id/topbtn_integratesrot"
+                    android:layout_marginTop="250dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    topbutton:btn_image="@drawable/hdpi_sort_down"
+                    topbutton:btn_image_active="@drawable/hdpi_sort2"
+                    topbutton:btn_text="综合排序"
+                    />
+
+                <com.tc.edu.tc.MyBase.CMyTopButton
+                    android:id="@+id/topbtn_hotsrot"
+                    android:layout_marginTop="320.5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    topbutton:btn_image="@drawable/hdpi_sort"
+                    topbutton:btn_image_active="@drawable/hdpi_sort2"
+                    topbutton:btn_text="热度排序"
                     />
 
 

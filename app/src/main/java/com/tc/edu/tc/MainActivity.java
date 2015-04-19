@@ -2,6 +2,7 @@ package com.tc.edu.tc;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -9,12 +10,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.Window;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.tc.edu.tc.MyProject.Base.CPrjScollView;
-import com.tc.edu.tc.MyProject.Data.CPrjDataTcItems4ListView;
+import com.tc.edu.tc.MyProject.Data.CPrjDataTcItems4ScrollView;
 
 import de.greenrobot.event.EventBus;
 
@@ -42,15 +42,15 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     protected void onResume() {
         super.onResume();
 
-        LinearLayout tclister = (LinearLayout) findViewById(R.id.tclister);
-       // tclister.removeAllViewsInLayout();
-        for (int i = 1; i < tclister.getChildCount() - 1; i++) {
-            tclister.removeViewAt(i);
-        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                CPrjDataTcItems4ScrollView dataTcItems = new CPrjDataTcItems4ScrollView(MainActivity.this);
+                //CPrjDataTcItems4ListView dataTcItems = new CPrjDataTcItems4ListView(MainActivity.this, R.id.myList);
+                dataTcItems.execute("{paras:{lng:123.417095,lat:41.836929,catalog:高中,curriculum:数学,rownum:5,page:0,type:json}}");
+            }
+        }, 100);
 
-        //CPrjDataTcItems4ScrollView dataTcItems = new CPrjDataTcItems4ScrollView(this);
-        CPrjDataTcItems4ListView dataTcItems = new CPrjDataTcItems4ListView(this, R.id.myList);
-        dataTcItems.execute("{paras:{lng:123.417095,lat:41.836929,catalog:高中,curriculum:数学,rownum:10,page:0,type:json}}");
     }
 
     public boolean onTouchEvent(MotionEvent event) {

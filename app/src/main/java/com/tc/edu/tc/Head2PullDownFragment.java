@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tc.edu.tc.MyProject.Data.CPrjDataHead2PullDown;
-import com.tc.edu.tc.MyProject.Data.CPrjDataTcItems4ListView;
+import com.tc.edu.tc.MyProject.Data.CPrjDataTcItems4ScrollView;
 
 public class Head2PullDownFragment extends Fragment {
 
@@ -66,8 +66,8 @@ public class Head2PullDownFragment extends Fragment {
                     Head2Fragment.pullUpDownMenu(getActivity(), true, new Head2Fragment.Callback(){
                         public void before(){}
                         public void end(){
-                            //CPrjDataTcItems4ScrollView dataTcItems = new CPrjDataTcItems4ScrollView(getActivity());
-                            CPrjDataTcItems4ListView dataTcItems = new CPrjDataTcItems4ListView(getActivity(), R.id.myList);
+                            CPrjDataTcItems4ScrollView dataTcItems = new CPrjDataTcItems4ScrollView(getActivity());
+                            //CPrjDataTcItems4ListView dataTcItems = new CPrjDataTcItems4ListView(getActivity(), R.id.myList);
                             dataTcItems.updateClassLister(true);
                         }
                     });

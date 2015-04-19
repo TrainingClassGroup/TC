@@ -30,22 +30,16 @@ import java.util.List;
  */
 public class CPrjDataTcItems4ListView {
     private class MyListAdapter extends BaseAdapter {
-        private List<CTcItemView> data;
-        public MyListAdapter( List<CTcItemView> data) {
-            this.data = data;
+
+        public MyListAdapter() {
         }
 
         public int getCount() {
             return data.size();
         }
 
-        @Override
-        public boolean areAllItemsEnabled() {
-            return false;
-        }
-
-        public CTcItemView getItem(int position) {
-            return data.get(position);
+        public Object getItem(int position) {
+            return position;
         }
 
         public long getItemId(int position) {
@@ -54,7 +48,7 @@ public class CPrjDataTcItems4ListView {
 
         public View getView(final int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView =getItem(position);
+                convertView =data.get(position);
             }
             else{
                 CTcItemView tcItem = (CTcItemView)convertView;
@@ -78,6 +72,7 @@ public class CPrjDataTcItems4ListView {
     };
 
     private Activity activity=null;
+    static List<CTcItemView> data = new ArrayList<>();
     private int listViewId = 0;
     private static int page=0;
     private static boolean isloading = false;
@@ -100,8 +95,6 @@ public class CPrjDataTcItems4ListView {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonData);
 
-                    final List<CTcItemView> data = new ArrayList<>();
-
                     Iterator it = jsonObj.keys();
                     while (it.hasNext()) {
                         String key = (String) it.next();
@@ -123,7 +116,8 @@ public class CPrjDataTcItems4ListView {
                     }
 
                     ListView listView = (ListView)activity.findViewById(listViewId);
-                    MyListAdapter adapter = new MyListAdapter(data);
+                    MyListAdapter adapter = new MyListAdapter();
+                    adapter.notifyDataSetChanged();
                     listView.setAdapter(adapter);
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -135,6 +129,16 @@ public class CPrjDataTcItems4ListView {
                             }
                         }
                     });
+//
+                    int totalHeight = 0;
+                    for (int i = 0, len = adapter.getCount(); i < len; i++) {
+                        View listItem = adapter.getView(i, null, listView);
+                        listItem.measure(0, 0);
+                        totalHeight += listItem.getMeasuredHeight();
+                    }
+                    ViewGroup.LayoutParams params = listView.getLayoutParams();
+                    params.height = totalHeight+ (listView.getDividerHeight() * (adapter.getCount() - 1));
+                    listView.setLayoutParams(params);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -162,10 +166,11 @@ public class CPrjDataTcItems4ListView {
             page++;
         }
 
+        int rownum = 5;
         String catalog=((TextView) activity.findViewById(R.id.head2_menu1_text1)).getText().toString();
         String course=((TextView) activity.findViewById(R.id.head2_menu2_text2)).getText().toString();
         String schedule=((TextView) activity.findViewById(R.id.head2_menu3_text3)).getText().toString();
 
-        execute("{paras:{lng:123.417095,lat:41.836929,catalog:\""+catalog+"\",curriculum:\""+course+"\",schedule:\""+schedule+"\",rownum:5,page:"+page+",type:\"json\"}}");
+        execute("{paras:{lng:123.417095,lat:41.836929,catalog:\""+catalog+"\",curriculum:\""+course+"\",schedule:\""+schedule+"\",rownum:"+rownum+",page:"+page+",type:\"json\"}}");
     }
 }
