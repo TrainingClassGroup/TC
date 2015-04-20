@@ -103,7 +103,7 @@
                 android:clickable="false"
                 android:layout_alignParentLeft="false">
 
-                <com.tc.edu.tc.MyBase.CMyTopButton
+                <com.tc.edu.tc.MyProject.Base.CPrjTopButtonComment
                     android:id="@+id/topbtn_comment"
                     android:layout_marginTop="250dp"
                     android:layout_width="wrap_content"
@@ -114,7 +114,7 @@
                     topbutton:btn_text="评论"
                     />
 
-                <com.tc.edu.tc.MyBase.CMyTopButton
+                <com.tc.edu.tc.MyProject.Base.CPrjTopButtonSortTeacher
                     android:id="@+id/topbtn_teachersrot"
                     android:layout_marginTop="179.5dp"
                     android:layout_width="wrap_content"
@@ -125,7 +125,7 @@
                     topbutton:btn_text="师资排序"
                     />
 
-                <com.tc.edu.tc.MyBase.CMyTopButton
+                <com.tc.edu.tc.MyProject.Base.CPrjTopButtonSortPrice
                     android:id="@+id/topbtn_pricesrot"
                     android:layout_marginTop="250dp"
                     android:layout_marginRight="70.5dp"
@@ -137,7 +137,7 @@
                     topbutton:btn_text="价格排序"
                     />
 
-                <com.tc.edu.tc.MyBase.CMyTopButton
+                <com.tc.edu.tc.MyProject.Base.CPrjTopButtonSortHot
                     android:id="@+id/topbtn_hotsrot"
                     android:layout_marginTop="320.5dp"
                     android:layout_width="wrap_content"
@@ -148,8 +148,8 @@
                     topbutton:btn_text="热度排序"
                     />
 
-                <com.tc.edu.tc.MyBase.CMyTopButton
-                    android:id="@+id/topbtn_integratesrot"
+                <com.tc.edu.tc.MyProject.Base.CPrjTopButtonSortX
+                    android:id="@+id/topbtn_xsrot"
                     android:layout_marginTop="250dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

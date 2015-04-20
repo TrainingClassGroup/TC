@@ -1,9 +1,11 @@
 package com.tc.edu.tc.MyProject.Base;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
+import android.view.animation.Animation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,6 +30,7 @@ public class CPrjScollView extends CMyScrollView {
     private LinearLayout myset;
     private LinearLayout mainBackground_main;
 
+    private boolean isLongPress4TopButton = false;
 
     public CPrjScollView(Context context) {
         super(context);
@@ -55,9 +58,58 @@ public class CPrjScollView extends CMyScrollView {
         return super.onDown(e);
     }
 
+    private class _CTopButtonCallback implements Animation.AnimationListener {
+
+        @Override
+        public void onAnimationStart(Animation animation) {
+            isLongPress4TopButton = true;
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            isLongPress4TopButton = false;
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+    }
+
+    private void _autoTopButton(boolean show){
+        final _CTopButtonCallback topButtonCallback = new _CTopButtonCallback();
+        final CPrjTopButtonComment topbtn_comment = (CPrjTopButtonComment)activity.findViewById(R.id.topbtn_comment);
+        final CPrjTopButtonSortX topbtn_sortx = (CPrjTopButtonSortX)activity.findViewById(R.id.topbtn_xsrot);
+        final CPrjTopButtonSortTeacher topbtn_sortteacher = (CPrjTopButtonSortTeacher)activity.findViewById(R.id.topbtn_teachersrot);
+        final CPrjTopButtonSortPrice topbtn_sortprice = (CPrjTopButtonSortPrice)activity.findViewById(R.id.topbtn_pricesrot);
+        final CPrjTopButtonSortHot topbtn_sorthot = (CPrjTopButtonSortHot)activity.findViewById(R.id.topbtn_hotsrot);
+
+        if(show){
+            topbtn_comment.show(topButtonCallback);
+            topbtn_sortx.show();
+        }
+        else{
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    topbtn_comment.hide();
+                    topbtn_sortx.hide();
+                    topbtn_sortteacher.hide();
+                    topbtn_sortprice.hide();
+                    topbtn_sorthot.hide();
+                }
+            }, 10000);
+        }
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+        if(isLongPress4TopButton) return;
+        _autoTopButton(true);
+    }
+
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-
         downX += distanceX;
         if (Math.abs(downX) > reserveScroll) {
             float x = mainBackground_main.getX();
@@ -81,6 +133,9 @@ public class CPrjScollView extends CMyScrollView {
     @Override
     public boolean onTouch(MotionEvent e) {
         if (e.getAction() == MotionEvent.ACTION_UP) {
+            _autoTopButton(false);
+
+
             float x = mainBackground_main.getX();
             float w = dm.widthPixels;
 

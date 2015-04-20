@@ -2,13 +2,11 @@ package com.tc.edu.tc.MyBase;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.AnimationSet;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,19 +35,7 @@ public class CMyTopButton extends LinearLayout {
         setImageResource(typedarray.getResourceId(R.styleable.topbtn_btn_image, 0));
         setText(typedarray.getString(R.styleable.topbtn_btn_text));
 
-
-
         _init(context);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                initX = view.getX();
-                initY = view.getY();
-
-                hide();
-            }
-        }, 2000);
     }
     private void _init(Context context){
         setOnTouchListener(new View.OnTouchListener() {
@@ -66,21 +52,50 @@ public class CMyTopButton extends LinearLayout {
         });
     }
 
-    public void hide(){
-        AnimationSet anim=new AnimationSet(true);
-        AlphaAnimation alphaAnimation = new AlphaAnimation(1,0);
-        CMyTranslateAnimation myTranslateAnimation = new CMyTranslateAnimation(this, initX, -160, initY, initY);
-        anim.addAnimation(alphaAnimation);
-        anim.addAnimation(myTranslateAnimation);
-        anim.setDuration(2000);
+    public TypedArray getTypedarray() {
+        return typedarray;
+    }
 
-        startAnimation(anim);
-        // Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_left_out);
-        // startAnimation(animation);
+    public View getView() {
+        return view;
+    }
+
+    public LinearLayout getLayout() {
+        return layout;
+    }
+
+    public float getInitX() {
+        return initX;
+    }
+
+    public void setInitX(float initX) {
+        this.initX = initX;
+    }
+
+    public float getInitY() {
+        return initY;
+    }
+
+    public void setInitY(float initY) {
+        this.initY = initY;
+    }
+
+    public boolean isVisable(){
+        return getView().getX() == getInitX() && getView().getY() == getInitY();
+    }
+
+    public void hide(Animation.AnimationListener animationListener){
+    }
+
+    public void show(Animation.AnimationListener animationListener){
+    }
+
+    public void hide(){
+        hide(null);
     }
 
     public void show(){
-
+        show(null);
     }
 
     public void setOnClickListener(OnClickListener l){

@@ -10,6 +10,8 @@ import android.view.animation.Transformation;
  */
 public class CMyResizeAnimation extends Animation {
 
+    private Animation.AnimationListener animationListener = null;
+
     private int startHeight;
     private int deltaHeight = 0; // distance between start and end height
 
@@ -31,6 +33,8 @@ public class CMyResizeAnimation extends Animation {
         layoutParams = v.getLayoutParams();
         this.startHeight = layoutParams.height;
         this.startWidth = layoutParams.width;
+
+        _setAnimationListener();
     }
 
     /**
@@ -65,5 +69,31 @@ public class CMyResizeAnimation extends Animation {
         layoutParams.width = (int) (startWidth + deltaWidth * interpolatedTime);
 
         view.requestLayout();
+    }
+
+    public CMyResizeAnimation setCallback(Animation.AnimationListener animationListener){
+        this.animationListener = animationListener;
+
+        return this;
+    }
+
+    private void _setAnimationListener(){
+        setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                if(animationListener!=null) animationListener.onAnimationStart(animation);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                view.clearAnimation();
+                if(animationListener!=null) animationListener.onAnimationEnd(animation);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                if(animationListener!=null) animationListener.onAnimationRepeat(animation);
+            }
+        });
     }
 }

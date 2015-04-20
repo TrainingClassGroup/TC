@@ -1,59 +1,45 @@
 package com.tc.edu.tc.MyBase;
 
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 
 /**
- * Created by Administrator on 15-4-19.
+ * Created by Administrator on 15-4-20.
  */
-public class CMyTranslateAnimation extends TranslateAnimation {
+public class CMyAlphaAnimation extends AlphaAnimation {
 
     private Animation.AnimationListener animationListener = null;
     private View view;
-    public CMyTranslateAnimation(final View view, final float x, final float desx, final float y, final float desy) {
-        super(x - view.getX(), desx - view.getX(), y - view.getY(), desy - view.getY());
 
-        _setAnimationListener(desx, desy);
-
+    public CMyAlphaAnimation(View view, float fromAlpha, float toAlpha) {
+        super(fromAlpha, toAlpha);
+        _setAnimationListener(toAlpha);
         this.view = view;
     }
 
-    public CMyTranslateAnimation(final View view, final float x, final float desx, final float y, final float desy, final int duration) {
-        super(x - view.getX(), desx - view.getX(), y - view.getY(), desy - view.getY());
-        setDuration(duration);
-
-        _setAnimationListener(desx, desy);
-
-        this.view = view;
-    }
-
-    public CMyTranslateAnimation setCallback(Animation.AnimationListener animationListener){
+    public CMyAlphaAnimation setCallback(Animation.AnimationListener animationListener){
         this.animationListener = animationListener;
 
         return this;
     }
 
-    private void _setAnimationListener(final float desx, final float desy){
+    private void _setAnimationListener(final float toAlpha){
         setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
                 if(animationListener!=null) animationListener.onAnimationStart(animation);
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
                 view.clearAnimation();
-                view.setX(desx);
-                view.setY(desy);
-
+                view.setAlpha(toAlpha);
                 if(animationListener!=null) animationListener.onAnimationEnd(animation);
             }
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-
                 if(animationListener!=null) animationListener.onAnimationRepeat(animation);
             }
         });
