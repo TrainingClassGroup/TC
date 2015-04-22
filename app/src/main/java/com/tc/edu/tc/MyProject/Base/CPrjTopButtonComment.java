@@ -14,6 +14,7 @@ import com.tc.edu.tc.MyBase.CMyTranslateAnimation;
  * Created by Administrator on 15-4-20.
  */
 public class CPrjTopButtonComment extends CMyTopButton {
+
     public CPrjTopButtonComment(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -29,24 +30,67 @@ public class CPrjTopButtonComment extends CMyTopButton {
     }
 
     public void hide(Animation.AnimationListener animationListener){
-        if(!isVisable()) return;
+
+        if(!isState(State.VISABLE)) return;
 
         AnimationSet anim=new AnimationSet(true);
-        anim.addAnimation(new CMyAlphaAnimation(this, 1, 0).setCallback(animationListener));
-        anim.addAnimation(new CMyTranslateAnimation(this, getInitX(), getInitX()-getLayout().getLayoutParams().width, getInitY(), getInitY()));
-        anim.setDuration(500);
+        CMyAlphaAnimation alphaAnimation = new CMyAlphaAnimation(this, 1.0f, 0.0f);
+        alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
 
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                setState(State.VISABLE, false);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+        CMyTranslateAnimation translateAnimation = new CMyTranslateAnimation(this, getInitX(), getInitX()-getLayout().getLayoutParams().width, getInitY(), getInitY());
+        anim.addAnimation(alphaAnimation);
+        anim.addAnimation(translateAnimation);
+        anim.setDuration(250);
+        anim.setFillAfter(true);
+        anim.setAnimationListener(animationListener);
+
+        clearAnimation();
         startAnimation(anim);
     }
 
     public void show(Animation.AnimationListener animationListener){
-        if(isVisable()) return;
+
+        if(isState(State.VISABLE)) return;
 
         AnimationSet anim=new AnimationSet(true);
-        anim.addAnimation(new CMyAlphaAnimation(this, 0, 1).setCallback(animationListener));
-        anim.addAnimation(new CMyTranslateAnimation(this, getInitX()-getLayout().getLayoutParams().width, getInitX(), getInitY(), getInitY()));
-        anim.setDuration(500);
+        CMyAlphaAnimation alphaAnimation = new CMyAlphaAnimation(this, 0.0f, 1.0f);
+        alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
 
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                setState(State.VISABLE, true);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        hide();
+                    }
+                }, 10000);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+        CMyTranslateAnimation translateAnimation = new CMyTranslateAnimation(this, getInitX()-getLayout().getLayoutParams().width, getInitX(), getInitY(), getInitY());
+        anim.addAnimation(alphaAnimation);
+        anim.addAnimation(translateAnimation);
+        anim.setDuration(250);
+        anim.setFillAfter(true);
+        anim.setAnimationListener(animationListener);
+
+        clearAnimation();
         startAnimation(anim);
+
     }
 }

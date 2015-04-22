@@ -100,8 +100,7 @@
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:clickable="false"
-                android:layout_alignParentLeft="false">
+                android:clickable="false">
 
                 <com.tc.edu.tc.MyProject.Base.CPrjTopButtonComment
                     android:id="@+id/topbtn_comment"
@@ -154,9 +153,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    topbutton:btn_image="@drawable/hdpi_sort_down"
+                    topbutton:btn_image="@drawable/hdpi_sort"
                     topbutton:btn_image_active="@drawable/hdpi_sort2"
-                    topbutton:btn_text="综合排序"
+                    topbutton:btn_text="排序"
                     />
 
 

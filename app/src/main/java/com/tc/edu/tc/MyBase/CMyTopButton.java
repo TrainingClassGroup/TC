@@ -18,6 +18,22 @@ import com.tc.edu.tc.R;
  */
 public class CMyTopButton extends LinearLayout {
 
+    public static enum State{
+        VISABLE(0x01),
+        ENABLE(0x02);
+
+        private int stateValue;
+        private State(int value){
+            stateValue = value;
+        }
+
+        public int getStateValue() {
+            return stateValue;
+        }
+    };
+
+    private int state = State.ENABLE.getStateValue() | State.VISABLE.getStateValue();
+
     private TypedArray typedarray = null;
     private View view = null;
     private LinearLayout layout = null;
@@ -80,8 +96,13 @@ public class CMyTopButton extends LinearLayout {
         this.initY = initY;
     }
 
-    public boolean isVisable(){
-        return getView().getX() == getInitX() && getView().getY() == getInitY();
+    public void setState(State state, boolean t){
+        if(t) this.state |= state.getStateValue();
+        else this.state &= (~state.getStateValue());
+    }
+
+    public boolean isState(State state){
+        return (state.getStateValue() & this.state) == state.getStateValue();
     }
 
     public void hide(Animation.AnimationListener animationListener){

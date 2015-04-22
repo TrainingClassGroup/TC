@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.ScrollView;
 
 /**
@@ -59,6 +60,24 @@ public abstract class CMyScrollView extends ScrollView implements GestureDetecto
             view.setY(desy);
         } else {
             CMyTranslateAnimation myTranslateAnimation = new CMyTranslateAnimation(view, x, desx, y, desy, duration);
+            myTranslateAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    view.clearAnimation();
+                    view.setX(desx);
+                    view.setY(desy);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
             view.startAnimation(myTranslateAnimation);
         }
     }
