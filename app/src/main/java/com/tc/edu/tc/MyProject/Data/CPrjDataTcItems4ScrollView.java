@@ -1,6 +1,7 @@
 package com.tc.edu.tc.MyProject.Data;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.tc.edu.tc.MyProject.Base.CPrjDataRequest;
 import com.tc.edu.tc.MyProject.Base.CTcItemView;
 import com.tc.edu.tc.R;
+import com.tc.edu.tc.TcInfoActivity;
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -69,6 +71,7 @@ public class CPrjDataTcItems4ScrollView {
                             @Override
                             public void onClick(View v) {
                                 try {
+                                    activity.startActivity(new Intent(activity, TcInfoActivity.class));
                                     Log.i("xxx", value.getString("company"));
                                 } catch (JSONException e) {
                                     e.printStackTrace();

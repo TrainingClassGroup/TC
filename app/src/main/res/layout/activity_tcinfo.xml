@@ -1,0 +1,108 @@
+<RelativeLayout
+    android:id="@+id/TcInfo"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tcitem="http://schemas.android.com/apk/res-auto"
+    xmlns:topbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    tools:context="com.TCPackage.tc.TcInfoActivity"
+    tools:ignore="Orientation">
+
+    <LinearLayout
+        android:id="@+id/myset_fragment_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <fragment
+            android:id="@+id/myset_fragment"
+            android:name="com.tc.edu.tc.MysetFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            tools:layout="@layout/myset_fragment"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/MainBackground_main"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
+
+        <fragment
+            android:id="@+id/head1_fragment"
+            android:name="com.tc.edu.tc.Head1Fragment"
+            android:layout_width="fill_parent"
+            android:layout_height="47dp"
+            tools:layout="@layout/head1_fragment"/>
+
+        <RelativeLayout
+            android:id="@+id/TcInfo_relativelayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <com.tc.edu.tc.MyProject.Base.CPrjScollView
+                android:id="@+id/scrollView1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/tclister"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </com.tc.edu.tc.MyProject.Base.CPrjScollView>
+
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:clickable="false">
+
+                <com.tc.edu.tc.MyProject.Base.CPrjTopButtonComment
+                    android:id="@+id/topbtn_comment"
+                    android:layout_marginTop="250dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    topbutton:btn_image="@drawable/hdpi_comment"
+                    topbutton:btn_image_active="@drawable/hdpi_info"
+                    topbutton:btn_text="评论"
+                    />
+
+                <com.tc.edu.tc.MyProject.Base.CPrjTopButtonShare
+                    android:id="@+id/topbtn_share"
+                    android:layout_marginTop="215dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    topbutton:btn_image="@drawable/hdpi_share"
+                    topbutton:btn_image_active="@drawable/hdpi_share2"
+                    topbutton:btn_text="分享"
+                    />
+
+                <com.tc.edu.tc.MyProject.Base.CPrjTopButtonLike
+                    android:id="@+id/topbtn_like"
+                    android:layout_marginTop="285.5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    topbutton:btn_image="@drawable/hdpi_heart"
+                    topbutton:btn_image_active="@drawable/hdpi_heart2"
+                    topbutton:btn_text="收藏"
+                    />
+
+            </RelativeLayout>
+
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -3,49 +3,21 @@ package com.tc.edu.tc.MyProject.Base;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 
 import com.tc.edu.tc.MyBase.CMyAlphaAnimation;
 import com.tc.edu.tc.MyBase.CMyTopButton;
 import com.tc.edu.tc.MyBase.CMyTranslateAnimation;
-import com.tc.edu.tc.R;
 
 /**
  * Created by Administrator on 15-4-20.
  */
-public class CPrjTopButtonSortX extends CMyTopButton {
+public class CPrjTopButtonLike extends CMyTopButton {
 
-    private CPrjTopButtonSortTeacher topbtn_sortteacher;
-    private CPrjTopButtonSortPrice topbtn_sortprice;
-    private CPrjTopButtonSortHot topbtn_sorthot;
 
-    public CPrjTopButtonSortX(Context context, AttributeSet attrs) {
+    public CPrjTopButtonLike(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                View view = (View)getView().getParent();
-                topbtn_sortteacher = (CPrjTopButtonSortTeacher)view.findViewById(R.id.topbtn_teachersrot);
-                topbtn_sortprice = (CPrjTopButtonSortPrice)view.findViewById(R.id.topbtn_pricesrot);
-                topbtn_sorthot = (CPrjTopButtonSortHot)view.findViewById(R.id.topbtn_hotsrot);
-            }
-        }, 100);
-
-        setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(topbtn_sortteacher.isState(State.VISABLE)){
-                    showSortButtons(false);
-                }
-                else{
-                    showSortButtons(true);
-                }
-
-            }
-        });
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -54,21 +26,9 @@ public class CPrjTopButtonSortX extends CMyTopButton {
                 setInitY(getView().getY());
 
                 hide();
+
             }
         }, 2000);
-    }
-
-    public void showSortButtons(boolean show){
-        if(show){
-            topbtn_sortteacher.show();
-            topbtn_sortprice.show();
-            topbtn_sorthot.show();
-        }
-        else{
-            topbtn_sortteacher.hide();
-            topbtn_sortprice.hide();
-            topbtn_sorthot.hide();
-        }
     }
 
     public void hide(Animation.AnimationListener animationListener){
@@ -79,11 +39,7 @@ public class CPrjTopButtonSortX extends CMyTopButton {
         CMyAlphaAnimation alphaAnimation = new CMyAlphaAnimation(this, 1.0f, 0.0f);
         alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) {
-                topbtn_sortteacher.hide();
-                topbtn_sortprice.hide();
-                topbtn_sorthot.hide();
-            }
+            public void onAnimationStart(Animation animation) {}
 
             @Override
             public void onAnimationEnd(Animation animation) {

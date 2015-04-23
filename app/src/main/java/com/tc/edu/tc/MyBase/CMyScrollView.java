@@ -35,8 +35,6 @@ public abstract class CMyScrollView extends ScrollView implements GestureDetecto
                 onScrollend(scrollX, scrollY);
             }
         }
-
-        ;
     };
 
     /* extends from ScrollView */

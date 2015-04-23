@@ -76,7 +76,7 @@ public class CPrjTopButtonComment extends CMyTopButton {
                     public void run() {
                         hide();
                     }
-                }, 10000);
+                }, 15000);
             }
 
             @Override
