@@ -1,7 +1,6 @@
 package com.tc.edu.tc.MyProject.Data;
 
 import android.app.Activity;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,8 +55,8 @@ public class CPrjDataTcItems4ListView {
                     JSONObject value = data.get(position).getValue();
                     tcItem.setValue(value);
                     tcItem.setId(value.getInt("index"));
-                    tcItem.setImageResource(Base64.decode(value.getString("imagedata").getBytes(), Base64.DEFAULT));
-                    // tcItem.setImageResourceByImageId(value.getInt("logo_image"));
+                    //tcItem.setImageResource(Base64.decode(value.getString("imagedata").getBytes(), Base64.DEFAULT));
+                    tcItem.setImageResourceByImageId(value.getInt("logo_image"));
                     tcItem.setText(value.getString("text"));
                     tcItem.setReservation("预约：0人");
                     tcItem.setRegisted("报名：0人");
@@ -104,8 +103,8 @@ public class CPrjDataTcItems4ListView {
 
                         tcItem.setValue(value);
                         tcItem.setId(value.getInt("index"));
-                        tcItem.setImageResource(Base64.decode(value.getString("imagedata").getBytes(), Base64.DEFAULT));
-                       // tcItem.setImageResourceByImageId(value.getInt("logo_image"));
+                        //tcItem.setImageResource(Base64.decode(value.getString("imagedata").getBytes(), Base64.DEFAULT));
+                        tcItem.setImageResourceByImageId(value.getInt("logo_image"));
                         tcItem.setText(value.getString("text"));
                         tcItem.setReservation("预约：0人");
                         tcItem.setRegisted("报名：0人");

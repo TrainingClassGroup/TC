@@ -50,6 +50,8 @@ public class CTcItemView extends LinearLayout {
     private void _init(Context context) {
         view = LayoutInflater.from(context).inflate(R.layout.tcitem_view, this, true);
         layout = (LinearLayout) view.findViewById(R.id.tcitem);
+
+
     }
 
     public void regist(final LinearLayout layout) {

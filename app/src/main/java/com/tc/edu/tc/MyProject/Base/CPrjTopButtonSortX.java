@@ -8,14 +8,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 
 import com.tc.edu.tc.MyBase.CMyAlphaAnimation;
-import com.tc.edu.tc.MyBase.CMyTopButton;
 import com.tc.edu.tc.MyBase.CMyTranslateAnimation;
 import com.tc.edu.tc.R;
 
 /**
  * Created by Administrator on 15-4-20.
  */
-public class CPrjTopButtonSortX extends CMyTopButton {
+public class CPrjTopButtonSortX extends CPrjTopButton {
 
     private CPrjTopButtonSortTeacher topbtn_sortteacher;
     private CPrjTopButtonSortPrice topbtn_sortprice;
@@ -46,16 +45,6 @@ public class CPrjTopButtonSortX extends CMyTopButton {
 
             }
         });
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                setInitX(getView().getX());
-                setInitY(getView().getY());
-
-                hide();
-            }
-        }, 2000);
     }
 
     public void showSortButtons(boolean show){
@@ -122,7 +111,7 @@ public class CPrjTopButtonSortX extends CMyTopButton {
                     public void run() {
                         hide();
                     }
-                }, 15000);
+                }, autoHideTimeout);
             }
 
             @Override

@@ -42,6 +42,8 @@ public class CPrjScollView extends CMyScrollView {
 
     @Override
     public boolean onDown(MotionEvent e) {
+        _autoTopButton(true);
+
         float x = mainBackground_main.getX();
         float w = dm.widthPixels;
 
@@ -55,22 +57,16 @@ public class CPrjScollView extends CMyScrollView {
     }
 
     private void _autoTopButton(boolean show){
-        CPrjTopButtonComment topbtn_comment = (CPrjTopButtonComment)activity.findViewById(R.id.topbtn_comment);
         CPrjTopButtonSortX topbtn_sortx = (CPrjTopButtonSortX)activity.findViewById(R.id.topbtn_xsrot);
 
         if(show){
-            topbtn_comment.show();
             topbtn_sortx.show();
         }
     }
 
     @Override
-    public void onLongPress(MotionEvent e) {
-        _autoTopButton(true);
-    }
-
-    @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        /*
         downX += distanceX;
         if (Math.abs(downX) > reserveScroll) {
             float x = mainBackground_main.getX();
@@ -81,7 +77,7 @@ public class CPrjScollView extends CMyScrollView {
             update(mainBackground_main, x - offset, x - offset, 0.0f, 0.0f, 0);
             update(myset, x - offset + w, x - offset + w, 0.0f, 0.0f, 0);
         }
-
+*/
         return super.onScroll(e1, e2, distanceX, distanceY);
     }
 
@@ -93,6 +89,7 @@ public class CPrjScollView extends CMyScrollView {
 
     @Override
     public boolean onTouch(MotionEvent e) {
+        /*
         if (e.getAction() == MotionEvent.ACTION_UP) {
 
             float x = mainBackground_main.getX();
@@ -119,6 +116,7 @@ public class CPrjScollView extends CMyScrollView {
             update(myset, x + w, desx + w, 0.0f, 0.0f, animationDuation);
             velocityX = 0.0f;
         }
+        */
         return super.onTouch(e);
     }
 

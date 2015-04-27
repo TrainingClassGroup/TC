@@ -96,22 +96,10 @@
                 </LinearLayout>
             </com.tc.edu.tc.MyProject.Base.CPrjScollView>
 
-
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:clickable="false">
-
-                <com.tc.edu.tc.MyProject.Base.CPrjTopButtonComment
-                    android:id="@+id/topbtn_comment"
-                    android:layout_marginTop="250dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    topbutton:btn_image="@drawable/hdpi_comment"
-                    topbutton:btn_image_active="@drawable/hdpi_info"
-                    topbutton:btn_text="评论"
-                    />
 
                 <com.tc.edu.tc.MyProject.Base.CPrjTopButtonSortTeacher
                     android:id="@+id/topbtn_teachersrot"

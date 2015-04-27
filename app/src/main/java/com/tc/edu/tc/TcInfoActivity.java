@@ -1,6 +1,7 @@
 package com.tc.edu.tc;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -11,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.Window;
 import android.widget.ViewFlipper;
 
+import com.tc.edu.tc.MyBase.CMyApplication;
 import com.tc.edu.tc.MyProject.Base.CPrjScollView;
 
 /**
@@ -25,16 +27,23 @@ public class TcInfoActivity extends Activity implements GestureDetector.OnGestur
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_tcinfo);
 
+        Intent i = getIntent();
+        String company_id = i.getStringExtra("id");
+
         final DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
         CPrjScollView scrollView1 = (CPrjScollView) findViewById(R.id.scrollView1);
         scrollView1.bindActivity(this);
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        String aaa = (String)((CMyApplication)getApplication()).getCache().get("xxx");
 
         new Handler().postDelayed(new Runnable() {
             @Override

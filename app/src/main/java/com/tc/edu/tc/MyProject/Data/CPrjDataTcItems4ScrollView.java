@@ -2,13 +2,14 @@ package com.tc.edu.tc.MyProject.Data;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Base64;
-import android.util.Log;
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.tc.edu.tc.MyBase.CMyApplication;
 import com.tc.edu.tc.MyProject.Base.CPrjDataRequest;
 import com.tc.edu.tc.MyProject.Base.CTcItemView;
 import com.tc.edu.tc.R;
@@ -46,19 +47,19 @@ public class CPrjDataTcItems4ScrollView {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonData);
 
-                    LinearLayout tclister = (LinearLayout) activity.findViewById(R.id.tclister);
+                    final LinearLayout tclister = (LinearLayout) activity.findViewById(R.id.tclister);
 
                     Iterator it = jsonObj.keys();
                     while (it.hasNext()) {
                         String key = (String) it.next();
                         final JSONObject value = jsonObj.getJSONObject(key);
 
-                        CTcItemView tcItem = new CTcItemView(activity);
+                        final CTcItemView tcItem = new CTcItemView(activity);
 
                         tcItem.setValue(value);
                         tcItem.setId(value.getInt("index"));
-                        tcItem.setImageResource(Base64.decode(value.getString("imagedata").getBytes(), Base64.DEFAULT));
-                       // tcItem.setImageResourceByImageId(value.getInt("logo_image"));
+                       // tcItem.setImageResource(Base64.decode(value.getString("imagedata").getBytes(), Base64.DEFAULT));
+                        tcItem.setImageResourceByImageId(value.getInt("logo_image"));
                         tcItem.setText(value.getString("text"));
                         tcItem.setReservation("预约：0人");
                         tcItem.setRegisted("报名：0人");
@@ -70,12 +71,31 @@ public class CPrjDataTcItems4ScrollView {
                         tcItem.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                try {
-                                    activity.startActivity(new Intent(activity, TcInfoActivity.class));
-                                    Log.i("xxx", value.getString("company"));
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                                tcItem.findViewById(R.id.tcitem_layout).setBackgroundColor(R.color.material_deep_teal_200);
+                                 new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            new AsyncTask<String, Integer, String>(){
+                                                @Override
+                                                protected String doInBackground(String... params) {
+                                                    CPrjDataTcInfo dataTcItems = new CPrjDataTcInfo((CMyApplication)activity.getApplication());
+                                                    dataTcItems.execute(params[0]);
+
+                                                    return null;
+                                                }
+                                            }.execute(value.getString("id"));
+
+
+                                            tcItem.findViewById(R.id.tcitem_layout).setBackgroundColor(0);
+                                            Intent intent = new Intent(activity, TcInfoActivity.class);
+                                            //intent.putExtra("id", value.getString("id"));
+                                            activity.startActivity(intent);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }, 250);
                             }
                         });
                     }

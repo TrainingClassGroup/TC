@@ -8,14 +8,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 
 import com.tc.edu.tc.MyBase.CMyAlphaAnimation;
-import com.tc.edu.tc.MyBase.CMyTopButton;
 import com.tc.edu.tc.MyBase.CMyTranslateAnimation;
 import com.tc.edu.tc.R;
 
 /**
  * Created by Administrator on 15-4-20.
  */
-public class CPrjTopButtonSortHot extends CMyTopButton {
+public class CPrjTopButtonSortHot extends CPrjTopButton {
 
     private CPrjTopButtonSortX topbtn_sortx;
 

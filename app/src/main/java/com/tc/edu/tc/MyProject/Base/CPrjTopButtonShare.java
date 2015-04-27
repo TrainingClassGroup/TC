@@ -7,26 +7,15 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 
 import com.tc.edu.tc.MyBase.CMyAlphaAnimation;
-import com.tc.edu.tc.MyBase.CMyTopButton;
 import com.tc.edu.tc.MyBase.CMyTranslateAnimation;
 
 /**
  * Created by Administrator on 15-4-20.
  */
-public class CPrjTopButtonShare extends CMyTopButton {
+public class CPrjTopButtonShare extends CPrjTopButton {
 
     public CPrjTopButtonShare(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                setInitX(getView().getX());
-                setInitY(getView().getY());
-
-                hide();
-            }
-        }, 2000);
     }
 
     public void hide(Animation.AnimationListener animationListener){
@@ -77,7 +66,7 @@ public class CPrjTopButtonShare extends CMyTopButton {
                     public void run() {
                         hide();
                     }
-                }, 15000);
+                }, autoHideTimeout);
             }
 
             @Override
