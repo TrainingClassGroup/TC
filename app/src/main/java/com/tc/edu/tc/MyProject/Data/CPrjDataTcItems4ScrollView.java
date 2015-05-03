@@ -2,7 +2,6 @@ package com.tc.edu.tc.MyProject.Data;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -76,21 +75,14 @@ public class CPrjDataTcItems4ScrollView {
                                     @Override
                                     public void run() {
                                         try {
-                                            new AsyncTask<String, Integer, String>(){
-                                                @Override
-                                                protected String doInBackground(String... params) {
-                                                    CPrjDataTcInfo dataTcItems = new CPrjDataTcInfo((CMyApplication)activity.getApplication());
-                                                    dataTcItems.execute(params[0]);
-
-                                                    return null;
-                                                }
-                                            }.execute(value.getString("id"));
-
+                                            CPrjDataTcInfo dataTcItems = new CPrjDataTcInfo((CMyApplication)activity.getApplication());
+                                            dataTcItems.execute(value.getString("id"));
 
                                             tcItem.findViewById(R.id.tcitem_layout).setBackgroundColor(0);
                                             Intent intent = new Intent(activity, TcInfoActivity.class);
-                                            //intent.putExtra("id", value.getString("id"));
+                                            intent.putExtra("id", value.getString("id"));
                                             activity.startActivity(intent);
+
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }

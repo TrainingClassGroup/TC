@@ -14,6 +14,7 @@ import android.widget.ViewFlipper;
 
 import com.tc.edu.tc.MyBase.CMyApplication;
 import com.tc.edu.tc.MyProject.Base.CPrjScollView;
+import com.tc.edu.tc.MyProject.Base.CPrjTopButtonSortX;
 
 /**
  * Created by Administrator on 15-4-23.
@@ -81,10 +82,27 @@ public class TcInfoActivity extends Activity implements GestureDetector.OnGestur
 
     @Override
     public boolean onDown(MotionEvent e) {
+        _autoTopButton(true);
         // 触碰时间按下时触发该方法
         return false;
     }
 
+    private void _autoTopButton(boolean show){
+        CPrjTopButtonSortX topbtn_comment = (CPrjTopButtonSortX)findViewById(R.id.topbtn_comment);
+        CPrjTopButtonSortX topbtn_share = (CPrjTopButtonSortX)findViewById(R.id.topbtn_share);
+        CPrjTopButtonSortX topbtn_like = (CPrjTopButtonSortX)findViewById(R.id.topbtn_like);
+
+        if(show){
+            topbtn_comment.show();
+            topbtn_share.show();
+            topbtn_like.show();
+        }
+        else{
+            topbtn_comment.hide();
+            topbtn_share.hide();
+            topbtn_like.hide();
+        }
+    }
     @Override
     public void onShowPress(MotionEvent e) {
         // 当用户在触摸屏幕上按下、而且还未移动和松开时触发该方法
