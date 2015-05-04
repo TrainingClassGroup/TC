@@ -43,7 +43,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
-            <com.tc.edu.tc.MyProject.Base.CPrjScollView
+            <com.tc.edu.tc.MyProject.Base.CPrjTcInfoScollView
                 android:id="@+id/scrollView1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
@@ -70,7 +70,7 @@
                     <TextView
                         android:id="@+id/tcinfo_name"
                         android:layout_width="fill_parent"
-                        android:layout_height="25dp"
+                        android:layout_height="30dp"
                         android:gravity="left"
                         android:text="培训班"
                         android:textSize="25dp"
@@ -101,7 +101,7 @@
                                 android:focusable="false"
                                 android:nestedScrollingEnabled="false"
                                 android:src="@drawable/hdpi_resveration"
-                                android:layout_marginLeft="20sp"></ImageView>
+                                android:layout_marginLeft="10sp"></ImageView>
 
                             <TextView
                                 android:id="@+id/tcinfo_text_reservation"
@@ -962,13 +962,12 @@
                     <!-- tcinfo_comment_view  -->
 
                 </LinearLayout>
-            </com.tc.edu.tc.MyProject.Base.CPrjScollView>
+            </com.tc.edu.tc.MyProject.Base.CPrjTcInfoScollView>
 
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:clickable="false"
-                android:visibility="invisible">
+                android:clickable="false">
 
                 <com.tc.edu.tc.MyProject.Base.CPrjTopButtonComment
                     android:id="@+id/topbtn_comment"

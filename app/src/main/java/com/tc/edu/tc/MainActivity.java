@@ -13,7 +13,7 @@ import android.view.Window;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
-import com.tc.edu.tc.MyProject.Base.CPrjScollView;
+import com.tc.edu.tc.MyProject.Base.CPrjTcListScollView;
 import com.tc.edu.tc.MyProject.Data.CPrjDataTcItems4ScrollView;
 
 import de.greenrobot.event.EventBus;
@@ -32,7 +32,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         final DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        CPrjScollView scrollView1 = (CPrjScollView) findViewById(R.id.scrollView1);
+        CPrjTcListScollView scrollView1 = (CPrjTcListScollView) findViewById(R.id.scrollView1);
         scrollView1.bindActivity(this);
 
         //EventBus.getDefault().register(this);
@@ -41,6 +41,8 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
     @Override
     protected void onResume() {
         super.onResume();
+
+        String name = getResources().getResourceName(R.id.scrollView1);
 
         new Handler().postDelayed(new Runnable() {
             @Override

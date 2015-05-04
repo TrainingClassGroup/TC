@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.tc.edu.tc.MyProject.Data.CPrjDataTcLogoImage;
+import com.tc.edu.tc.MyProject.Data.CPrjDataTcImage;
 import com.tc.edu.tc.R;
 
 import org.json.JSONObject;
@@ -94,8 +94,14 @@ public class CTcItemView extends LinearLayout {
     }
 
     public void setImageResourceByImageId(int id) {
-        CPrjDataTcLogoImage prjDataTcLogoImage = new CPrjDataTcLogoImage(this);
-        prjDataTcLogoImage.execute(""+id);
+        CPrjDataTcImage prjDataTcImage = new CPrjDataTcImage();
+        prjDataTcImage.setOnLoadListener(new CPrjDataTcImage.OnLoadListener() {
+            @Override
+            public void onload(byte[] b) {
+                setImageResource(b);
+            }
+        });
+        prjDataTcImage.execute(""+id);
     }
 
     public void setText(String string) {

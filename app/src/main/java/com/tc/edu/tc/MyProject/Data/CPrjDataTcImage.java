@@ -4,7 +4,6 @@ import android.util.Base64;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.tc.edu.tc.MyProject.Base.CPrjDataRequest;
-import com.tc.edu.tc.MyProject.Base.CTcItemView;
 import com.tc.edu.tc.MyProject.Config.CPrjConfig;
 
 import org.apache.http.Header;
@@ -18,14 +17,22 @@ import java.io.FileOutputStream;
 /**
  * Created by Administrator on 15-3-28.
  */
-public class CPrjDataTcLogoImage {
+public class CPrjDataTcImage {
 
-    private CTcItemView mCTcItemView;
+    public static interface OnLoadListener{
+        public void onload(byte[] b);
+    };
 
-    public CPrjDataTcLogoImage(CTcItemView mCTcItemView) {
-       this.mCTcItemView = mCTcItemView;
+    private OnLoadListener onLoadListener = null;
+
+   // private CTcItemView mCTcItemView;
+
+    public CPrjDataTcImage() {
     }
 
+    public void setOnLoadListener(OnLoadListener onLoadListener){
+        this.onLoadListener = onLoadListener;
+    }
     public void execute(final String id){
         CPrjConfig.checkDir(CPrjConfig.CATCH_IMG);
         final File bitmapFile = new File( CPrjConfig.CATCH_IMG+id);
@@ -46,7 +53,9 @@ public class CPrjDataTcLogoImage {
                     offset += numRead;
                 }
 
-                mCTcItemView.setImageResource(Base64.decode(buffer, Base64.DEFAULT));
+                if(onLoadListener!=null) {
+                    onLoadListener.onload(Base64.decode(buffer, Base64.DEFAULT));
+                }
             }
             catch(Exception e){}
 
@@ -73,7 +82,9 @@ public class CPrjDataTcLogoImage {
                     }
                     catch(Exception e){}
 
-                    mCTcItemView.setImageResource(Base64.decode(datas, Base64.DEFAULT));
+                    if(onLoadListener!=null) {
+                        onLoadListener.onload(Base64.decode(datas, Base64.DEFAULT));
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

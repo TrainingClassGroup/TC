@@ -30,6 +30,9 @@ public class CPrjDataTcInfo {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonData);
                     myApplication.getCache().put("xxx", "123");
+
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

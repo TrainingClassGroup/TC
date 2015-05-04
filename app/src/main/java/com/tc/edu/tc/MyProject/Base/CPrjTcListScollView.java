@@ -14,7 +14,7 @@ import com.tc.edu.tc.R;
 /**
  * Created by Administrator on 15-3-14.
  */
-public class CPrjScollView extends CMyScrollView {
+public class CPrjTcListScollView extends CMyScrollView {
 
     private final float reserveScroll = 120.0f;
     private final float reserveRightWidth = 100.0f;
@@ -28,15 +28,15 @@ public class CPrjScollView extends CMyScrollView {
     private LinearLayout myset;
     private LinearLayout mainBackground_main;
 
-    public CPrjScollView(Context context) {
+    public CPrjTcListScollView(Context context) {
         super(context);
     }
 
-    public CPrjScollView(Context context, AttributeSet attrs) {
+    public CPrjTcListScollView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public CPrjScollView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CPrjTcListScollView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

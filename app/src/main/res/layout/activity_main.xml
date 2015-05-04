@@ -54,7 +54,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
-            <com.tc.edu.tc.MyProject.Base.CPrjScollView
+            <com.tc.edu.tc.MyProject.Base.CPrjTcListScollView
                 android:id="@+id/scrollView1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
@@ -94,7 +94,7 @@
                         />
 
                 </LinearLayout>
-            </com.tc.edu.tc.MyProject.Base.CPrjScollView>
+            </com.tc.edu.tc.MyProject.Base.CPrjTcListScollView>
 
             <RelativeLayout
                 android:layout_width="fill_parent"
