@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.tc.edu.tc.MyBase.CMyApplication;
 import com.tc.edu.tc.MyProject.Base.CPrjDataRequest;
 import com.tc.edu.tc.MyProject.Base.CTcItemView;
 import com.tc.edu.tc.R;
@@ -75,12 +74,14 @@ public class CPrjDataTcItems4ScrollView {
                                     @Override
                                     public void run() {
                                         try {
-                                            CPrjDataTcInfo dataTcItems = new CPrjDataTcInfo((CMyApplication)activity.getApplication());
-                                            dataTcItems.execute(value.getString("id"));
+
 
                                             tcItem.findViewById(R.id.tcitem_layout).setBackgroundColor(0);
                                             Intent intent = new Intent(activity, TcInfoActivity.class);
-                                            intent.putExtra("id", value.getString("id"));
+                                            intent.putExtra("company_id", value.getString("id"));
+                                            intent.putExtra("name", value.getString("text"));
+                                            intent.putExtra("logo_image", value.getInt("logo_image"));
+                                            intent.putExtra("distance", value.getString("distance"));
                                             activity.startActivity(intent);
 
                                         } catch (Exception e) {

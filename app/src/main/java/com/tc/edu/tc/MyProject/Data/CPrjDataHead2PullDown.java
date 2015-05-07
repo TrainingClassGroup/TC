@@ -26,6 +26,10 @@ public class CPrjDataHead2PullDown {
     }
 
     public void execute(String parasJson){
+        ((LinearLayout) activity.findViewById(R.id.head2_pulldown_menu_1)).removeAllViews();
+        ((LinearLayout) activity.findViewById(R.id.head2_pulldown_menu_2)).removeAllViews();
+        ((LinearLayout) activity.findViewById(R.id.head2_pulldown_menu_3)).removeAllViews();
+
         CPrjDataRequest dataRequest = new CPrjDataRequest("CData_ClassNameAndCourseAndTime");
 
         dataRequest.getParams().put(parasJson);

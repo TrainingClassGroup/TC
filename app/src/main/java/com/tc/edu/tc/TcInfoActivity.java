@@ -2,6 +2,7 @@ package com.tc.edu.tc;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -10,17 +11,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.Window;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.tc.edu.tc.MyBase.CMyApplication;
 import com.tc.edu.tc.MyProject.Base.CPrjTcInfoScollView;
-import com.tc.edu.tc.MyProject.Base.CTcInfoScheduleView;
+import com.tc.edu.tc.MyProject.Data.CPrjDataTcImage;
+import com.tc.edu.tc.MyProject.Data.CPrjDataTcInfo;
 
 /**
  * Created by Administrator on 15-4-23.
  */
 public class TcInfoActivity extends Activity implements GestureDetector.OnGestureListener{
+    private String company_id;
+    private String name;
+    private String distance;
+    private int logo_image;
+
     private ViewFlipper viewFlipper = null;
 
     @Override
@@ -30,7 +38,20 @@ public class TcInfoActivity extends Activity implements GestureDetector.OnGestur
         setContentView(R.layout.activity_tcinfo);
 
         Intent i = getIntent();
-        String company_id = i.getStringExtra("id");
+        company_id = i.getStringExtra("company_id");
+        name = i.getStringExtra("name");
+        logo_image = i.getIntExtra("logo_image",-1);
+        distance = i.getStringExtra("distance");
+
+        ((TextView)findViewById(R.id.tcinfo_name)).setText(name);
+        ((TextView)findViewById(R.id.tcinfo_text_distance)).setText("距离："+distance+"Km");
+        new CPrjDataTcImage().setOnLoadListener(new CPrjDataTcImage.OnLoadListener() {
+            @Override
+            public void onload(byte[] b) {
+                ((ImageView)findViewById(R.id.tcinfo_logo)).setImageBitmap(BitmapFactory.decodeByteArray(b, 0, b.length, null));
+            }
+        }).execute("" + logo_image);
+
 
         final DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -38,15 +59,20 @@ public class TcInfoActivity extends Activity implements GestureDetector.OnGestur
         CPrjTcInfoScollView scrollView1 = (CPrjTcInfoScollView) findViewById(R.id.scrollView1);
         scrollView1.bindActivity(this);
 
+        /*
         LinearLayout tcinfo_schedules = (LinearLayout) findViewById(R.id.tcinfo_schedules);
         CTcInfoScheduleView tcInfoScheduleView = new CTcInfoScheduleView(this);
         tcInfoScheduleView.regist(tcinfo_schedules);
         tcInfoScheduleView.setSchedule(0,1,"33333");
+        */
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        CPrjDataTcInfo dataTcItems = new CPrjDataTcInfo(this);
+        dataTcItems.execute(company_id);
 
         String aaa = (String)((CMyApplication)getApplication()).getCache().get("xxx");
 

@@ -33,6 +33,7 @@ public class CHead2PullDownReceiver extends CMyDataReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
         Bundle bundle = intent.getExtras();
         String jsonData = bundle.getString("jsonData");
         try {

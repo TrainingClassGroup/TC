@@ -94,14 +94,12 @@ public class CTcItemView extends LinearLayout {
     }
 
     public void setImageResourceByImageId(int id) {
-        CPrjDataTcImage prjDataTcImage = new CPrjDataTcImage();
-        prjDataTcImage.setOnLoadListener(new CPrjDataTcImage.OnLoadListener() {
+        new CPrjDataTcImage().setOnLoadListener(new CPrjDataTcImage.OnLoadListener() {
             @Override
             public void onload(byte[] b) {
                 setImageResource(b);
             }
-        });
-        prjDataTcImage.execute(""+id);
+        }).execute(""+id);
     }
 
     public void setText(String string) {

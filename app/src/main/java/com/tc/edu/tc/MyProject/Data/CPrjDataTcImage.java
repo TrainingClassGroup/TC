@@ -30,8 +30,9 @@ public class CPrjDataTcImage {
     public CPrjDataTcImage() {
     }
 
-    public void setOnLoadListener(OnLoadListener onLoadListener){
+    public CPrjDataTcImage setOnLoadListener(OnLoadListener onLoadListener){
         this.onLoadListener = onLoadListener;
+        return this;
     }
     public void execute(final String id){
         CPrjConfig.checkDir(CPrjConfig.CATCH_IMG);
