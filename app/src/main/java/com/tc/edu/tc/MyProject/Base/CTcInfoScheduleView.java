@@ -89,11 +89,6 @@ public class CTcInfoScheduleView extends LinearLayout {
         ((TextView) view.findViewById(R.id.tcinfo_seniority)).setText(string);
     }
 
-    //价格
-    public void setPrice(String string){
-        ((TextView) view.findViewById(R.id.tcinfo_price)).setText(string);
-    }
-
     //课程
     public void setSchedule(int week,int time, String string){
         int wt[][]={ {R.id.r1c1,R.id.r1c2,R.id.r1c3,R.id.r1c4,R.id.r1c5,R.id.r1c6,R.id.r1c7},

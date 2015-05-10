@@ -2,6 +2,7 @@ package com.tc.edu.tc.MyProject.Data;
 
 import android.app.Activity;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.tc.edu.tc.MyBase.CMyApplication;
@@ -38,10 +39,12 @@ public class CPrjDataTcInfo {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonData);
                    // myApplication.getCache().put("xxx", "123");
+                    ((TextView)activity.findViewById(R.id.tcinfo_name)).setText(jsonObj.getJSONObject("tc").getString("company"));
+                    LinearLayout tcinfo_schedules = (LinearLayout) activity.findViewById(R.id.tcinfo_schedules);
+                    tcinfo_schedules.removeAllViews();
                     JSONArray schedules=jsonObj.getJSONArray("schedule");
                     for(int i = 0;i<schedules.length();i++){
                         JSONObject schedule = schedules.getJSONObject(i);
-                        LinearLayout tcinfo_schedules = (LinearLayout) activity.findViewById(R.id.tcinfo_schedules);
                         CTcInfoScheduleView tcInfoScheduleView = new CTcInfoScheduleView(activity);
                         tcInfoScheduleView.regist(tcinfo_schedules);
                         tcInfoScheduleView.setCourse(schedule.getString("course"));

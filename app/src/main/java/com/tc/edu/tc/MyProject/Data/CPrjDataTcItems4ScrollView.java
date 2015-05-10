@@ -17,6 +17,7 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.Iterator;
 
 /**
@@ -59,9 +60,9 @@ public class CPrjDataTcItems4ScrollView {
                        // tcItem.setImageResource(Base64.decode(value.getString("imagedata").getBytes(), Base64.DEFAULT));
                         tcItem.setImageResourceByImageId(value.getInt("logo_image"));
                         tcItem.setText(value.getString("text"));
-                        tcItem.setReservation("预约：0人");
+                        tcItem.setReservation("预约：" + value.getString("reservation_cnt") + "人");
                         tcItem.setRegisted("报名：0人");
-                        tcItem.setMemo("评论：(0)");
+                        tcItem.setMemo("评论：("+value.getString("comment_cnt")+")");
                         tcItem.setDistance("距离："+value.getString("distance"));
 
                         tcItem.regist(tclister);
@@ -74,14 +75,21 @@ public class CPrjDataTcItems4ScrollView {
                                     @Override
                                     public void run() {
                                         try {
-
-
                                             tcItem.findViewById(R.id.tcitem_layout).setBackgroundColor(0);
                                             Intent intent = new Intent(activity, TcInfoActivity.class);
                                             intent.putExtra("company_id", value.getString("id"));
-                                            intent.putExtra("name", value.getString("text"));
                                             intent.putExtra("logo_image", value.getInt("logo_image"));
-                                            intent.putExtra("distance", value.getString("distance"));
+
+                                            DecimalFormat df = new DecimalFormat("0.00");
+                                            String distance = df.format(Double.parseDouble(value.getString("distance")));
+                                            String comment_cnt = value.getString("comment_cnt");
+                                            if(Integer.parseInt(comment_cnt)>99) comment_cnt="99+";
+                                            String reservation_cnt =  value.getString("reservation_cnt");
+                                            if(Integer.parseInt(reservation_cnt)>99) reservation_cnt="99+";
+
+                                            intent.putExtra("comment_cnt", comment_cnt);
+                                            intent.putExtra("reservation_cnt",reservation_cnt);
+                                            intent.putExtra("distance", distance);
                                             activity.startActivity(intent);
 
                                         } catch (Exception e) {

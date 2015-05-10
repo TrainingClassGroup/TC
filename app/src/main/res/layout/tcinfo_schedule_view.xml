@@ -68,17 +68,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="left"
-                            android:text="资历：名师，10年教龄"
+                            android:text="资历：名师，10年教龄  价格：500元/小时"
                             android:textSize="20px"
                             android:layout_marginLeft="5dp"/>
-                        <TextView
-                            android:id="@+id/tcinfo_price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="left"
-                            android:text="价格：500元/小时"
-                            android:textSize="20px"
-                            android:layout_marginLeft="15dp"/>
                     </TableRow>
                 </LinearLayout>
                 <LinearLayout

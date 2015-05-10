@@ -3,6 +3,7 @@ package com.tc.edu.tc;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -10,23 +11,27 @@ import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import com.tc.edu.tc.MyBase.CMyApplication;
 import com.tc.edu.tc.MyProject.Base.CPrjTcInfoScollView;
 import com.tc.edu.tc.MyProject.Data.CPrjDataTcImage;
 import com.tc.edu.tc.MyProject.Data.CPrjDataTcInfo;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Administrator on 15-4-23.
  */
 public class TcInfoActivity extends Activity implements GestureDetector.OnGestureListener{
     private String company_id;
-    private String name;
     private String distance;
+    private String comment_cnt;
+    private String reservation_cnt;
     private int logo_image;
 
     private ViewFlipper viewFlipper = null;
@@ -39,12 +44,15 @@ public class TcInfoActivity extends Activity implements GestureDetector.OnGestur
 
         Intent i = getIntent();
         company_id = i.getStringExtra("company_id");
-        name = i.getStringExtra("name");
         logo_image = i.getIntExtra("logo_image",-1);
         distance = i.getStringExtra("distance");
+        comment_cnt = i.getStringExtra("comment_cnt");
+        reservation_cnt = i.getStringExtra("reservation_cnt");
 
-        ((TextView)findViewById(R.id.tcinfo_name)).setText(name);
         ((TextView)findViewById(R.id.tcinfo_text_distance)).setText("距离："+distance+"Km");
+        ((TextView)findViewById(R.id.tcinfo_text_reservation)).setText("预约："+reservation_cnt+"人");
+        ((TextView)findViewById(R.id.tcinfo_text_comment)).setText("评论："+comment_cnt);
+
         new CPrjDataTcImage().setOnLoadListener(new CPrjDataTcImage.OnLoadListener() {
             @Override
             public void onload(byte[] b) {
@@ -74,7 +82,28 @@ public class TcInfoActivity extends Activity implements GestureDetector.OnGestur
         CPrjDataTcInfo dataTcItems = new CPrjDataTcInfo(this);
         dataTcItems.execute(company_id);
 
-        String aaa = (String)((CMyApplication)getApplication()).getCache().get("xxx");
+        //String aaa = (String)((CMyApplication)getApplication()).getCache().get("xxx");
+
+        ((TextView)findViewById(R.id.tcinfo_text_tel)).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        String phone=((TextView)v).getText().toString();
+                        Pattern pattern = Pattern.compile("([0-9-]+)");
+                        Matcher matcher = pattern.matcher(phone);
+                        if(matcher.find()){
+                            phone = matcher.group(1);
+                            Intent intent=new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
+                            startActivity(intent);
+                        }
+                        break;
+                }
+                return true;
+            }
+        });
+
+
 
         new Handler().postDelayed(new Runnable() {
             @Override
