@@ -58,7 +58,7 @@ public class TcInfoActivity extends Activity implements GestureDetector.OnGestur
             public void onload(byte[] b) {
                 ((ImageView)findViewById(R.id.tcinfo_logo)).setImageBitmap(BitmapFactory.decodeByteArray(b, 0, b.length, null));
             }
-        }).execute("" + logo_image);
+        }).execute("" + logo_image, false);
 
 
         final DisplayMetrics dm = new DisplayMetrics();
@@ -67,12 +67,6 @@ public class TcInfoActivity extends Activity implements GestureDetector.OnGestur
         CPrjTcInfoScollView scrollView1 = (CPrjTcInfoScollView) findViewById(R.id.scrollView1);
         scrollView1.bindActivity(this);
 
-        /*
-        LinearLayout tcinfo_schedules = (LinearLayout) findViewById(R.id.tcinfo_schedules);
-        CTcInfoScheduleView tcInfoScheduleView = new CTcInfoScheduleView(this);
-        tcInfoScheduleView.regist(tcinfo_schedules);
-        tcInfoScheduleView.setSchedule(0,1,"33333");
-        */
     }
 
     @Override

@@ -6,7 +6,7 @@ import java.io.File;
  * Created by Administrator on 15-4-25.
  */
 public class CPrjConfig {
-    public static final String CATCH_IMG = "/mnt/sdcard/JiaYouTC/catch/imgs/";
+    public static final String CATCH_IMG = "/mnt/sdcard/JiaYouTC/catch/imgs";
 
 
     public static void checkDir(String dirString){

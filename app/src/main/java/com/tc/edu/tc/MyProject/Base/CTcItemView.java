@@ -99,7 +99,7 @@ public class CTcItemView extends LinearLayout {
             public void onload(byte[] b) {
                 setImageResource(b);
             }
-        }).execute(""+id);
+        }).execute(""+id, true);
     }
 
     public void setText(String string) {

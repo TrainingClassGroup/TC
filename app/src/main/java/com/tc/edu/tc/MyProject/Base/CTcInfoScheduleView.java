@@ -76,7 +76,7 @@ public class CTcInfoScheduleView extends LinearLayout {
                 setImageResource(b);
             }
         });
-        prjDataTcImage.execute(""+id);
+        prjDataTcImage.execute(""+id, true);
     }
 
     //课程
@@ -91,7 +91,7 @@ public class CTcInfoScheduleView extends LinearLayout {
 
     //课程
     public void setSchedule(int week,int time, String string){
-        int wt[][]={ {R.id.r1c1,R.id.r1c2,R.id.r1c3,R.id.r1c4,R.id.r1c5,R.id.r1c6,R.id.r1c7},
+        int wt[][]={{R.id.r1c1,R.id.r1c2,R.id.r1c3,R.id.r1c4,R.id.r1c5,R.id.r1c6,R.id.r1c7},
                     {R.id.r2c1,R.id.r2c2,R.id.r2c3,R.id.r2c4,R.id.r2c5,R.id.r2c6,R.id.r2c7},
                     {R.id.r3c1,R.id.r3c2,R.id.r3c3,R.id.r3c4,R.id.r3c5,R.id.r3c6,R.id.r3c7}};
         TextView textView = (TextView) view.findViewById(wt[time][week]);

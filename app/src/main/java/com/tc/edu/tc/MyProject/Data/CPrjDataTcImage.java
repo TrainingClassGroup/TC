@@ -34,9 +34,10 @@ public class CPrjDataTcImage {
         this.onLoadListener = onLoadListener;
         return this;
     }
-    public void execute(final String id){
+    public void execute(final String id, final boolean isThumbnail){
         CPrjConfig.checkDir(CPrjConfig.CATCH_IMG);
-        final File bitmapFile = new File( CPrjConfig.CATCH_IMG+id);
+        String fileName = isThumbnail?(id+".thumbnail"):(id+".img");
+        final File bitmapFile = new File( CPrjConfig.CATCH_IMG+File.separator+fileName);
         if(bitmapFile.exists()){
             long fileSize = bitmapFile.length();
             if (fileSize > Integer.MAX_VALUE) {
@@ -65,7 +66,7 @@ public class CPrjDataTcImage {
 
         CPrjDataRequest dataRequest = new CPrjDataRequest("CData_Image");
 
-        dataRequest.getParams().put("{paras:{id:\""+id+"\",type:json}}");
+        dataRequest.getParams().put("{paras:{id:\""+id+"\",isthumbnail:\""+(isThumbnail?1:0)+"\",type:json}}");
 
         dataRequest.post(new AsyncHttpResponseHandler() {
             @Override

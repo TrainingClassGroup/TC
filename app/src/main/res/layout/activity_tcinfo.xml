@@ -357,8 +357,13 @@
                         android:textColor="#ff3a9e51"
                         android:textStyle="bold"
                         android:layout_marginLeft="10dp"/>
-                    <!-- tcinfo_comment_view  -->
-
+                    <LinearLayout
+                        android:id="@+id/tcCommentlister"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <!-- tcinfo_comment_view  -->
+                    </LinearLayout>
                 </LinearLayout>
             </com.tc.edu.tc.MyProject.Base.CPrjTcInfoScollView>
 

@@ -15,6 +15,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Iterator;
+
 /**
  * Created by Administrator on 15-3-28.
  */
@@ -29,6 +31,11 @@ public class CPrjDataTcInfo {
     }
 
     public void execute(final String id) {
+        loadSchedule(id);
+        loadComment(id);
+    }
+
+    private void loadSchedule(final String id){
         CPrjDataRequest dataRequest = new CPrjDataRequest("CData_TrainingClassInfo");
 
         dataRequest.getParams().put("{paras:{company_id:\"" + id + "\",type:json}}");
@@ -38,7 +45,7 @@ public class CPrjDataTcInfo {
                 String jsonData = new String(bytes);
                 try {
                     JSONObject jsonObj = new JSONObject(jsonData);
-                   // myApplication.getCache().put("xxx", "123");
+                    // myApplication.getCache().put("xxx", "123");
                     ((TextView)activity.findViewById(R.id.tcinfo_name)).setText(jsonObj.getJSONObject("tc").getString("company"));
                     LinearLayout tcinfo_schedules = (LinearLayout) activity.findViewById(R.id.tcinfo_schedules);
                     tcinfo_schedules.removeAllViews();
@@ -64,6 +71,34 @@ public class CPrjDataTcInfo {
                     if(ss[i].length()>0) {
                         tcInfoScheduleView.setSchedule(week, i, ss[i]);
                     }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] bytes, Throwable error) {
+                error.printStackTrace();
+            }
+        });
+    }
+
+    private void loadComment(final String id){
+        CPrjDataRequest dataRequest = new CPrjDataRequest("CData_Comment");
+
+        dataRequest.getParams().put("{paras:{company_id:\"" + id + "\",rownum:50,page:0,type:json}}");
+        dataRequest.post(new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, final byte[] bytes) {
+                String jsonData = new String(bytes);
+                try {
+                    JSONObject jsonObj = new JSONObject(jsonData);
+                    Iterator it = jsonObj.keys();
+                    while (it.hasNext()) {
+                        String key = (String) it.next();
+                        final JSONObject value = jsonObj.getJSONObject(key);
+                        LinearLayout tcCommentlister = (LinearLayout)activity.findViewById(R.id.tcCommentlister);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
 
