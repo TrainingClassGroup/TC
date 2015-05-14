@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.tc.edu.tc.MyBase.CMyApplication;
 import com.tc.edu.tc.MyProject.Base.CPrjDataRequest;
+import com.tc.edu.tc.MyProject.Base.CTcCommentView;
 import com.tc.edu.tc.MyProject.Base.CTcInfoScheduleView;
 import com.tc.edu.tc.R;
 
@@ -90,12 +91,17 @@ public class CPrjDataTcInfo {
             public void onSuccess(int statusCode, Header[] headers, final byte[] bytes) {
                 String jsonData = new String(bytes);
                 try {
+                    LinearLayout tcCommentlister = (LinearLayout)activity.findViewById(R.id.tcCommentlister);
                     JSONObject jsonObj = new JSONObject(jsonData);
                     Iterator it = jsonObj.keys();
                     while (it.hasNext()) {
                         String key = (String) it.next();
                         final JSONObject value = jsonObj.getJSONObject(key);
-                        LinearLayout tcCommentlister = (LinearLayout)activity.findViewById(R.id.tcCommentlister);
+                        CTcCommentView commentView = new CTcCommentView(activity);
+                        commentView.setId(Integer.parseInt(key));
+                        commentView.setComment(value.getString("comment"));
+                        commentView.setCommentUser(value.getString("username"));
+                        commentView.regist(tcCommentlister);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
