@@ -80,6 +80,7 @@ public class CPrjDataTcItems4ScrollView {
                                             intent.putExtra("company_id", value.getString("id"));
                                             intent.putExtra("logo_image", value.getInt("logo_image"));
 
+
                                             DecimalFormat df = new DecimalFormat("0.00");
                                             String distance = df.format(Double.parseDouble(value.getString("distance")));
                                             String comment_cnt = value.getString("comment_cnt");

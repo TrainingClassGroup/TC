@@ -1,0 +1,136 @@
+<RelativeLayout
+    android:id="@+id/TcInfo"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:topbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    tools:context="com.TCPackage.tc.TcMapActivity"
+    tools:ignore="Orientation">
+
+
+    <LinearLayout
+        android:id="@+id/MainBackground_main"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
+
+        <fragment
+            android:id="@+id/head1_fragment"
+            android:name="com.tc.edu.tc.Head1Fragment"
+            android:layout_width="fill_parent"
+            android:layout_height="47dp"
+            tools:layout="@layout/head1_fragment"/>
+        <TextView
+            android:id="@+id/tcinfo_name"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:gravity="left"
+            android:text="培训班"
+            android:textSize="25dp"
+            android:textIsSelectable="true"
+            android:layout_marginTop="10dp"
+            android:textColor="#3760FF"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/tcinfo_contract"
+            android:layout_width="fill_parent"
+            android:layout_height="25dp"
+            android:gravity="left"
+            android:text="联系方式"
+            android:textSize="12dp"
+            android:textIsSelectable="true"
+            android:layout_marginTop="10dp"
+            android:textColor="#ff3a9e51"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"/>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="18dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="4dp"
+                    android:adjustViewBounds="true"
+                    android:baselineAlignBottom="false"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:nestedScrollingEnabled="false"
+                    android:src="@drawable/hdpi_tel"
+                    android:layout_marginLeft="20sp"></ImageView>
+
+                <TextView
+                    android:id="@+id/tcinfo_text_tel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="5dp"
+                    android:text="电话：000-123456789"
+                    android:textIsSelectable="false"
+                    android:textSize="15dp"/>
+
+
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="18dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="4dp"
+                    android:adjustViewBounds="true"
+                    android:baselineAlignBottom="false"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:nestedScrollingEnabled="false"
+                    android:src="@drawable/hdpi_address"
+                    android:layout_marginLeft="20dp"></ImageView>
+
+                <TextView
+                    android:id="@+id/tcinfo_text_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="5dp"
+                    android:text="地址：哈桑的封杀和打法和斯蒂芬哈啥地方"
+                    android:textIsSelectable="false"
+                    android:textSize="15dp"/>
+
+
+            </LinearLayout>
+        </TableRow>
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/bmapView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

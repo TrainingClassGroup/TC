@@ -48,7 +48,6 @@
             android:layout_marginTop="1px"
             tools:layout="@layout/head2_fragment"/>
 
-
         <RelativeLayout
             android:id="@+id/main_relativelayout"
             android:layout_width="fill_parent"

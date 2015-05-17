@@ -2,111 +2,93 @@ package com.tc.edu.tc;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.DisplayMetrics;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.tc.edu.tc.MyProject.Base.CPrjTcInfoScollView;
-import com.tc.edu.tc.MyProject.Data.CPrjDataTcImage;
-import com.tc.edu.tc.MyProject.Data.CPrjDataTcInfo;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.model.LatLng;
 
 /**
  * Created by Administrator on 15-4-23.
  */
-public class TcInfoActivity extends Activity implements GestureDetector.OnGestureListener{
-    private String company_id;
-    private String distance;
-    private String comment_cnt;
-    private String reservation_cnt;
-    private int logo_image;
+public class TcMapActivity extends Activity implements GestureDetector.OnGestureListener{
 
+
+    MapView mMapView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_tcinfo);
-
+        //在使用SDK各组件之前初始化context信息，传入ApplicationContext
+        //注意该方法要再setContentView方法之前实现
+        SDKInitializer.initialize(getApplicationContext());
+        //SDKInitializer.initialize(getApplication());
+//
         Intent i = getIntent();
-        company_id = i.getStringExtra("company_id");
-        logo_image = i.getIntExtra("logo_image",-1);
-        distance = i.getStringExtra("distance");
-        comment_cnt = i.getStringExtra("comment_cnt");
-        reservation_cnt = i.getStringExtra("reservation_cnt");
-
-        ((TextView)findViewById(R.id.tcinfo_text_distance)).setText("距离："+distance+"Km");
-        ((TextView)findViewById(R.id.tcinfo_text_reservation)).setText("预约："+reservation_cnt+"人");
-        ((TextView)findViewById(R.id.tcinfo_text_comment)).setText("评论："+comment_cnt);
-
-        new CPrjDataTcImage().setOnLoadListener(new CPrjDataTcImage.OnLoadListener() {
-            @Override
-            public void onload(byte[] b) {
-                ((ImageView)findViewById(R.id.tcinfo_logo)).setImageBitmap(BitmapFactory.decodeByteArray(b, 0, b.length, null));
-            }
-        }).execute("" + logo_image, false);
-
-
-        final DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-        CPrjTcInfoScollView scrollView1 = (CPrjTcInfoScollView) findViewById(R.id.scrollView1);
-        scrollView1.bindActivity(this);
-
+        String company = i.getStringExtra("company");
+        String tel = i.getStringExtra("tel");
+        String address = i.getStringExtra("address");
+        double lng = i.getDoubleExtra("lng",0);
+        double lat = i.getDoubleExtra("lat",0);
+//
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_tcmap);
+//获取地图控件引用
+        mMapView = (MapView) findViewById(R.id.bmapView);
+        BaiduMap mBaiduMap = mMapView.getMap();
+        //定义Maker坐标点
+        LatLng point = new LatLng(lat, lng);
+        //定义地图状态
+        MapStatus mMapStatus = new MapStatus.Builder()
+                .target(point)
+                .zoom(13)
+                .build();
+        //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
+        MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+        //改变地图状态
+        mBaiduMap.setMapStatus(mMapStatusUpdate);
+//构建Marker图标
+        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.icon_marka);
+//构建MarkerOption，用于在地图上添加Marker
+        OverlayOptions option = new MarkerOptions()
+                .position(point)
+                .icon(bitmap);
+//在地图上添加Marker，并显示
+        mBaiduMap.addOverlay(option);
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
+        mMapView.onDestroy();
+    }
+    @Override
     protected void onResume() {
         super.onResume();
-
-        CPrjDataTcInfo dataTcItems = new CPrjDataTcInfo(this);
-        dataTcItems.execute(company_id);
-
-        //String aaa = (String)((CMyApplication)getApplication()).getCache().get("xxx");
-
-        ((TextView)findViewById(R.id.tcinfo_text_tel)).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_UP:
-                        String phone=((TextView)v).getText().toString();
-                        Pattern pattern = Pattern.compile("([0-9-]+)");
-                        Matcher matcher = pattern.matcher(phone);
-                        if(matcher.find()){
-                            phone = matcher.group(1);
-                            Intent intent=new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
-                            startActivity(intent);
-                        }
-                        break;
-                }
-                return true;
-            }
-        });
-
-
-
-
-
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }, 100);
+        //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
+        mMapView.onResume();
     }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
+        mMapView.onPause();
+    }
+
 
     public boolean onTouchEvent(MotionEvent event) {
         return super.onTouchEvent(event);
@@ -185,6 +167,7 @@ public class TcInfoActivity extends Activity implements GestureDetector.OnGestur
                 break;
             case MotionEvent.ACTION_UP:
 
+
                 break;
         }
     }
@@ -216,7 +199,6 @@ public class TcInfoActivity extends Activity implements GestureDetector.OnGestur
             case MotionEvent.ACTION_DOWN:
                 break;
             case MotionEvent.ACTION_UP:
-
 
                 break;
         }
