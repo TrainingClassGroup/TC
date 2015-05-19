@@ -25,6 +25,8 @@ public class CPrjTcListScollView extends CMyScrollView {
     private float downX = 0.0f;
     private DisplayMetrics dm;
 
+    private boolean buttonStatus = true;
+
     private LinearLayout myset;
     private LinearLayout mainBackground_main;
 
@@ -42,7 +44,8 @@ public class CPrjTcListScollView extends CMyScrollView {
 
     @Override
     public boolean onDown(MotionEvent e) {
-        _autoTopButton(true);
+        _autoTopButton(buttonStatus);
+        buttonStatus=!buttonStatus;
 
         float x = mainBackground_main.getX();
         float w = dm.widthPixels;
@@ -61,6 +64,9 @@ public class CPrjTcListScollView extends CMyScrollView {
 
         if(show){
             topbtn_sortx.show();
+        }
+        else{
+            topbtn_sortx.hide();
         }
     }
 

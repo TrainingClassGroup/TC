@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -96,16 +95,6 @@ public class TcInfoActivity extends Activity implements GestureDetector.OnGestur
         });
 
 
-
-
-
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }, 100);
     }
 
     public boolean onTouchEvent(MotionEvent event) {

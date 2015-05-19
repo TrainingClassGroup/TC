@@ -57,7 +57,7 @@ public class CPrjDataTcInfo {
                     JSONArray schedules=jsonObj.getJSONArray("schedule");
                     loadSchedule(schedules);
                     //
-                    ((LinearLayout)activity.findViewById(R.id.tcinfo_map)).setOnTouchListener(new View.OnTouchListener() {
+                    View.OnTouchListener onTouchListener = new View.OnTouchListener() {
                         @Override
                         public boolean onTouch(View v, MotionEvent event) {
                             switch (event.getAction()) {
@@ -78,7 +78,10 @@ public class CPrjDataTcInfo {
                             }
                             return true;
                         }
-                    });
+                    };
+                    ((TextView)activity.findViewById(R.id.tcinfo_text_address)).setOnTouchListener(onTouchListener);
+                    ((TextView)activity.findViewById(R.id.tcinfo_map)).setOnTouchListener(onTouchListener);
+                    ((LinearLayout)((TextView)activity.findViewById(R.id.tcinfo_map)).getParent()).setOnTouchListener(onTouchListener);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -129,6 +132,7 @@ public class CPrjDataTcInfo {
                 String jsonData = new String(bytes);
                 try {
                     LinearLayout tcCommentlister = (LinearLayout)activity.findViewById(R.id.tcCommentlister);
+                    tcCommentlister.removeAllViews();
                     JSONObject jsonObj = new JSONObject(jsonData);
                     Iterator it = jsonObj.keys();
                     while (it.hasNext()) {

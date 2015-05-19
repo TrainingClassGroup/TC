@@ -288,7 +288,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:id="@+id/tcinfo_map"
                             android:gravity="right"
                             android:baselineAligned="false"
                             android:clickable="false"
@@ -308,13 +307,18 @@
                                 android:layout_marginLeft="20sp"></ImageView>
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:id="@+id/tcinfo_map"
+                                android:layout_width="100dp"
+                                android:layout_height="30dp"
                                 android:layout_marginRight="40sp"
                                 android:layout_marginTop="5sp"
                                 android:text="【地图查看】"
                                 android:textIsSelectable="false"
-                                android:textSize="15dp"/>
+                                android:textSize="16dp"
+                                android:singleLine="false"
+                                android:autoText="false"
+                                android:layout_gravity="left"
+                                android:gravity="center_vertical|fill_vertical"/>
 
 
                         </LinearLayout>

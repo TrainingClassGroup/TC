@@ -2,12 +2,15 @@ package com.tc.edu.tc;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
@@ -21,10 +24,13 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by Administrator on 15-4-23.
  */
-public class TcMapActivity extends Activity implements GestureDetector.OnGestureListener{
+public class TcMapActivity extends Activity implements GestureDetector.OnGestureListener {
 
 
     MapView mMapView = null;
@@ -41,32 +47,27 @@ public class TcMapActivity extends Activity implements GestureDetector.OnGesture
         String company = i.getStringExtra("company");
         String tel = i.getStringExtra("tel");
         String address = i.getStringExtra("address");
-        double lng = i.getDoubleExtra("lng",0);
-        double lat = i.getDoubleExtra("lat",0);
+        double lng = i.getDoubleExtra("lng", 0);
+        double lat = i.getDoubleExtra("lat", 0);
 //
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_tcmap);
-//获取地图控件引用
+        //获取地图控件引用
         mMapView = (MapView) findViewById(R.id.bmapView);
         BaiduMap mBaiduMap = mMapView.getMap();
         //定义Maker坐标点
         LatLng point = new LatLng(lat, lng);
         //定义地图状态
-        MapStatus mMapStatus = new MapStatus.Builder()
-                .target(point)
-                .zoom(13)
-                .build();
+        MapStatus mMapStatus = new MapStatus.Builder().target(point).zoom(15).build();
         //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
         MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
         //改变地图状态
         mBaiduMap.setMapStatus(mMapStatusUpdate);
-//构建Marker图标
+        //构建Marker图标
         BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.icon_marka);
-//构建MarkerOption，用于在地图上添加Marker
-        OverlayOptions option = new MarkerOptions()
-                .position(point)
-                .icon(bitmap);
-//在地图上添加Marker，并显示
+        //构建MarkerOption，用于在地图上添加Marker
+        OverlayOptions option = new MarkerOptions().position(point).icon(bitmap);
+        //在地图上添加Marker，并显示
         mBaiduMap.addOverlay(option);
     }
 
@@ -76,12 +77,33 @@ public class TcMapActivity extends Activity implements GestureDetector.OnGesture
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
         mMapView.onDestroy();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
         mMapView.onResume();
+
+        ((TextView)findViewById(R.id.tcinfo_text_tel)).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        String phone=((TextView)v).getText().toString();
+                        Pattern pattern = Pattern.compile("([0-9-]+)");
+                        Matcher matcher = pattern.matcher(phone);
+                        if(matcher.find()){
+                            phone = matcher.group(1);
+                            Intent intent=new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
+                            startActivity(intent);
+                        }
+                        break;
+                }
+                return true;
+            }
+        });
     }
+
     @Override
     protected void onPause() {
         super.onPause();

@@ -23,6 +23,8 @@ public class CPrjTcInfoScollView extends CMyScrollView {
     private float downX = 0.0f;
     private DisplayMetrics dm;
 
+    private boolean buttonStatus = true;
+
     private LinearLayout myset;
     private LinearLayout mainBackground_main;
 
@@ -40,7 +42,8 @@ public class CPrjTcInfoScollView extends CMyScrollView {
 
     @Override
     public boolean onDown(MotionEvent e) {
-        _autoTopButton(true);
+        _autoTopButton(buttonStatus);
+        buttonStatus=!buttonStatus;
 
         float x = mainBackground_main.getX();
         float w = dm.widthPixels;
