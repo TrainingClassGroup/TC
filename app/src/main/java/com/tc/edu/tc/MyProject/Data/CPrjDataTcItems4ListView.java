@@ -1,6 +1,7 @@
 package com.tc.edu.tc.MyProject.Data;
 
 import android.app.Activity;
+import android.location.Location;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.tc.edu.tc.MyBase.CMyLocation;
 import com.tc.edu.tc.MyProject.Base.CPrjDataRequest;
 import com.tc.edu.tc.MyProject.Base.CTcItemView;
 import com.tc.edu.tc.R;
@@ -170,6 +172,8 @@ public class CPrjDataTcItems4ListView {
         String course=((TextView) activity.findViewById(R.id.head2_menu2_text2)).getText().toString();
         String schedule=((TextView) activity.findViewById(R.id.head2_menu3_text3)).getText().toString();
 
-        execute("{paras:{lng:123.417095,lat:41.836929,catalog:\""+catalog+"\",curriculum:\""+course+"\",schedule:\""+schedule+"\",rownum:"+rownum+",page:"+page+",type:\"json\"}}");
+        CMyLocation myLocation =  new CMyLocation(activity);
+        Location location = myLocation.getLocation();
+        execute("{paras:{lng:"+location.getLongitude()+",lat:"+location.getLatitude()+",catalog:\""+catalog+"\",curriculum:\""+course+"\",schedule:\""+schedule+"\",rownum:"+rownum+",page:"+page+",type:\"json\"}}");
     }
 }

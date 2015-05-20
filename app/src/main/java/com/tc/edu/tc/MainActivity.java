@@ -1,6 +1,7 @@
 package com.tc.edu.tc;
 
 import android.app.Activity;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.tc.edu.tc.MyBase.CMyLocation;
 import com.tc.edu.tc.MyProject.Base.CPrjTcListScollView;
 import com.tc.edu.tc.MyProject.Data.CPrjDataTcItems4ScrollView;
 
@@ -52,12 +54,15 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                 for (int i = 1; i < layout.getChildCount()-1; i++) {
                     layout.removeViewAt(i);
                 }
+
+                CMyLocation myLocation =  new CMyLocation(MainActivity.this);
+                Location location = myLocation.getLocation();
+
                 CPrjDataTcItems4ScrollView dataTcItems = new CPrjDataTcItems4ScrollView(MainActivity.this);
                 //CPrjDataTcItems4ListView dataTcItems = new CPrjDataTcItems4ListView(MainActivity.this, R.id.myList);
-                dataTcItems.execute("{paras:{lng:123.417095,lat:41.836929,catalog:高中,curriculum:数学,rownum:5,page:0,type:json}}");
+                dataTcItems.execute("{paras:{lng:"+location.getLongitude()+",lat:"+location.getLatitude()+",catalog:高中,curriculum:数学,rownum:5,page:0,type:json}}");
             }
         }, 100);
-
     }
 
     public boolean onTouchEvent(MotionEvent event) {

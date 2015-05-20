@@ -2,12 +2,14 @@ package com.tc.edu.tc.MyProject.Data;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Handler;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.tc.edu.tc.MyBase.CMyLocation;
 import com.tc.edu.tc.MyProject.Base.CPrjDataRequest;
 import com.tc.edu.tc.MyProject.Base.CTcItemView;
 import com.tc.edu.tc.R;
@@ -63,7 +65,7 @@ public class CPrjDataTcItems4ScrollView {
                         tcItem.setReservation("预约：" + value.getString("reservation_cnt") + "人");
                         tcItem.setRegisted("报名：0人");
                         tcItem.setMemo("评论：("+value.getString("comment_cnt")+")");
-                        tcItem.setDistance("距离："+value.getString("distance"));
+                        tcItem.setDistance("距离："+new DecimalFormat("0.00").format(Double.parseDouble(value.getString("distance")))+" Km");
 
                         tcItem.regist(tclister);
 
@@ -132,6 +134,8 @@ public class CPrjDataTcItems4ScrollView {
         String course=((TextView) activity.findViewById(R.id.head2_menu2_text2)).getText().toString();
         String schedule=((TextView) activity.findViewById(R.id.head2_menu3_text3)).getText().toString();
 
-        execute("{paras:{lng:123.417095,lat:41.836929,catalog:\""+catalog+"\",curriculum:\""+course+"\",schedule:\""+schedule+"\",rownum:5,page:"+page+",type:\"json\"}}");
+        CMyLocation myLocation =  new CMyLocation(activity);
+        Location location = myLocation.getLocation();
+        execute("{paras:{lng:"+location.getLongitude()+",lat:"+location.getLatitude()+",catalog:\""+catalog+"\",curriculum:\""+course+"\",schedule:\""+schedule+"\",rownum:5,page:"+page+",type:\"json\"}}");
     }
 }

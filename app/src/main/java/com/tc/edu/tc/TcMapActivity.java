@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,6 +50,8 @@ public class TcMapActivity extends Activity implements GestureDetector.OnGesture
         String address = i.getStringExtra("address");
         double lng = i.getDoubleExtra("lng", 0);
         double lat = i.getDoubleExtra("lat", 0);
+
+        Log.i("8023",lng+", "+lat);
 //
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_tcmap);
